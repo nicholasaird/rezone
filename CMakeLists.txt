@@ -29,3 +29,4 @@ target_include_directories(mainLib INTERFACE "src/main")
 # Main
 add_executable(main src/Main.cpp)
 target_link_libraries(main mainLib)
+set_property(TARGET main PROPERTY OUTPUT_NAME rezone)

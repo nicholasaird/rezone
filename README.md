@@ -18,7 +18,7 @@ make
 Run the tests:
 ```shell
 # Inside /build
-./testMain
+./test
 ```
 
 Run the game:
