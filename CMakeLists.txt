@@ -2,7 +2,7 @@
 # https://github.com/snikulov/google-test-examples
 # http://stackoverflow.com/questions/8507723/how-to-start-working-with-gtest-and-cmake
 
-cmake_minimum_required(VERSION 3.2.0)
+cmake_minimum_required(VERSION 2.8)
 project(rezone)
 
 find_package(Threads REQUIRED)
