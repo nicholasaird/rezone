@@ -19,7 +19,7 @@ file(GLOB files_src_test test/main/*.cpp)
 add_executable(testMain ${files_src_test})
 set_property(TARGET testMain PROPERTY OUTPUT_NAME test)
 target_link_libraries(testMain mainLib gtest gtest_main pthread)
-add_test(testMain testMain)  # so that ctest finds the tests
+add_test(test test)  # so that ctest finds the tests
 
 # MainLib
 file(GLOB files_src_main src/main/*.cpp)
