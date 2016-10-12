@@ -1,3 +1,5 @@
+[![Build Status](https://travis-ci.org/nicholasaird/rezone.svg?branch=master)](https://travis-ci.org/nicholasaird/rezone)
+
 # Rezone
 
 ## Description
