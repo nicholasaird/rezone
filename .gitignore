@@ -1,3 +1,6 @@
-# C++
+### C++
 /bin/
 /build/
+
+# Pre-compiled headers
+*.gch
