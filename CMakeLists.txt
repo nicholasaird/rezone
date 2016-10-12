@@ -17,6 +17,7 @@ include_directories(${gtest_SOURCE_DIR}/include ${gtest_SOURCE_DIR})
 # Tests
 file(GLOB files_src_test test/main/*.cpp)
 add_executable(testMain ${files_src_test})
+set_property(TARGET testMain PROPERTY OUTPUT_NAME test)
 target_link_libraries(testMain mainLib gtest gtest_main pthread)
 add_test(testMain testMain)  # so that ctest finds the tests
 
