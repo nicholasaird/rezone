@@ -43,6 +43,22 @@ TEST(TestGrid, StringValueStoredIsACopy) {
     ASSERT_EQ("hello", grid(0, 0));
 }
 
+TEST(TestGrid, ObjecValueStoredIsACopy) {
+    class MyObject {
+    public:
+        int value;
+    };
+
+    Grid<MyObject> grid(1, 1);
+
+    MyObject myObject;
+    myObject.value = 10;
+    grid(0, 0) = myObject;
+    myObject.value = 20;
+
+    ASSERT_EQ(10, grid(0, 0).value);
+}
+
 TEST(TestGrid, OneDimensionalGridStoresValuesCorrectly) {
     Grid<int> grid(1, 2);
 
