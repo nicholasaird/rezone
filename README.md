@@ -1,4 +1,4 @@
-[![Build Status](https://travis-ci.org/nicholasaird/rezone.svg?branch=master)](https://travis-ci.org/nicholasaird/rezone)
+[![Build Status](https://img.shields.io/travis/nicholasaird/rezone/master.svg?style=flat-square)](https://travis-ci.org/nicholasaird/rezone)
 
 # Rezone
 
