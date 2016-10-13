@@ -16,3 +16,6 @@ script:
     - cmake ..
     - make
     - make test
+
+notifications:
+    email: false
