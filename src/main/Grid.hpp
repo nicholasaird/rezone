@@ -17,8 +17,7 @@ public:
     Grid(int width, int height);
     int getWidth();
     int getHeight();
-    T get(int x, int y);
-    void set(int x, int y, T element);
+    T& operator()(int x, int y);
 };
 
 template<typename T>
@@ -41,13 +40,8 @@ int Grid<T>::getHeight(){
 }
 
 template<typename T>
-T Grid<T>::get(int x, int y){
+T& Grid<T>::operator()(int x, int y){
     return elements[x][y];
-}
-
-template<typename T>
-void Grid<T>::set(int x, int y, T element){
-    elements[x][y] = element;
 }
 
 #endif
