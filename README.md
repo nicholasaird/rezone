@@ -5,6 +5,17 @@
 ## Description
 An open-ended city simulator where you control the zoning and watch the city grow!
 
+## Project download
+The project contains submodules (other git projects), so you can download the code with either
+```shell
+git clone https://github.com/nicholasaird/rezone.git
+git submodule update --init --recursive
+```
+or
+```shell
+git clone --recursive https://github.com/nicholasaird/rezone.git
+```
+
 ## Compilation
 
 ### Ubuntu
