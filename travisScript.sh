@@ -33,3 +33,5 @@ then
     echo -e "\n>>> lcov generating html..."
     genhtml coverage.info --output-directory reports/coverage
 fi
+
+cd ..
