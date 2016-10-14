@@ -18,10 +18,10 @@ matrix:
           env: CONFIG=Debug COVERAGE=on
 
 install:
-    - sudo apt-get install lcov
+    - ./travisInstall.sh
 
 before_script:
-    - chmod u+x travisAfterSuccess.sh travisScript.sh
+    - chmod u+x travisAfterSuccess.sh travisScript.sh travisInstall.sh
 
 script:
     - ./travisScript.sh
