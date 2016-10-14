@@ -4,14 +4,18 @@ os: linux
 sudo: required
 dist: trusty
 
+compiler:
+    - g++
+    - clang++
+
+env:
+    - CONFIG=Release
+    - CONFIG=Debug COVERAGE=on
+
 matrix:
-    include:
-        - compiler: g++
-          env: CONFIG=Release
-        - compiler: g++
-          env: CONFIG=Debug COVERAGE=on
+    exclude:
         - compiler: clang++
-          env: CONFIG=RELEASE
+          env: CONFIG=Debug COVERAGE=on
 
 before_script:
     - chmod u+x travisAfterSuccess.sh travisScript.sh
