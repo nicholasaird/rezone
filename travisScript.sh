@@ -1,3 +1,5 @@
+COVERAGE_DIR=reports/coverage
+
 mkdir -p build
 cd build
 
@@ -31,7 +33,10 @@ then
     lcov --remove coverage.info 'src/Main.cpp' 'test/*' 'ext/*' '/usr/*' --output-file coverage.info
 
     echo -e "\n>>> lcov generating html..."
-    genhtml coverage.info --output-directory reports/coverage
+    genhtml coverage.info --output-directory $COVERAGE_DIR/html
+
+    rm baseCoverage.info
+    mv coverage.info $COVERAGE_DIR/coverage.info
 fi
 
 cd ..
