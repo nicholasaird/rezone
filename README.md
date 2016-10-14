@@ -1,4 +1,5 @@
 [![Build Status](https://img.shields.io/travis/nicholasaird/rezone/master.svg?style=flat-square)](https://travis-ci.org/nicholasaird/rezone)
+[![Codecov](https://img.shields.io/codecov/c/github/nicholasaird/rezone.svg?style=flat-square)](https://codecov.io/gh/nicholasaird/rezone)
 
 # Rezone
 
