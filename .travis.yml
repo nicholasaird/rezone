@@ -17,6 +17,9 @@ matrix:
         - compiler: clang++
           env: CONFIG=Debug COVERAGE=on
 
+install:
+    -sudo apt-get install lcov
+
 before_script:
     - chmod u+x travisAfterSuccess.sh travisScript.sh
 
