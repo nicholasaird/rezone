@@ -17,11 +17,11 @@ matrix:
         - compiler: clang++
           env: CONFIG=Debug COVERAGE=on
 
+before_install:
+    - chmod u+x travisAfterSuccess.sh travisScript.sh travisInstall.sh
+
 install:
     - ./travisInstall.sh
-
-before_script:
-    - chmod u+x travisAfterSuccess.sh travisScript.sh travisInstall.sh
 
 script:
     - ./travisScript.sh
