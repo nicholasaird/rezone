@@ -11,12 +11,18 @@ CHECK_CXX_COMPILER_FLAG("-std=c++11" COMPILER_SUPPORTS_CXX11)
 if(COMPILER_SUPPORTS_CXX11)
     set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -std=c++11")
 else()
-    message(STATUS "The compiler ${CMAKE_CXX_COMPILER} has no c++11 support. Please use another compiler.")
+    message(WARNING "The compiler ${CMAKE_CXX_COMPILER} has no c++11 support. Please use another compiler.")
 endif()
 
-find_package(Threads REQUIRED)
+# Set up code coverage
+set(USE_COVERAGE "$ENV{COVERAGE}")
+if(USE_COVERAGE)
+    message(STATUS "Adding code coverage.")
+    set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} --coverage")
+endif()
 
 # GTest
+find_package(Threads REQUIRED)
 enable_testing()
 add_subdirectory(ext/googletest)
 include_directories(${gtest_SOURCE_DIR}/include ${gtest_SOURCE_DIR})

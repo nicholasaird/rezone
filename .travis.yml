@@ -1,21 +1,26 @@
 language: cpp
 
-compiler:
-    - gcc
-    - clang
-
-os:
-    -linux
-
+os: linux
 sudo: required
 dist: trusty
 
+matrix:
+    include:
+        - compiler: g++
+          env: CONFIG=Release
+        - compiler: g++
+          env: CONFIG=Debug COVERAGE=on
+        - compiler: clang++
+          env: CONFIG=RELEASE
+
+before_script:
+    - chmod u+x travisAfterSuccess.sh travisScript.sh
+
 script:
-    - mkdir build
-    - cd build
-    - cmake ..
-    - make
-    - make test
+    - ./travisScript.sh
+
+after_success:
+    - ./travisAfterSuccess.sh
 
 notifications:
     email: false
