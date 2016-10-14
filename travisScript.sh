@@ -28,7 +28,7 @@ then
     lcov --add-tracefile baseCoverage.info --add-tracefile coverage.info --output-file coverage.info
 
     echo -e "\n>>> lcov removing some unnecessarily covered files..."
-    lcov --remove coverage.info 'test/*' 'ext/*' '/usr/*' --output-file coverage.info
+    lcov --remove coverage.info 'src/Main.cpp' 'test/*' 'ext/*' '/usr/*' --output-file coverage.info
 
     echo -e "\n>>> lcov generating html..."
     genhtml coverage.info --output-directory reports/coverage
