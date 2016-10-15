@@ -1,0 +1,1 @@
+bash -e ./travisScript.sh
