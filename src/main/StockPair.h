@@ -3,7 +3,8 @@
 
 #include "Stock.h"
 
-struct StockPair {
+class StockPair {
+public:
     Stock input;
     Stock output;
 
@@ -19,6 +20,10 @@ struct StockPair {
         , output(output)
     {
         //
+    }
+
+    bool operator<(const StockPair& rhs) const {
+        return (input < rhs.input && output < rhs.output);
     }
 };
 

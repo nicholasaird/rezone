@@ -54,6 +54,24 @@ Stock Stock::operator-(const Stock& rhs) const {
     return newCount;
 }
 
+bool Stock::operator<(const Stock& rhs) const {
+    std::map<Resource, int> otherCounts = rhs.counts;
+
+    for(auto pair : counts) {
+        Resource resource = pair.first;
+        int count = pair.second;
+
+        if(otherCounts.count(resource) < 1) {
+            return false;
+        }
+        else if (otherCounts[resource] != count) {
+            return false;
+        }
+    }
+
+    return true;
+}
+
 std::ostream& operator<<(std::ostream& stream, const Stock& count) {
     stream << "{";
     for(auto pair : count.counts) {

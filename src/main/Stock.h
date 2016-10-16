@@ -24,6 +24,7 @@ public:
     bool operator==(const Stock& rhs) const;
     bool operator!=(const Stock& rhs) const;
     Stock operator-(const Stock& rhs) const;
+    bool operator<(const Stock& rhs) const;
     // friend std::ostream& operator<<(std::ostream& stream, const Stock& count);
     friend std::ostream& operator<<(std::ostream& os, Stock const& v);
 
