@@ -1,7 +1,7 @@
 #ifndef QUOTA_HPP
 #define QUOTA_HPP
 
-#include "Stock.hpp"
+#include "Stock.h"
 
 class Quota {
 private:

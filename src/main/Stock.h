@@ -5,7 +5,7 @@
 #include <map>
 #include <utility>
 
-#include "Resource.hpp"
+#include "Resource.h"
 
 class Stock {
 private:

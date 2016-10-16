@@ -1,8 +1,8 @@
 #include "gtest/gtest.h"
 
-#include "Resource.hpp"
-#include "ResZone.hpp"
-#include "Stock.hpp"
+#include "Resource.h"
+#include "ResZone.h"
+#include "Stock.h"
 
 TEST(TestResZone, InitialPopProducedShouldBeZero) {
     ResZone resZone;

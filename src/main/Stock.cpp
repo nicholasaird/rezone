@@ -1,4 +1,4 @@
-#include "Stock.hpp"
+#include "Stock.h"
 
 Stock::Stock()
     : counts()

@@ -1,8 +1,8 @@
 #include <string>
 
 #include "gtest/gtest.h"
-#include "Grid.hpp"
-#include "Zone.hpp"
+#include "Grid.h"
+#include "Zone.h"
 
 TEST(TestGrid, ShouldReturnValueStored) {
     Grid<int> grid(1, 1);

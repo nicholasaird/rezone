@@ -1,7 +1,7 @@
 #ifndef QUOTAPAIR_HPP
 #define QUOTAPAIR_HPP
 
-#include "Quota.hpp"
+#include "Quota.h"
 
 struct QuotaPair {
     Quota input;

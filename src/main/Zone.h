@@ -1,9 +1,9 @@
 #ifndef ZONE_HPP
 #define ZONE_HPP
 
-#include "Resource.hpp"
-#include "Stock.hpp"
-#include "Utility.hpp"
+#include "Resource.h"
+#include "Stock.h"
+#include "Utility.h"
 
 class Zone {
 private:

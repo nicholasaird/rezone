@@ -1,4 +1,4 @@
-#include "Zone.hpp"
+#include "Zone.h"
 
 Zone::Zone()
     : level(0)

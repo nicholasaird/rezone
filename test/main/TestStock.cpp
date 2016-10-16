@@ -1,6 +1,6 @@
 #include "gtest/gtest.h"
 
-#include "Stock.hpp"
+#include "Stock.h"
 
 TEST(TestStock, EmptyStockShouldHaveAll0) {
     Stock stock;

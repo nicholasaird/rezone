@@ -1,8 +1,8 @@
 #include "gtest/gtest.h"
 
-#include "Quota.hpp"
-#include "Resource.hpp"
-#include "Stock.hpp"
+#include "Quota.h"
+#include "Resource.h"
+#include "Stock.h"
 
 TEST(TestQuota, EmptyQuota) {
     Quota quota;

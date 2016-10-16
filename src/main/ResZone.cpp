@@ -1,4 +1,4 @@
-#include "ResZone.hpp"
+#include "ResZone.h"
 
 ResZone::ResZone() {
     //
