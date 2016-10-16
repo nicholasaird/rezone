@@ -2,9 +2,9 @@
 #define RESOURCE_HPP
 
 enum class Resource {
-    PERSON,
+    COM_PRODUCT,
     IND_PRODUCT,
-    COM_PRODUCT
+    PERSON
 };
 
 #endif
