@@ -9,11 +9,13 @@ class Zone {
 private:
     int level;
     bool connectedToElectricity;
+    ResourceCount productionTotal;
+    ResourceCount productionUsed;
 public:
     Zone();
     virtual ~Zone();
-    virtual int getProductionTotal(Resource resource) = 0;
-    virtual int getProductionUnused(Resource resource) = 0;
+    ResourceCount getProductionTotal();
+    ResourceCount getProductionUnused();
     bool isConnectedTo(Utility utility);
     void setConnectedTo(Utility utility, bool connected);
     void updateLevel();

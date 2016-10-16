@@ -11,6 +11,14 @@ Zone::~Zone() {
     //
 }
 
+ResourceCount Zone::getProductionTotal() {
+    return productionTotal;
+}
+
+ResourceCount Zone::getProductionUnused() {
+    return productionTotal - productionUsed;
+}
+
 bool Zone::isConnectedTo(Utility utility) {
     switch(utility) {
         case Utility::ELECTRICITY:

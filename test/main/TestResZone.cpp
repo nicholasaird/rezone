@@ -6,13 +6,19 @@
 TEST(TestResZone, InitialPopProducedShouldBeZero) {
     ResZone resZone;
 
-    ASSERT_EQ(0, resZone.getProductionTotal(Resource::PERSON));
+    ResourceCount result = resZone.getProductionTotal();
+    ResourceCount expected({{Resource::PERSON, 0}});
+
+    ASSERT_EQ(expected, result);
 }
 
 TEST(TestResZone, InitialPopAvailableShouldBeZero) {
     ResZone resZone;
 
-    ASSERT_EQ(0, resZone.getProductionUnused(Resource::PERSON));
+    ResourceCount result = resZone.getProductionUnused();
+    ResourceCount expected({{Resource::PERSON, 0}});
+
+    ASSERT_EQ(expected, result);
 }
 
 TEST(TestResZone, Level0ShouldNotGrowWhenNotElectrified) {
@@ -20,7 +26,10 @@ TEST(TestResZone, Level0ShouldNotGrowWhenNotElectrified) {
 
     resZone.updateLevel();
 
-    ASSERT_EQ(0, resZone.getProductionTotal(Resource::PERSON));
+    ResourceCount result = resZone.getProductionTotal();
+    ResourceCount expected({{Resource::PERSON, 0}});
+
+    ASSERT_EQ(expected, result);
 }
 
 TEST(TestResZone, Level0ShouldGrowWhenNeedsAreMet) {
@@ -29,5 +38,8 @@ TEST(TestResZone, Level0ShouldGrowWhenNeedsAreMet) {
     resZone.setConnectedTo(Utility::ELECTRICITY, true);
     resZone.updateLevel();
 
-    ASSERT_EQ(1, resZone.getLevel());
+    ResourceCount result = resZone.getProductionTotal();
+    ResourceCount expected({{Resource::PERSON, 1}});
+
+    ASSERT_EQ(expected, result);
 }
