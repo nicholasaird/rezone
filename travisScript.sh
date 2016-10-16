@@ -1,3 +1,5 @@
+set -e
+
 COVERAGE_DIR=reports/coverage
 
 mkdir -p build

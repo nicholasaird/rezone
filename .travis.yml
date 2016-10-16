@@ -21,13 +21,13 @@ before_install:
     - chmod u+x travisAfterSuccess.sh travisScript.sh travisInstall.sh
 
 install:
-    - bash -e ./travisInstall.sh
+    - ./travisInstall.sh
 
 script:
-    - bash -e ./travisScript.sh
+    - ./travisScript.sh
 
 after_success:
-    - bash -e ./travisAfterSuccess.sh
+    - ./travisAfterSuccess.sh
 
 notifications:
     email: false
