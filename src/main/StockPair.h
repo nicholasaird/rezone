@@ -7,6 +7,13 @@ struct StockPair {
     Stock input;
     Stock output;
 
+    StockPair()
+        : input()
+        , output()
+    {
+        //
+    }
+
     StockPair(Stock input, Stock output)
         : input(input)
         , output(output)
