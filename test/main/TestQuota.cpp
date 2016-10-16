@@ -7,84 +7,83 @@
 TEST(TestQuota, EmptyQuota) {
     Quota quota;
 
-    Stock emptyStock;
-    ASSERT_EQ(emptyStock, quota.getTotal());
-    ASSERT_EQ(emptyStock, quota.getMet());
-    ASSERT_EQ(emptyStock, quota.getUnmet());
+    ASSERT_EQ(Stock(), quota.getTotal());
+    ASSERT_EQ(Stock(), quota.getMet());
+    ASSERT_EQ(Stock(), quota.getUnmet());
 }
 
 TEST(TestQuota, CompletelyUnmetQuota) {
-    Stock totalStock({{Resource::PERSON, 1}});
-    Quota quota(totalStock);
+    Quota quota(Stock({{Resource::PERSON, 1}}));
 
-    Stock emptyStock;
-    ASSERT_EQ(totalStock, quota.getTotal());
-    ASSERT_EQ(emptyStock, quota.getMet());
-    ASSERT_EQ(totalStock, quota.getUnmet());
+    ASSERT_EQ(Stock({{Resource::PERSON, 1}}), quota.getTotal());
+    ASSERT_EQ(Stock(), quota.getMet());
+    ASSERT_EQ(Stock({{Resource::PERSON, 1}}), quota.getUnmet());
 }
 
 TEST(TestQuota, PartiallyUnmetQuota) {
-    Stock totalStock({{Resource::PERSON, 2}});
-    Stock metStock({{Resource::PERSON, 1}});
-    Stock unmetStock({{Resource::PERSON, 1}});
-    Quota quota(totalStock, metStock);
+    Quota quota(
+        Stock({{Resource::PERSON, 2}}),
+        Stock({{Resource::PERSON, 1}})
+    );
 
-    ASSERT_EQ(totalStock, quota.getTotal());
-    ASSERT_EQ(metStock, quota.getMet());
-    ASSERT_EQ(unmetStock, quota.getUnmet());
+    ASSERT_EQ(Stock({{Resource::PERSON, 2}}), quota.getTotal());
+    ASSERT_EQ(Stock({{Resource::PERSON, 1}}), quota.getMet());
+    ASSERT_EQ(Stock({{Resource::PERSON, 1}}), quota.getUnmet());
 }
 
 TEST(TestQuota, PartiallyUnmetQuotaUsingSetter) {
-    Stock totalStock({{Resource::PERSON, 2}});
-    Stock metStock({{Resource::PERSON, 1}});
-    Stock unmetStock({{Resource::PERSON, 1}});
+    Quota quota(Stock({{Resource::PERSON, 2}}));
+    quota.setMet(Stock({{Resource::PERSON, 1}}));
 
-    Quota quota(totalStock);
-    quota.setMet(metStock);
-
-    ASSERT_EQ(totalStock, quota.getTotal());
-    ASSERT_EQ(metStock, quota.getMet());
-    ASSERT_EQ(unmetStock, quota.getUnmet());
+    ASSERT_EQ(Stock({{Resource::PERSON, 2}}), quota.getTotal());
+    ASSERT_EQ(Stock({{Resource::PERSON, 1}}), quota.getMet());
+    ASSERT_EQ(Stock({{Resource::PERSON, 1}}), quota.getUnmet());
 }
 
 TEST(TestQuota, CompletelyMetQuotaUsing) {
-    Stock totalStock({{Resource::PERSON, 2}});
+    Quota quota(
+        Stock({{Resource::PERSON, 2}}),
+        Stock({{Resource::PERSON, 2}})
+    );
+
     Stock emptyStock;
-
-    Quota quota(totalStock, totalStock);
-
-    ASSERT_EQ(totalStock, quota.getTotal());
-    ASSERT_EQ(totalStock, quota.getMet());
-    ASSERT_EQ(emptyStock, quota.getUnmet());
+    ASSERT_EQ(Stock({{Resource::PERSON, 2}}), quota.getTotal());
+    ASSERT_EQ(Stock({{Resource::PERSON, 2}}), quota.getMet());
+    ASSERT_EQ(Stock(), quota.getUnmet());
 }
 
 TEST(TestQuota, ChangeTotalStock) {
-    Stock oldStock({{Resource::PERSON, 1}});
-    Stock newStock({{Resource::PERSON, 2}});
     Quota quota;
-    quota.setTotal(oldStock);
-    quota.setTotal(newStock);
+    quota.setTotal(Stock({{Resource::PERSON, 1}}));
+    quota.setTotal(Stock({{Resource::PERSON, 2}}));
 
-    ASSERT_EQ(newStock, quota.getTotal());
+    Stock expected({{Resource::PERSON, 2}});
+    ASSERT_EQ(expected, quota.getTotal());
 }
 
 TEST(TestQuota, ChangeMetStock) {
-    Stock oldStock({{Resource::PERSON, 1}});
-    Stock newStock({{Resource::PERSON, 2}});
     Quota quota;
-    quota.setMet(oldStock);
-    quota.setMet(newStock);
+    quota.setMet(Stock({{Resource::PERSON, 1}}));
+    quota.setMet(Stock({{Resource::PERSON, 2}}));
 
-    ASSERT_EQ(newStock, quota.getMet());
+    Stock expected({{Resource::PERSON, 2}});
+    ASSERT_EQ(expected, quota.getMet());
 }
 
 TEST(TestQuota, ChangeUnmetStock) {
-    Stock totalStock({{Resource::PERSON, 2}});
-    Stock oldStock({{Resource::PERSON, 1}});
-    Stock newStock({{Resource::PERSON, 2}});
-    Quota quota(totalStock);
-    quota.setUnmet(oldStock);
-    quota.setUnmet(newStock);
+    Quota quota(Stock({{Resource::PERSON, 2}}));
+    quota.setUnmet(Stock({{Resource::PERSON, 1}}));
+    quota.setUnmet(Stock({{Resource::PERSON, 2}}));
 
-    ASSERT_EQ(newStock, quota.getUnmet());
+    Stock expected({{Resource::PERSON, 2}});
+    ASSERT_EQ(expected, quota.getUnmet());
+}
+
+TEST(TestQuota, MetCanBeHigherThanTotal) {
+    Quota quota(
+        Stock({{Resource::PERSON, 1}}),
+        Stock({{Resource::PERSON, 2}})
+    );
+
+    ASSERT_EQ(Stock({{Resource::PERSON, 2}}), quota.getMet());
 }
