@@ -1,22 +1,22 @@
-#include "ResourceCount.hpp"
+#include "Stock.hpp"
 
-ResourceCount::ResourceCount()
+Stock::Stock()
     : counts()
 {
     //
 }
 
-ResourceCount::ResourceCount(std::map<Resource, int> counts)
+Stock::Stock(std::map<Resource, int> counts)
     : counts(counts)
 {
     filterOutLessOrEqualToZero();
 }
 
-ResourceCount::~ResourceCount() {
+Stock::~Stock() {
     //
 }
 
-void ResourceCount::filterOutLessOrEqualToZero() {
+void Stock::filterOutLessOrEqualToZero() {
     for(auto pair : counts) {
         Resource resource = pair.first;
         int count = pair.second;
@@ -27,15 +27,15 @@ void ResourceCount::filterOutLessOrEqualToZero() {
     }
 }
 
-bool ResourceCount::operator==(const ResourceCount& rhs) const {
+bool Stock::operator==(const Stock& rhs) const {
     return this->counts == rhs.counts;
 }
 
-bool ResourceCount::operator!=(const ResourceCount& rhs) const {
+bool Stock::operator!=(const Stock& rhs) const {
     return !(*this == rhs);
 }
 
-ResourceCount ResourceCount::operator-(const ResourceCount& rhs) const {
+Stock Stock::operator-(const Stock& rhs) const {
     std::map<Resource, int> newCounts(counts);
 
     for(auto pair : rhs) {
@@ -50,11 +50,11 @@ ResourceCount ResourceCount::operator-(const ResourceCount& rhs) const {
         }
     }
 
-    ResourceCount newCount(newCounts);
+    Stock newCount(newCounts);
     return newCount;
 }
 
-std::ostream& operator<<(std::ostream& stream, const ResourceCount& count) {
+std::ostream& operator<<(std::ostream& stream, const Stock& count) {
     stream << "{";
     for(auto pair : count.counts) {
         stream << "{" << pair.first << ", " << pair.second << "}";
@@ -63,11 +63,11 @@ std::ostream& operator<<(std::ostream& stream, const ResourceCount& count) {
     return stream;
 }
 
-void ResourceCount::set(Resource resource, int count) {
+void Stock::set(Resource resource, int count) {
     counts[resource] = count;
 }
 
-int ResourceCount::get(Resource resource) {
+int Stock::get(Resource resource) {
     if(counts.count(resource) > 0) {
         return counts[resource];
     }
@@ -76,18 +76,18 @@ int ResourceCount::get(Resource resource) {
     }
 }
 
-ResourceCount::ResourceCountIterator ResourceCount::begin() {
+Stock::StockIterator Stock::begin() {
     return counts.begin();
 }
 
-ResourceCount::ResourceCountIterator ResourceCount::end() {
+Stock::StockIterator Stock::end() {
     return counts.end();
 }
 
-ResourceCount::ResourceCountConstIterator ResourceCount::begin() const {
+Stock::StockConstIterator Stock::begin() const {
     return counts.begin();
 }
 
-ResourceCount::ResourceCountConstIterator ResourceCount::end() const {
+Stock::StockConstIterator Stock::end() const {
     return counts.end();
 }

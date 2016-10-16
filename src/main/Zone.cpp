@@ -11,11 +11,11 @@ Zone::~Zone() {
     //
 }
 
-ResourceCount Zone::getProductionTotal() {
+Stock Zone::getProductionTotal() {
     return productionTotal;
 }
 
-ResourceCount Zone::getProductionUnused() {
+Stock Zone::getProductionUnused() {
     return productionTotal - productionUsed;
 }
 

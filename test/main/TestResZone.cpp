@@ -2,12 +2,13 @@
 
 #include "Resource.hpp"
 #include "ResZone.hpp"
+#include "Stock.hpp"
 
 TEST(TestResZone, InitialPopProducedShouldBeZero) {
     ResZone resZone;
 
-    ResourceCount result = resZone.getProductionTotal();
-    ResourceCount expected({{Resource::PERSON, 0}});
+    Stock result = resZone.getProductionTotal();
+    Stock expected({{Resource::PERSON, 0}});
 
     ASSERT_EQ(expected, result);
 }
@@ -15,8 +16,8 @@ TEST(TestResZone, InitialPopProducedShouldBeZero) {
 TEST(TestResZone, InitialPopAvailableShouldBeZero) {
     ResZone resZone;
 
-    ResourceCount result = resZone.getProductionUnused();
-    ResourceCount expected({{Resource::PERSON, 0}});
+    Stock result = resZone.getProductionUnused();
+    Stock expected({{Resource::PERSON, 0}});
 
     ASSERT_EQ(expected, result);
 }
@@ -26,8 +27,8 @@ TEST(TestResZone, Level0ShouldNotGrowWhenNotElectrified) {
 
     resZone.updateLevel();
 
-    ResourceCount result = resZone.getProductionTotal();
-    ResourceCount expected({{Resource::PERSON, 0}});
+    Stock result = resZone.getProductionTotal();
+    Stock expected({{Resource::PERSON, 0}});
 
     ASSERT_EQ(expected, result);
 }
@@ -38,8 +39,8 @@ TEST(TestResZone, Level0ShouldGrowWhenNeedsAreMet) {
     resZone.setConnectedTo(Utility::ELECTRICITY, true);
     resZone.updateLevel();
 
-    ResourceCount result = resZone.getProductionTotal();
-    ResourceCount expected({{Resource::PERSON, 1}});
+    Stock result = resZone.getProductionTotal();
+    Stock expected({{Resource::PERSON, 1}});
 
     ASSERT_EQ(expected, result);
 }

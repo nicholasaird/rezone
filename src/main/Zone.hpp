@@ -2,22 +2,27 @@
 #define ZONE_HPP
 
 #include "Resource.hpp"
-#include "ResourceCount.hpp"
+#include "Stock.hpp"
 #include "Utility.hpp"
 
 class Zone {
 private:
     int level;
     bool connectedToElectricity;
-    ResourceCount productionTotal;
-    ResourceCount productionUsed;
+    // bool connectedToWater;
+    Stock productionTotal;
+    Stock productionUsed;
 public:
     Zone();
     virtual ~Zone();
-    ResourceCount getProductionTotal();
-    ResourceCount getProductionUnused();
+    Stock getProductionTotal();
+    Stock getProductionUnused();
+    // virtual int getConsumptionNeeded(Resource resource) = 0;
+    // virtual int getConsumptionMet(Resource resource) = 0;
     bool isConnectedTo(Utility utility);
     void setConnectedTo(Utility utility, bool connected);
+    // virtual bool getUtilityNeeded(Utility utility) = 0;
+    // virtual bool getUtilityMet(Utility utility) = 0;
     void updateLevel();
     int getLevel();
     void setLevel(int level);

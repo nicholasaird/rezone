@@ -1,144 +1,144 @@
 #include "gtest/gtest.h"
 
-#include "ResourceCount.hpp"
+#include "Stock.hpp"
 
-TEST(TestResourceCount, EmptyCountShouldHaveAll0) {
-    ResourceCount count;
+TEST(TestStock, EmptyStockShouldHaveAll0) {
+    Stock stock;
 
-    ASSERT_EQ(0, count.get(Resource::PERSON));
-    ASSERT_EQ(0, count.get(Resource::COM_PRODUCT));
-    ASSERT_EQ(0, count.get(Resource::IND_PRODUCT));
+    ASSERT_EQ(0, stock.get(Resource::PERSON));
+    ASSERT_EQ(0, stock.get(Resource::COM_PRODUCT));
+    ASSERT_EQ(0, stock.get(Resource::IND_PRODUCT));
 }
 
-TEST(TestResourceCount, AddOnePerson) {
-    ResourceCount count;
+TEST(TestStock, AddOnePerson) {
+    Stock stock;
 
-    count.set(Resource::PERSON, 1);
+    stock.set(Resource::PERSON, 1);
 
-    ASSERT_EQ(1, count.get(Resource::PERSON));
+    ASSERT_EQ(1, stock.get(Resource::PERSON));
 }
 
-TEST(TestResourceCount, AddOneComProduct) {
-    ResourceCount count;
+TEST(TestStock, AddOneComProduct) {
+    Stock stock;
 
-    count.set(Resource::COM_PRODUCT, 1);
+    stock.set(Resource::COM_PRODUCT, 1);
 
-    ASSERT_EQ(1, count.get(Resource::COM_PRODUCT));
+    ASSERT_EQ(1, stock.get(Resource::COM_PRODUCT));
 }
 
-TEST(TestResourceCount, AddOneIndProduct) {
-    ResourceCount count;
+TEST(TestStock, AddOneIndProduct) {
+    Stock stock;
 
-    count.set(Resource::IND_PRODUCT, 1);
+    stock.set(Resource::IND_PRODUCT, 1);
 
-    ASSERT_EQ(1, count.get(Resource::IND_PRODUCT));
+    ASSERT_EQ(1, stock.get(Resource::IND_PRODUCT));
 }
 
-TEST(TestResourceCount, AddManyPerson) {
-    ResourceCount count;
+TEST(TestStock, AddManyPerson) {
+    Stock stock;
 
-    count.set(Resource::PERSON, 10);
+    stock.set(Resource::PERSON, 10);
 
-    ASSERT_EQ(10, count.get(Resource::PERSON));
+    ASSERT_EQ(10, stock.get(Resource::PERSON));
 }
 
-TEST(TestResourceCount, AddVariousResources) {
-    ResourceCount count;
+TEST(TestStock, AddVarious) {
+    Stock stock;
 
-    count.set(Resource::PERSON, 1);
-    count.set(Resource::COM_PRODUCT, 2);
-    count.set(Resource::IND_PRODUCT, 3);
+    stock.set(Resource::PERSON, 1);
+    stock.set(Resource::COM_PRODUCT, 2);
+    stock.set(Resource::IND_PRODUCT, 3);
 
-    ASSERT_EQ(1, count.get(Resource::PERSON));
-    ASSERT_EQ(2, count.get(Resource::COM_PRODUCT));
-    ASSERT_EQ(3, count.get(Resource::IND_PRODUCT));
+    ASSERT_EQ(1, stock.get(Resource::PERSON));
+    ASSERT_EQ(2, stock.get(Resource::COM_PRODUCT));
+    ASSERT_EQ(3, stock.get(Resource::IND_PRODUCT));
 }
 
-TEST(TestResourceCount, AddingResourceShouldAddOnlyThatResource) {
-    ResourceCount count;
+TEST(TestStock, AddingShouldAddOnlyThatResource) {
+    Stock stock;
 
-    count.set(Resource::PERSON, 1);
+    stock.set(Resource::PERSON, 1);
 
-    ASSERT_EQ(1, count.get(Resource::PERSON));
-    ASSERT_EQ(0, count.get(Resource::COM_PRODUCT));
-    ASSERT_EQ(0, count.get(Resource::IND_PRODUCT));
+    ASSERT_EQ(1, stock.get(Resource::PERSON));
+    ASSERT_EQ(0, stock.get(Resource::COM_PRODUCT));
+    ASSERT_EQ(0, stock.get(Resource::IND_PRODUCT));
 }
 
-TEST(TestResourceCount, CountShouldHaveNewestValue) {
-    ResourceCount count;
+TEST(TestStock, StockShouldHaveNewestCount) {
+    Stock stock;
 
-    count.set(Resource::PERSON, 1);
-    count.set(Resource::PERSON, 2);
+    stock.set(Resource::PERSON, 1);
+    stock.set(Resource::PERSON, 2);
 
-    ASSERT_EQ(2, count.get(Resource::PERSON));
+    ASSERT_EQ(2, stock.get(Resource::PERSON));
 }
 
-TEST(TestResourceCount, WhenEmptyShouldNotIterate) {
-    ResourceCount count;
+TEST(TestStock, WhenEmptyShouldNotIterate) {
+    Stock stock;
 
     int loops = 0;
-    for(auto pair : count) {
+    for(auto pair : stock) {
         loops++;
     }
 
     ASSERT_EQ(0, loops);
 }
 
-TEST(TestResourceCount, WhenEmptyShouldNotIterate2) {
-    ResourceCount count({{Resource::PERSON, 0}});
+TEST(TestStock, WhenEmptyShouldNotIterate2) {
+    Stock stock({{Resource::PERSON, 0}});
 
     int loops = 0;
-    for(auto pair : count) {
+    for(auto pair : stock) {
         loops++;
     }
 
     ASSERT_EQ(0, loops);
 }
 
-TEST(TestResourceCount, WhenOneTypeShouldIterateOnce) {
-    ResourceCount count;
-    count.set(Resource::PERSON, 1);
+TEST(TestStock, WhenOneTypeShouldIterateOnce) {
+    Stock stock;
+    stock.set(Resource::PERSON, 1);
 
     int loops = 0;
-    for(auto pair : count) {
+    for(auto pair : stock) {
         loops++;
     }
 
     ASSERT_EQ(1, loops);
 }
 
-TEST(TestResourceCount, WhenTwoTypesShouldIterateTwice) {
-    ResourceCount count;
-    count.set(Resource::PERSON, 1);
-    count.set(Resource::IND_PRODUCT, 1);
+TEST(TestStock, WhenTwoTypesShouldIterateTwice) {
+    Stock stock;
+    stock.set(Resource::PERSON, 1);
+    stock.set(Resource::IND_PRODUCT, 1);
 
     int loops = 0;
-    for(auto pair : count) {
+    for(auto pair : stock) {
         loops++;
     }
 
     ASSERT_EQ(2, loops);
 }
 
-TEST(TestResourceCount, WhenOneTypeAndChangedCountShouldIterateOnce) {
-    ResourceCount count;
-    count.set(Resource::PERSON, 1);
-    count.set(Resource::PERSON, 2);
+TEST(TestStock, WhenOneTypeAndChangedCountShouldIterateOnce) {
+    Stock stock;
+    stock.set(Resource::PERSON, 1);
+    stock.set(Resource::PERSON, 2);
 
     int loops = 0;
-    for(auto pair : count) {
+    for(auto pair : stock) {
         loops++;
     }
 
     ASSERT_EQ(1, loops);
 }
 
-TEST(TestResourceCount, IterationShouldFindSingleResource) {
-    ResourceCount count;
-    count.set(Resource::PERSON, 1);
+TEST(TestStock, IterationShouldFindSingleResource) {
+    Stock stock;
+    stock.set(Resource::PERSON, 1);
 
     bool found = false;
-    for(auto pair : count) {
+    for(auto pair : stock) {
         if(pair.first == Resource::PERSON) {
             found = true;
         }
@@ -147,14 +147,14 @@ TEST(TestResourceCount, IterationShouldFindSingleResource) {
     ASSERT_TRUE(found);
 }
 
-TEST(TestResourceCount, IterationShouldFindTwoResources) {
-    ResourceCount count;
-    count.set(Resource::PERSON, 1);
-    count.set(Resource::IND_PRODUCT, 1);
+TEST(TestStock, IterationShouldFindTwoResources) {
+    Stock stock;
+    stock.set(Resource::PERSON, 1);
+    stock.set(Resource::IND_PRODUCT, 1);
 
     bool foundPerson = false;
     bool foundInd = false;
-    for(auto pair : count) {
+    for(auto pair : stock) {
         if(pair.first == Resource::PERSON) {
             foundPerson = true;
         }
@@ -166,12 +166,12 @@ TEST(TestResourceCount, IterationShouldFindTwoResources) {
     ASSERT_TRUE(foundPerson && foundInd);
 }
 
-TEST(TestResourceCount, IterationShouldProvideCorrectCount) {
-    ResourceCount count;
-    count.set(Resource::PERSON, 1);
+TEST(TestStock, IterationShouldProvideCorrectCount) {
+    Stock stock;
+    stock.set(Resource::PERSON, 1);
 
     bool correctCount = false;
-    for(auto pair : count) {
+    for(auto pair : stock) {
         if(pair.first == Resource::PERSON && pair.second == 1) {
             correctCount = true;
         }
@@ -180,44 +180,44 @@ TEST(TestResourceCount, IterationShouldProvideCorrectCount) {
     ASSERT_TRUE(correctCount);
 }
 
-TEST(TestResourceCount, EqualEmptyResourceCounts) {
-    ResourceCount countA;
-    ResourceCount countB;
+TEST(TestStock, EqualEmptyStocks) {
+    Stock stockA;
+    Stock stockB;
 
-    ASSERT_EQ(countA, countB);
+    ASSERT_EQ(stockA, stockB);
 }
 
-TEST(TestResourceCount, EqualEmptyResourceCounts2) {
-    ResourceCount countA({{Resource::PERSON, 0}});
-    ResourceCount countB;
+TEST(TestStock, EqualEmptyStocks2) {
+    Stock stockA({{Resource::PERSON, 0}});
+    Stock stockB;
 
-    ASSERT_EQ(countA, countB);
+    ASSERT_EQ(stockA, stockB);
 }
 
-TEST(TestResourceCount, EqualSimpleResourceCounts) {
-    ResourceCount countA({{Resource::PERSON, 1}});
-    ResourceCount countB({{Resource::PERSON, 1}});
+TEST(TestStock, EqualSimpleStocks) {
+    Stock stockA({{Resource::PERSON, 1}});
+    Stock stockB({{Resource::PERSON, 1}});
 
-    ASSERT_EQ(countA, countB);
+    ASSERT_EQ(stockA, stockB);
 }
 
-TEST(TestResourceCount, WhenEmptyAndNonEmptyShouldBeNonEqual) {
-    ResourceCount countA({{Resource::PERSON, 1}});
-    ResourceCount countB;
+TEST(TestStock, EmptyAndNonEmptyShouldBeNonEqual) {
+    Stock stockA({{Resource::PERSON, 1}});
+    Stock stockB;
 
-    ASSERT_NE(countA, countB);
+    ASSERT_NE(stockA, stockB);
 }
 
-TEST(TestResourceCount, WhenDifferentTypesShouldBeNonEqual) {
-    ResourceCount countA({{Resource::PERSON, 1}});
-    ResourceCount countB({{Resource::IND_PRODUCT, 1}});
+TEST(TestStock, DifferentTypesShouldBeNonEqual) {
+    Stock stockA({{Resource::PERSON, 1}});
+    Stock stockB({{Resource::IND_PRODUCT, 1}});
 
-    ASSERT_NE(countA, countB);
+    ASSERT_NE(stockA, stockB);
 }
 
-TEST(TestResourceCount, WhenDifferentCountsShouldBeNonEqual) {
-    ResourceCount countA({{Resource::PERSON, 1}});
-    ResourceCount countB({{Resource::PERSON, 2}});
+TEST(TestStock, DifferentCountsShouldBeNonEqual) {
+    Stock stockA({{Resource::PERSON, 1}});
+    Stock stockB({{Resource::PERSON, 2}});
 
-    ASSERT_NE(countA, countB);
+    ASSERT_NE(stockA, stockB);
 }
