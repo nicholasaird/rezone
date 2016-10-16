@@ -4,6 +4,14 @@ ResZone::ResZone() {
     //
 }
 
-int ResZone::getNumProduced(Resource resource) {
+ResZone::~ResZone() {
+    //
+}
+
+int ResZone::getProductionTotal(Resource resource) {
+    return 0;
+}
+
+int ResZone::getProductionUnused(Resource resource) {
     return 0;
 }

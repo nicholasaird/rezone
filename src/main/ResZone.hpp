@@ -7,7 +7,9 @@
 class ResZone : public Zone {
 public:
     ResZone();
-    int getNumProduced(Resource resource) override;
+    ~ResZone() override;
+    int getProductionTotal(Resource resource) override;
+    int getProductionUnused(Resource resource) override;
 };
 
 #endif
