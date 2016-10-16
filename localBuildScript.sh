@@ -1,1 +1,1 @@
-bash -e ./travisScript.sh
+./travisScript.sh
