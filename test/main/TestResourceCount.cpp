@@ -10,7 +10,7 @@ TEST(TestStock, EmptyStockShouldHaveAll0) {
     ASSERT_EQ(0, stock.get(Resource::IND_PRODUCT));
 }
 
-TEST(TestStock, AddOnePerson) {
+TEST(TestStock, SetOnePerson) {
     Stock stock;
 
     stock.set(Resource::PERSON, 1);
@@ -18,7 +18,7 @@ TEST(TestStock, AddOnePerson) {
     ASSERT_EQ(1, stock.get(Resource::PERSON));
 }
 
-TEST(TestStock, AddOneComProduct) {
+TEST(TestStock, SetOneComProduct) {
     Stock stock;
 
     stock.set(Resource::COM_PRODUCT, 1);
@@ -26,7 +26,7 @@ TEST(TestStock, AddOneComProduct) {
     ASSERT_EQ(1, stock.get(Resource::COM_PRODUCT));
 }
 
-TEST(TestStock, AddOneIndProduct) {
+TEST(TestStock, SetOneIndProduct) {
     Stock stock;
 
     stock.set(Resource::IND_PRODUCT, 1);
@@ -34,7 +34,7 @@ TEST(TestStock, AddOneIndProduct) {
     ASSERT_EQ(1, stock.get(Resource::IND_PRODUCT));
 }
 
-TEST(TestStock, AddManyPerson) {
+TEST(TestStock, SetManyPerson) {
     Stock stock;
 
     stock.set(Resource::PERSON, 10);
@@ -42,7 +42,7 @@ TEST(TestStock, AddManyPerson) {
     ASSERT_EQ(10, stock.get(Resource::PERSON));
 }
 
-TEST(TestStock, AddVarious) {
+TEST(TestStock, SetVarious) {
     Stock stock;
 
     stock.set(Resource::PERSON, 1);
@@ -54,7 +54,7 @@ TEST(TestStock, AddVarious) {
     ASSERT_EQ(3, stock.get(Resource::IND_PRODUCT));
 }
 
-TEST(TestStock, AddingShouldAddOnlyThatResource) {
+TEST(TestStock, SettingShouldAddOnlyThatResource) {
     Stock stock;
 
     stock.set(Resource::PERSON, 1);
