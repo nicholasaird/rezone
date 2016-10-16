@@ -70,7 +70,9 @@ TEST(TestStock, StockShouldHaveNewestCount) {
     stock.set(Resource::PERSON, 1);
     stock.set(Resource::PERSON, 2);
 
-    ASSERT_EQ(2, stock.get(Resource::PERSON));
+    Stock expected({{Resource::PERSON, 2}});
+
+    ASSERT_EQ(expected, stock);
 }
 
 TEST(TestStock, WhenEmptyShouldNotIterate) {
