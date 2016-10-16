@@ -3,6 +3,7 @@
 
 #include "Resource.hpp"
 #include "ResourceCount.hpp"
+#include "Utility.hpp"
 
 class Zone {
 private:
