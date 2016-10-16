@@ -42,7 +42,9 @@ void Zone::updateLevel() {
         // Update level and get new input / output counts
     // Otherwise, if needs aren't met
         // Downgrade to highest level that has needs met
-    level++;
+    if(connectedToElectricity) {
+        setLevel(level+1);
+    }
 }
 
 int Zone::getLevel() {
@@ -51,4 +53,5 @@ int Zone::getLevel() {
 
 void Zone::setLevel(int level) {
     this->level = level;
+    productionTotal.set(Resource::PERSON, level);
 }
