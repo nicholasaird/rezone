@@ -73,12 +73,26 @@ TEST(TestResourceCount, CountShouldHaveNewestValue) {
     ASSERT_EQ(2, count.get(Resource::PERSON));
 }
 
-TEST(TestResourceCount, EmptyCountShouldNotIterate) {
+TEST(TestResourceCount, WhenEmptyShouldNotIterate) {
     ResourceCount count;
 
+    int loops = 0;
     for(auto pair : count) {
-        FAIL() << "Iteration over contents of empty ResourceCount didn't immediately exit";
+        loops++;
     }
+
+    ASSERT_EQ(0, loops);
+}
+
+TEST(TestResourceCount, WhenEmptyShouldNotIterate2) {
+    ResourceCount count({{Resource::PERSON, 0}});
+
+    int loops = 0;
+    for(auto pair : count) {
+        loops++;
+    }
+
+    ASSERT_EQ(0, loops);
 }
 
 TEST(TestResourceCount, WhenOneTypeShouldIterateOnce) {
@@ -106,7 +120,7 @@ TEST(TestResourceCount, WhenTwoTypesShouldIterateTwice) {
     ASSERT_EQ(2, loops);
 }
 
-TEST(TestResourceCount, WhenChangedCountShouldIterateOnce) {
+TEST(TestResourceCount, WhenOneTypeAndChangedCountShouldIterateOnce) {
     ResourceCount count;
     count.set(Resource::PERSON, 1);
     count.set(Resource::PERSON, 2);
@@ -173,41 +187,37 @@ TEST(TestResourceCount, EqualEmptyResourceCounts) {
     ASSERT_EQ(countA, countB);
 }
 
-TEST(TestResourceCount, EqualSimpleResourceCounts) {
-    ResourceCount countA;
+TEST(TestResourceCount, EqualEmptyResourceCounts2) {
+    ResourceCount countA({{Resource::PERSON, 0}});
     ResourceCount countB;
 
-    countA.set(Resource::PERSON, 1);
-    countB.set(Resource::PERSON, 1);
+    ASSERT_EQ(countA, countB);
+}
+
+TEST(TestResourceCount, EqualSimpleResourceCounts) {
+    ResourceCount countA({{Resource::PERSON, 1}});
+    ResourceCount countB({{Resource::PERSON, 1}});
 
     ASSERT_EQ(countA, countB);
 }
 
 TEST(TestResourceCount, WhenEmptyAndNonEmptyShouldBeNonEqual) {
-    ResourceCount countA;
+    ResourceCount countA({{Resource::PERSON, 1}});
     ResourceCount countB;
-
-    countB.set(Resource::PERSON, 1);
 
     ASSERT_NE(countA, countB);
 }
 
 TEST(TestResourceCount, WhenDifferentTypesShouldBeNonEqual) {
-    ResourceCount countA;
-    ResourceCount countB;
-
-    countA.set(Resource::PERSON, 1);
-    countB.set(Resource::IND_PRODUCT, 1);
+    ResourceCount countA({{Resource::PERSON, 1}});
+    ResourceCount countB({{Resource::IND_PRODUCT, 1}});
 
     ASSERT_NE(countA, countB);
 }
 
 TEST(TestResourceCount, WhenDifferentCountsShouldBeNonEqual) {
-    ResourceCount countA;
-    ResourceCount countB;
-
-    countA.set(Resource::PERSON, 1);
-    countB.set(Resource::PERSON, 2);
+    ResourceCount countA({{Resource::PERSON, 1}});
+    ResourceCount countB({{Resource::PERSON, 2}});
 
     ASSERT_NE(countA, countB);
 }
