@@ -6,6 +6,13 @@
 struct StockPair {
     Stock input;
     Stock output;
+
+    StockPair(Stock input, Stock output)
+        : input(input)
+        , output(output)
+    {
+        //
+    }
 };
 
 #endif
