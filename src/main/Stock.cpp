@@ -54,7 +54,7 @@ Stock Stock::operator-(const Stock& rhs) const {
     return newCount;
 }
 
-bool Stock::operator<(const Stock& rhs) const {
+bool Stock::subsetOf(const Stock& rhs) const {
     std::map<Resource, int> otherCounts = rhs.counts;
 
     for(auto pair : counts) {
@@ -70,6 +70,10 @@ bool Stock::operator<(const Stock& rhs) const {
     }
 
     return true;
+}
+
+bool Stock::supersetOf(const Stock& rhs) const {
+    return rhs.subsetOf(*this);
 }
 
 std::ostream& operator<<(std::ostream& stream, const Stock& count) {

@@ -22,8 +22,16 @@ public:
         //
     }
 
-    bool operator<(const StockPair& rhs) const {
-        return (input < rhs.input && output < rhs.output);
+    bool operator==(const StockPair& rhs) const {
+        return input == rhs.input && output == rhs.output;
+    }
+
+    bool subsetOf(const StockPair& rhs) const {
+        return this->input.subsetOf(rhs.input) && this->output.subsetOf(rhs.output);
+    }
+
+    bool supersetOf(const StockPair& rhs) const {
+        return rhs.subsetOf(*this);
     }
 };
 
