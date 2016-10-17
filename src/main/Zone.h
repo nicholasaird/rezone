@@ -9,10 +9,10 @@
 class Zone {
 private:
     StockPair recipe;
-    Stock input;
-    Stock output;
     Stock inputCap;
     Stock outputCap;
+    Stock inputMet;
+    Stock outputMet;
 public:
     Zone(StockPair recipe);
     virtual ~Zone();

@@ -19,6 +19,15 @@ TEST(TestZone, WhenInitializedShouldHaveInputAvailableSameAsRecipe) {
     ASSERT_EQ(Stock({{Resource::ELECTRICITY, 1}}), zone.getInputAvailable());
 }
 
+TEST(TestZone, WhenSupplyInputShouldLowerInputAvailable) {
+    StockPair simpleRecipe(Stock({{Resource::ELECTRICITY, 1}}), Stock({{Resource::PERSON, 1}}));
+    Zone zone(simpleRecipe);
+
+    zone.supplyInput(Stock({{Resource::ELECTRICITY, 1}}));
+
+    ASSERT_EQ(Stock({{Resource::ELECTRICITY, 0}}), zone.getInputAvailable());
+}
+
 TEST(TestZone, InitialCapsShouldBeSameAsRecipe) {
     StockPair simpleRecipe(Stock({{Resource::ELECTRICITY, 1}}), Stock({{Resource::PERSON, 1}}));
     Zone zone(simpleRecipe);
