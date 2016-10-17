@@ -524,6 +524,54 @@ TEST(TestStock, ATimesTwoReturnsDouble2) {
     ASSERT_EQ(Stock({{Resource::PERSON, 2}, {Resource::ELECTRICITY, 2}}), result);
 }
 
+TEST(TestStock, EmptyDiv1ReturnsEmpty) {
+    Stock stockA;
+
+    Stock result = stockA / 1;
+
+    ASSERT_EQ(Stock(), result);
+}
+
+TEST(TestStock, EmptyDiv2ReturnsEmpty) {
+    Stock stockA;
+
+    Stock result = stockA / 2;
+
+    ASSERT_EQ(Stock(), result);
+}
+
+TEST(TestStock, ADiv1ReturnsA) {
+    Stock stockA({{Resource::PERSON, 1}});
+
+    Stock result = stockA / 1;
+
+    ASSERT_EQ(Stock({{Resource::PERSON, 1}}), result);
+}
+
+TEST(TestStock, WhenAIsSmallADiv2ReturnsEmpty) {
+    Stock stockA({{Resource::PERSON, 1}});
+
+    Stock result = stockA / 2;
+
+    ASSERT_EQ(Stock(), result);
+}
+
+TEST(TestStock, ADiv2ReturnsHalf) {
+    Stock stockA({{Resource::PERSON, 2}});
+
+    Stock result = stockA / 2;
+
+    ASSERT_EQ(Stock({{Resource::PERSON, 1}}), result);
+}
+
+TEST(TestStock, ADiv2ReturnHalfRoundedDown) {
+    Stock stockA({{Resource::PERSON, 3}});
+
+    Stock result = stockA / 2;
+
+    ASSERT_EQ(Stock({{Resource::PERSON, 1}}), result);
+}
+
 TEST(TestStock, EmptyAddEmptyShouldReturnEmpty) {
     Stock stockA;
     Stock stockB;
