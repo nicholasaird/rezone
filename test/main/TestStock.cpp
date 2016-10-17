@@ -409,3 +409,11 @@ TEST(TestStock, NonEmptyMinusShouldReturnNegative) {
 
     ASSERT_EQ(Stock({{Resource::PERSON, -1}}), result);
 }
+
+TEST(TestStock, MinusOfNegativeShouldReturnPositive) {
+    Stock stockA({{Resource::PERSON, -1}});
+
+    Stock result = -stockA;
+
+    ASSERT_EQ(Stock({{Resource::PERSON, 1}}), result);
+}
