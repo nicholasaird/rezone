@@ -2,6 +2,7 @@
 #define ZONE_HPP
 
 #include "Resource.h"
+#include "ResourceException.h"
 #include "Stock.h"
 #include "StockPair.h"
 #include "Utility.h"

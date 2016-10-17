@@ -52,10 +52,18 @@ void Zone::update(Stock& relief) {
 }
 
 void Zone::supplyInput(Stock supply) {
+    if(!supply.subsetOf(getInputAvailable())) {
+        throw ResourceException("Too many resources to receive");
+    }
+
     inputMet += supply;
 }
 
 void Zone::takeOutput(Stock consumption) {
+    if(!consumption.subsetOf(getOutputAvailable())) {
+        throw ResourceException("Not enough resources to take");
+    }
+
     outputMet += consumption;
 }
 

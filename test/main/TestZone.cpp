@@ -2,6 +2,7 @@
 
 #include "Resource.h"
 #include "Zone.h"
+#include "ResourceException.h"
 #include "Stock.h"
 #include "StockPair.h"
 
@@ -106,4 +107,11 @@ TEST(TestZone, WhenOutputTooLowShouldDecreaseCaps) {
 
     ASSERT_EQ(Stock({{Resource::ELECTRICITY, 1}}), zone.getInputCap());
     ASSERT_EQ(Stock({{Resource::PERSON, 1}}), zone.getOutputCap());
+}
+
+TEST(TestZone, WhenTakeInputAndNoAvailableShouldThrow) {
+    StockPair simpleRecipe(Stock({{Resource::ELECTRICITY, 1}}), Stock({{Resource::PERSON, 1}}));
+    Zone zone(simpleRecipe);
+
+    ASSERT_THROW(zone.supplyInput(Stock({{Resource::PERSON, 1}})), ResourceException);
 }
