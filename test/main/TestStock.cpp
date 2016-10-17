@@ -313,3 +313,12 @@ TEST(TestStock, WhenMultEqual2ShouldBeDouble) {
 
     ASSERT_EQ(Stock({{Resource::PERSON, 2}}), stockA);
 }
+
+TEST(TestStock, WhenEmptyMinusEqualEmptyShouldBeEmpty) {
+    Stock stockA;
+    Stock stockB;
+
+    stockA -= stockB;
+
+    ASSERT_EQ(Stock(), stockA);
+}
