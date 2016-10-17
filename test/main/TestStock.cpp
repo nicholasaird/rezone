@@ -425,3 +425,11 @@ TEST(TestStock, EmptyDivEqualOneShouldNotChange) {
 
     ASSERT_EQ(Stock(), stockA);
 }
+
+TEST(TestStock, EmptyDivEqualTwoShouldNotChange) {
+    Stock stockA;
+
+    stockA /= 2;
+
+    ASSERT_EQ(Stock(), stockA);
+}
