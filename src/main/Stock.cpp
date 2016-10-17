@@ -76,9 +76,9 @@ Stock& Stock::operator*=(const int& mult){
     return *this;
 }
 
-Stock& Stock::operator/=(const int& mult){
+Stock& Stock::operator/=(const int& div){
     for(auto pair : counts) {
-        counts[pair.first] /= mult;
+        counts[pair.first] /= div;
     }
 
     removeZeros();
