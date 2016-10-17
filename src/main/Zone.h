@@ -3,11 +3,12 @@
 
 #include "Resource.h"
 #include "Stock.h"
+#include "StockPair.h"
 #include "Utility.h"
 
 class Zone {
 public:
-    Zone();
+    Zone(StockPair recipe);
     virtual ~Zone();
     Stock getInputMet();
 };
