@@ -451,6 +451,15 @@ TEST(TestStock, APlusEqualBShouldMakeSum2) {
     ASSERT_EQ(Stock({{Resource::PERSON, 1}, {Resource::ELECTRICITY, 1}}), stockA);
 }
 
+TEST(TestStock, APlusEqualMinusAShouldMakeEmpty) {
+    Stock stockA({{Resource::PERSON, 1}});
+    Stock stockB({{Resource::PERSON, -1}});
+
+    stockA += stockB;
+
+    ASSERT_EQ(Stock(), stockA);
+}
+
 TEST(TestStock, EmptyMinusEmptyShouldReturnEmpty) {
     Stock stockA;
     Stock stockB;
