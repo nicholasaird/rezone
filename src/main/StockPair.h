@@ -26,6 +26,10 @@ public:
         return input == rhs.input && output == rhs.output;
     }
 
+    bool operator !=(const StockPair& rhs) const {
+        return !(*this == rhs);
+    }
+
     bool subsetOf(const StockPair& rhs) const {
         return this->input.subsetOf(rhs.input) && this->output.subsetOf(rhs.output);
     }
