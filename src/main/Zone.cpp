@@ -2,6 +2,10 @@
 
 Zone::Zone(StockPair recipe)
     : recipe(recipe)
+    , input()
+    , output()
+    , inputCap(recipe.input)
+    , outputCap(recipe.output)
 {
     //
 }
@@ -15,13 +19,25 @@ Stock Zone::getInputMet() {
 }
 
 Stock Zone::getInputCap() {
-    return recipe.input;
+    return inputCap;
 }
 
 Stock Zone::getOutputCap() {
-    return recipe.output;
+    return outputCap;
 }
 
-void Zone::update(Stock relief) {
-    //
+void Zone::update(Stock& relief) {
+    if(relief.supersetOf(outputCap) && output.supersetOf(outputCap)) {
+        relief -= outputCap;
+        inputCap *= 2;
+        outputCap *= 2;
+    }
+}
+
+void Zone::supplyInput(Stock supply) {
+    input = input + supply;
+}
+
+void Zone::takeOutput(Stock consumption) {
+    output = output + consumption;
 }
