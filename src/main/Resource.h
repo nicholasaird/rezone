@@ -7,12 +7,14 @@
 
 enum class Resource {
     COM_PRODUCT,
+    ELECTRICITY,
     IND_PRODUCT,
     PERSON
 };
 
 static std::map<Resource, std::string> resourceToString = {
     {Resource::COM_PRODUCT, "COM_PRODUCT"},
+    {Resource::ELECTRICITY, "ELECTRICITY"},
     {Resource::IND_PRODUCT, "IND_PRODUCT"},
     {Resource::PERSON, "PERSON"}
 };
