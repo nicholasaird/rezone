@@ -305,3 +305,11 @@ TEST(TestStock, WhenMultEqual1ShouldBeSame) {
 
     ASSERT_EQ(Stock({{Resource::PERSON, 1}}), stockA);
 }
+
+TEST(TestStock, WhenMultEqual2ShouldBeDouble) {
+    Stock stockA({{Resource::PERSON, 1}});
+
+    stockA *= 2;
+
+    ASSERT_EQ(Stock({{Resource::PERSON, 2}}), stockA);
+}
