@@ -21,26 +21,3 @@ TEST(TestResZone, InitialPopAvailableShouldBeZero) {
 
     ASSERT_EQ(expected, result);
 }
-
-TEST(TestResZone, Level0ShouldNotGrowWhenNotElectrified) {
-    ResZone resZone;
-
-    resZone.updateLevel();
-
-    Stock result = resZone.getProductionTotal();
-    Stock expected({{Resource::PERSON, 0}});
-
-    ASSERT_EQ(expected, result);
-}
-
-TEST(TestResZone, Level0ShouldGrowWhenNeedsAreMet) {
-    ResZone resZone;
-
-    resZone.setConnectedTo(Utility::ELECTRICITY, true);
-    resZone.updateLevel();
-
-    Stock result = resZone.getProductionTotal();
-    Stock expected({{Resource::PERSON, 1}});
-
-    ASSERT_EQ(expected, result);
-}
