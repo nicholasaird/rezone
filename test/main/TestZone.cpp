@@ -68,3 +68,16 @@ TEST(TestZone, WhenOutputRequirementsMetShouldIncreaseCaps) {
     ASSERT_EQ(Stock({{Resource::ELECTRICITY, 2}}), zone.getInputCap());
     ASSERT_EQ(Stock({{Resource::PERSON, 2}}), zone.getOutputCap());
 }
+
+TEST(TestZone, WhenCanIncreaseCapsButNoReliefShouldNotIncreaseCaps) {
+    StockPair simpleRecipe(Stock({{Resource::ELECTRICITY, 1}}), Stock({{Resource::PERSON, 1}}));
+    Zone zone(simpleRecipe);
+
+    zone.supplyInput(Stock({{Resource::ELECTRICITY, 1}}));
+    zone.takeOutput(Stock({{Resource::PERSON, 1}}));
+    Stock relief;
+    zone.update(relief);
+
+    ASSERT_EQ(Stock({{Resource::ELECTRICITY, 1}}), zone.getInputCap());
+    ASSERT_EQ(Stock({{Resource::PERSON, 1}}), zone.getOutputCap());
+}
