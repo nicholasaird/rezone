@@ -281,3 +281,11 @@ TEST(TestStock, WhenEmptyMultEqualShouldReturnEmpty2) {
 
     ASSERT_EQ(Stock(), stockA);
 }
+
+TEST(TestStock, WhenEmptyMultEqual0ShouldReturnEmpty) {
+    Stock stockA;
+
+    stockA *= 0;
+
+    ASSERT_EQ(Stock(), stockA);
+}
