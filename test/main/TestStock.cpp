@@ -401,3 +401,11 @@ TEST(TestStock, EmptyMinusShouldReturnEmpty) {
 
     ASSERT_EQ(Stock(), result);
 }
+
+TEST(TestStock, NonEmptyMinusShouldReturnNegative) {
+    Stock stockA({{Resource::PERSON, 1}});
+
+    Stock result = -stockA;
+
+    ASSERT_EQ(Stock({{Resource::PERSON, -1}}), result);
+}
