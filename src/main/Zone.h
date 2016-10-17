@@ -7,9 +7,13 @@
 #include "Utility.h"
 
 class Zone {
+private:
+    StockPair recipe;
 public:
     Zone(StockPair recipe);
     virtual ~Zone();
     Stock getInputMet();
+    Stock getInputCap();
+    Stock getOutputCap();
 };
 #endif
