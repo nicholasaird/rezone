@@ -331,3 +331,12 @@ TEST(TestStock, WhenNonEmptyMinusEqualEmptyShouldNotChange) {
 
     ASSERT_EQ(Stock({{Resource::PERSON, 1}}), stockA);
 }
+
+TEST(TestStock, MinusEqualThatShouldReturnEmpty) {
+    Stock stockA({{Resource::PERSON, 1}});
+    Stock stockB({{Resource::PERSON, 1}});
+
+    stockA -= stockB;
+
+    ASSERT_EQ(Stock(), stockA);
+}
