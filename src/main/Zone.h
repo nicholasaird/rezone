@@ -17,6 +17,7 @@ public:
     Zone(StockPair recipe);
     virtual ~Zone();
     Stock getInputMet();
+    Stock getInputAvailable();
     Stock getInputCap();
     Stock getOutputCap();
     void update(Stock& relief);

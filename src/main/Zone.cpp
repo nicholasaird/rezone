@@ -14,6 +14,10 @@ Zone::~Zone() {
     //
 }
 
+Stock Zone::getInputAvailable() {
+    return recipe.input;
+}
+
 Stock Zone::getInputMet() {
     return Stock();
 }

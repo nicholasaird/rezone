@@ -12,6 +12,13 @@ TEST(TestZone, WhenInitializedShouldHaveNoInputMet) {
     ASSERT_EQ(Stock(), zone.getInputMet());
 }
 
+TEST(TestZone, WhenInitializedShouldHaveInputAvailableSameAsRecipe) {
+    StockPair simpleRecipe(Stock({{Resource::ELECTRICITY, 1}}), Stock({{Resource::PERSON, 1}}));
+    Zone zone(simpleRecipe);
+
+    ASSERT_EQ(Stock({{Resource::ELECTRICITY, 1}}), zone.getInputAvailable());
+}
+
 TEST(TestZone, InitialCapsShouldBeSameAsRecipe) {
     StockPair simpleRecipe(Stock({{Resource::ELECTRICITY, 1}}), Stock({{Resource::PERSON, 1}}));
     Zone zone(simpleRecipe);
@@ -31,7 +38,7 @@ TEST(TestZone, WhenNoOutputSoldShouldNotIncreaseCaps) {
     ASSERT_EQ(Stock({{Resource::PERSON, 1}}), zone.getOutputCap());
 }
 
-TEST(TestZone, WhenUpgradeRequirementsMetShouldIncreaseCaps) {
+TEST(TestZone, WhenOutputRequirementsMetShouldIncreaseCaps) {
     StockPair simpleRecipe(Stock({{Resource::ELECTRICITY, 1}}), Stock({{Resource::PERSON, 1}}));
     Zone zone(simpleRecipe);
 
