@@ -147,7 +147,7 @@ bool Stock::subsetOf(const Stock& rhs) const {
         if(otherCounts.count(resource) < 1) {
             return false;
         }
-        else if (otherCounts[resource] != count) {
+        else if (otherCounts[resource] < count) {
             return false;
         }
     }
