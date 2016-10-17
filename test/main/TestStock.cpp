@@ -449,3 +449,11 @@ TEST(TestStock, StockOneDivEqualTwoShouldmakeEmpty) {
 
     ASSERT_EQ(Stock(), stockA);
 }
+
+TEST(TestStock, DivEqualTwoShouldMakeHalf) {
+    Stock stockA({{Resource::PERSON, 2}});
+
+    stockA /= 2;
+
+    ASSERT_EQ(Stock({{Resource::PERSON, 1}}), stockA);
+}
