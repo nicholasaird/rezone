@@ -457,3 +457,11 @@ TEST(TestStock, DivEqualTwoShouldMakeHalf) {
 
     ASSERT_EQ(Stock({{Resource::PERSON, 1}}), stockA);
 }
+
+TEST(TestStock, DivEqualTwoShouldMakeHalfRoundedDown) {
+    Stock stockA({{Resource::PERSON, 3}});
+
+    stockA /= 2;
+
+    ASSERT_EQ(Stock({{Resource::PERSON, 1}}), stockA);
+}
