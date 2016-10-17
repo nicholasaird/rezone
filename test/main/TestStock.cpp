@@ -314,6 +314,54 @@ TEST(TestStock, WhenMultEqual2ShouldBeDouble) {
     ASSERT_EQ(Stock({{Resource::PERSON, 2}}), stockA);
 }
 
+TEST(TestStock, EmptyDivEqualOneShouldNotChange) {
+    Stock stockA;
+
+    stockA /= 1;
+
+    ASSERT_EQ(Stock(), stockA);
+}
+
+TEST(TestStock, EmptyDivEqualTwoShouldNotChange) {
+    Stock stockA;
+
+    stockA /= 2;
+
+    ASSERT_EQ(Stock(), stockA);
+}
+
+TEST(TestStock, DivEqualOneShouldNotChange) {
+    Stock stockA({{Resource::PERSON, 1}});
+
+    stockA /= 1;
+
+    ASSERT_EQ(Stock({{Resource::PERSON, 1}}), stockA);
+}
+
+TEST(TestStock, StockOneDivEqualTwoShouldMakeEmpty) {
+    Stock stockA({{Resource::PERSON, 1}});
+
+    stockA /= 2;
+
+    ASSERT_EQ(Stock(), stockA);
+}
+
+TEST(TestStock, DivEqualTwoShouldMakeHalf) {
+    Stock stockA({{Resource::PERSON, 2}});
+
+    stockA /= 2;
+
+    ASSERT_EQ(Stock({{Resource::PERSON, 1}}), stockA);
+}
+
+TEST(TestStock, DivEqualTwoShouldMakeHalfRoundedDown) {
+    Stock stockA({{Resource::PERSON, 3}});
+
+    stockA /= 2;
+
+    ASSERT_EQ(Stock({{Resource::PERSON, 1}}), stockA);
+}
+
 TEST(TestStock, WhenEmptyMinusEqualEmptyShouldBeEmpty) {
     Stock stockA;
     Stock stockB;
@@ -416,52 +464,4 @@ TEST(TestStock, MinusOfNegativeShouldReturnPositive) {
     Stock result = -stockA;
 
     ASSERT_EQ(Stock({{Resource::PERSON, 1}}), result);
-}
-
-TEST(TestStock, EmptyDivEqualOneShouldNotChange) {
-    Stock stockA;
-
-    stockA /= 1;
-
-    ASSERT_EQ(Stock(), stockA);
-}
-
-TEST(TestStock, EmptyDivEqualTwoShouldNotChange) {
-    Stock stockA;
-
-    stockA /= 2;
-
-    ASSERT_EQ(Stock(), stockA);
-}
-
-TEST(TestStock, DivEqualOneShouldNotChange) {
-    Stock stockA({{Resource::PERSON, 1}});
-
-    stockA /= 1;
-
-    ASSERT_EQ(Stock({{Resource::PERSON, 1}}), stockA);
-}
-
-TEST(TestStock, StockOneDivEqualTwoShouldMakeEmpty) {
-    Stock stockA({{Resource::PERSON, 1}});
-
-    stockA /= 2;
-
-    ASSERT_EQ(Stock(), stockA);
-}
-
-TEST(TestStock, DivEqualTwoShouldMakeHalf) {
-    Stock stockA({{Resource::PERSON, 2}});
-
-    stockA /= 2;
-
-    ASSERT_EQ(Stock({{Resource::PERSON, 1}}), stockA);
-}
-
-TEST(TestStock, DivEqualTwoShouldMakeHalfRoundedDown) {
-    Stock stockA({{Resource::PERSON, 3}});
-
-    stockA /= 2;
-
-    ASSERT_EQ(Stock({{Resource::PERSON, 1}}), stockA);
 }
