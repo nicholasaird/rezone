@@ -357,3 +357,12 @@ TEST(TestStock, MinusEqualItselfShouldReturnEmpty) {
 
     ASSERT_EQ(Stock(), stockA);
 }
+
+TEST(TestStock, EmptyMinusEmptyShouldReturnEmpty) {
+    Stock stockA;
+    Stock stockB;
+
+    Stock result = stockA - stockB;
+
+    ASSERT_EQ(Stock(), result);
+}
