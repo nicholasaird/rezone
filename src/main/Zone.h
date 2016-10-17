@@ -19,10 +19,13 @@ public:
     Stock getInputMet();
     Stock getInputAvailable();
     Stock getInputCap();
+    Stock getOutputMet();
+    Stock getOutputAvailable();
     Stock getOutputCap();
     void update(Stock& relief);
     void supplyInput(Stock supply);
     void takeOutput(Stock consumption);
+    void cancelInput(Stock cancelConsumption);
     void cancelOutput(Stock cancelConsumption);
 };
 #endif

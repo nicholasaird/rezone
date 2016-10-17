@@ -26,6 +26,14 @@ Stock Zone::getInputCap() {
     return inputCap;
 }
 
+Stock Zone::getOutputAvailable() {
+    return outputCap - outputMet;
+}
+
+Stock Zone::getOutputMet() {
+    return outputMet;
+}
+
 Stock Zone::getOutputCap() {
     return outputCap;
 }
@@ -44,11 +52,15 @@ void Zone::update(Stock& relief) {
 }
 
 void Zone::supplyInput(Stock supply) {
-    inputMet = inputMet + supply;
+    inputMet += supply;
 }
 
 void Zone::takeOutput(Stock consumption) {
-    outputMet = outputMet + consumption;
+    outputMet += consumption;
+}
+
+void Zone::cancelInput(Stock cancelSupply) {
+    inputMet -= cancelSupply;
 }
 
 void Zone::cancelOutput(Stock cancelConsumption) {

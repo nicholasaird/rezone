@@ -5,6 +5,16 @@
 #include "Stock.h"
 #include "StockPair.h"
 
+void meetAllNeeds(Zone zone) {
+    zone.supplyInput(zone.getInputAvailable());
+    zone.takeOutput(zone.getOutputAvailable());
+}
+
+void meetNoNeeds(Zone zone) {
+    zone.cancelInput(zone.getInputMet());
+    zone.cancelInput(zone.getOutputMet());
+}
+
 TEST(TestZone, WhenInitializedShouldHaveNoInputMet) {
     StockPair simpleRecipe(Stock({{Resource::ELECTRICITY, 1}}), Stock({{Resource::PERSON, 1}}));
     Zone zone(simpleRecipe);
