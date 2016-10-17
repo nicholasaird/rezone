@@ -36,6 +36,11 @@ void Zone::update(Stock& relief) {
         inputCap *= 2;
         outputCap *= 2;
     }
+    else if(!outputMet.supersetOf(outputCap / 2)) {
+        relief += outputCap / 2;
+        inputCap /= 2;
+        outputCap /= 2;
+    }
 }
 
 void Zone::supplyInput(Stock supply) {
@@ -44,4 +49,8 @@ void Zone::supplyInput(Stock supply) {
 
 void Zone::takeOutput(Stock consumption) {
     outputMet = outputMet + consumption;
+}
+
+void Zone::cancelOutput(Stock cancelConsumption) {
+    outputMet -= cancelConsumption;
 }

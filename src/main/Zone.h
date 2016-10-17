@@ -23,5 +23,6 @@ public:
     void update(Stock& relief);
     void supplyInput(Stock supply);
     void takeOutput(Stock consumption);
+    void cancelOutput(Stock cancelConsumption);
 };
 #endif
