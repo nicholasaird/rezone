@@ -23,8 +23,13 @@ public:
 
     bool operator==(const Stock& rhs) const;
     bool operator!=(const Stock& rhs) const;
-    Stock& operator-=(const Stock& rhs);
+    Stock operator-() const;
     Stock& operator*=(const int& mult);
+    Stock& operator/=(const int& mult);
+    Stock& operator-=(const Stock& rhs);
+    Stock& operator+=(const Stock& rhs);
+    Stock operator*(const int& mult) const;
+    Stock operator/(const int& div) const;
     Stock operator-(const Stock& rhs) const;
     Stock operator+(const Stock& rhs) const;
     bool subsetOf(const Stock& rhs) const;
