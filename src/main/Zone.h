@@ -9,5 +9,6 @@ class Zone {
 public:
     Zone();
     virtual ~Zone();
+    Stock getInputMet();
 };
 #endif
