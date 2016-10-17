@@ -223,3 +223,45 @@ TEST(TestStock, DifferentCountsShouldBeNonEqual) {
 
     ASSERT_NE(stockA, stockB);
 }
+
+TEST(TestStock, WhenBothEmptySubsetTrue) {
+    Stock stockA;
+    Stock stockB;
+
+    ASSERT_TRUE(stockA.subsetOf(stockB));
+}
+
+TEST(TestStock, WhenNonEmptySubsetTrue) {
+    Stock stockA;
+    Stock stockB({{Resource::PERSON, 1}});
+
+    ASSERT_TRUE(stockA.subsetOf(stockB));
+}
+
+TEST(TestStock, WhenNonEmptySubsetFalse) {
+    Stock stockA({{Resource::PERSON, 1}});
+    Stock stockB;
+
+    ASSERT_TRUE(!stockA.subsetOf(stockB));
+}
+
+TEST(TestStock, WhenBothEmptySupersetTrue) {
+    Stock stockA;
+    Stock stockB;
+
+    ASSERT_TRUE(stockA.supersetOf(stockB));
+}
+
+TEST(TestStock, WhenNonEmptySupersetTrue) {
+    Stock stockA({{Resource::PERSON, 1}});
+    Stock stockB;
+
+    ASSERT_TRUE(stockA.supersetOf(stockB));
+}
+
+TEST(TestStock, WhenNonEmptySupersetFalse) {
+    Stock stockA;
+    Stock stockB({{Resource::PERSON, 1}});
+
+    ASSERT_TRUE(!stockA.supersetOf(stockB));
+}
