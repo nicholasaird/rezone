@@ -266,7 +266,7 @@ TEST(TestStock, WhenNonEmptySupersetFalse) {
     ASSERT_TRUE(!stockA.supersetOf(stockB));
 }
 
-TEST(TestStock, WhenEmptyMultEqualShouldReturnEmpty) {
+TEST(TestStock, WhenEmptyMultEqualShouldNotChange) {
     Stock stockA;
 
     stockA *= 1;
@@ -274,7 +274,7 @@ TEST(TestStock, WhenEmptyMultEqualShouldReturnEmpty) {
     ASSERT_EQ(Stock(), stockA);
 }
 
-TEST(TestStock, WhenEmptyMultEqualShouldReturnEmpty2) {
+TEST(TestStock, WhenEmptyMultEqualShouldNotChange2) {
     Stock stockA;
 
     stockA *= 2;
@@ -282,7 +282,7 @@ TEST(TestStock, WhenEmptyMultEqualShouldReturnEmpty2) {
     ASSERT_EQ(Stock(), stockA);
 }
 
-TEST(TestStock, WhenEmptyMultEqual0ShouldReturnEmpty) {
+TEST(TestStock, WhenEmptyMultEqual0ShouldNotChange) {
     Stock stockA;
 
     stockA *= 0;
@@ -298,7 +298,7 @@ TEST(TestStock, WhenMultEqual0ShouldBeEmpty) {
     ASSERT_EQ(Stock(), stockA);
 }
 
-TEST(TestStock, WhenMultEqual1ShouldBeSame) {
+TEST(TestStock, WhenMultEqual1ShouldNotChange) {
     Stock stockA({{Resource::PERSON, 1}});
 
     stockA *= 1;
@@ -323,7 +323,7 @@ TEST(TestStock, WhenEmptyMinusEqualEmptyShouldBeEmpty) {
     ASSERT_EQ(Stock(), stockA);
 }
 
-TEST(TestStock, WhenNonEmptyMinusEqualEmptyShouldBeSame) {
+TEST(TestStock, WhenNonEmptyMinusEqualEmptyShouldNotChange) {
     Stock stockA({{Resource::PERSON, 1}});
     Stock stockB;
 
