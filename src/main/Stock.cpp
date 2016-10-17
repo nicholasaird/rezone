@@ -9,19 +9,19 @@ Stock::Stock()
 Stock::Stock(std::map<Resource, int> counts)
     : counts(counts)
 {
-    filterOutLessOrEqualToZero();
+    removeZeros();
 }
 
 Stock::~Stock() {
     //
 }
 
-void Stock::filterOutLessOrEqualToZero() {
+void Stock::removeZeros() {
     for(auto pair : counts) {
         Resource resource = pair.first;
         int count = pair.second;
 
-        if(count <= 0){
+        if(count == 0){
             counts.erase(resource);
         }
     }
@@ -48,6 +48,8 @@ Stock& Stock::operator-=(const Stock& rhs){
         }
     }
 
+    removeZeros();
+
     return *this;
 }
 
@@ -55,6 +57,8 @@ Stock& Stock::operator*=(const int& mult){
     for(auto pair : counts) {
         counts[pair.first] *= mult;
     }
+
+    removeZeros();
 
     return *this;
 }
@@ -75,6 +79,7 @@ Stock Stock::operator-(const Stock& rhs) const {
     }
 
     Stock newCount(newCounts);
+
     return newCount;
 }
 
@@ -130,6 +135,10 @@ std::ostream& operator<<(std::ostream& stream, const Stock& count) {
 
 void Stock::set(Resource resource, int count) {
     counts[resource] = count;
+
+    if(count == 0) {
+        counts.erase(resource);
+    }
 }
 
 int Stock::get(Resource resource) {

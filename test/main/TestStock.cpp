@@ -289,3 +289,11 @@ TEST(TestStock, WhenEmptyMultEqual0ShouldReturnEmpty) {
 
     ASSERT_EQ(Stock(), stockA);
 }
+
+TEST(TestStock, WhenMultEqual0ShouldBeEmpty) {
+    Stock stockA({{Resource::PERSON, 1}});
+
+    stockA *= 0;
+
+    ASSERT_EQ(Stock(), stockA);
+}

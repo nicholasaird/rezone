@@ -15,7 +15,7 @@ public:
     typedef std::map<Resource, int>::const_iterator StockConstIterator;
 
 private:
-    void filterOutLessOrEqualToZero();
+    void removeZeros();
 public:
     Stock();
     Stock(std::map<Resource, int> counts);
