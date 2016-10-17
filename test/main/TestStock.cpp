@@ -468,6 +468,59 @@ TEST(TestStock, APlusEqualMinusAShouldMakeEmpty2) {
     ASSERT_EQ(Stock(), stockA);
 }
 
+TEST(TestStock, EmptyAddEmptyShouldReturnEmpty) {
+    Stock stockA;
+    Stock stockB;
+
+    Stock result = stockA + stockB;
+
+    ASSERT_EQ(Stock(), result);
+}
+
+TEST(TestStock, NonEmptyAddEmptyShouldReturnFirst) {
+    Stock stockA({{Resource::PERSON, 1}});
+    Stock stockB;
+
+    Stock result = stockA + stockB;
+
+    ASSERT_EQ(Stock({{Resource::PERSON, 1}}), result);
+}
+
+TEST(TestStock, APlusBSameResources) {
+    Stock stockA({{Resource::PERSON, 1}});
+    Stock stockB({{Resource::PERSON, 1}});
+
+    Stock result = stockA + stockB;
+
+    ASSERT_EQ(Stock({{Resource::PERSON, 2}}), result);
+}
+
+TEST(TestStock, APlusBDifferentResources) {
+    Stock stockA({{Resource::PERSON, 1}});
+    Stock stockB({{Resource::ELECTRICITY, 1}});
+
+    Stock result = stockA + stockB;
+
+    ASSERT_EQ(Stock({{Resource::PERSON, 1}, {Resource::ELECTRICITY, 1}}), result);
+}
+
+TEST(TestStock, APlusMinusAShouldReturnEmpty) {
+    Stock stockA({{Resource::PERSON, 1}});
+    Stock stockB({{Resource::PERSON, -1}});
+
+    Stock result = stockA + stockB;
+
+    ASSERT_EQ(Stock(), result);
+}
+
+TEST(TestStock, APlusMinusAShouldReturnEmpty2) {
+    Stock stockA({{Resource::PERSON, 1}});
+
+    Stock result = stockA + -stockA;
+
+    ASSERT_EQ(Stock(), result);
+}
+
 TEST(TestStock, EmptyMinusEmptyShouldReturnEmpty) {
     Stock stockA;
     Stock stockB;
