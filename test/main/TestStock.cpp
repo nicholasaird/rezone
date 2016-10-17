@@ -424,6 +424,15 @@ TEST(TestStock, NonEmptyPlusEqualEmptyShouldNotChange) {
     ASSERT_EQ(Stock({{Resource::PERSON, 1}}), stockA);
 }
 
+TEST(TestStock, EmptyPlusEqualNonEmptyShouldMakeNonEmpty) {
+    Stock stockA;
+    Stock stockB({{Resource::PERSON, 1}});
+
+    stockA += stockB;
+
+    ASSERT_EQ(Stock({{Resource::PERSON, 1}}), stockA);
+}
+
 TEST(TestStock, EmptyMinusEmptyShouldReturnEmpty) {
     Stock stockA;
     Stock stockB;
