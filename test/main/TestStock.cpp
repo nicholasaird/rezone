@@ -417,3 +417,11 @@ TEST(TestStock, MinusOfNegativeShouldReturnPositive) {
 
     ASSERT_EQ(Stock({{Resource::PERSON, 1}}), result);
 }
+
+TEST(TestStock, EmptyDivEqualOneShouldNotChange) {
+    Stock stockA;
+
+    stockA /= 1;
+
+    ASSERT_EQ(Stock(), stockA);
+}
