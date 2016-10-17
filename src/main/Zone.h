@@ -15,5 +15,6 @@ public:
     Stock getInputMet();
     Stock getInputCap();
     Stock getOutputCap();
+    void update(Stock relief);
 };
 #endif

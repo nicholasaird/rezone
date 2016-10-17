@@ -21,3 +21,7 @@ Stock Zone::getInputCap() {
 Stock Zone::getOutputCap() {
     return recipe.output;
 }
+
+void Zone::update(Stock relief) {
+    //
+}

@@ -19,3 +19,14 @@ TEST(TestZone, InitialCapsShouldBeSameAsRecipe) {
     ASSERT_EQ(Stock({{Resource::ELECTRICITY, 1}}), zone.getInputCap());
     ASSERT_EQ(Stock({{Resource::PERSON, 1}}), zone.getOutputCap());
 }
+
+TEST(TestZone, WhenNoOutputSoldShouldNotIncreaseCaps) {
+    StockPair simpleRecipe(Stock({{Resource::ELECTRICITY, 1}}), Stock({{Resource::PERSON, 1}}));
+    Zone zone(simpleRecipe);
+
+    Stock relief({{Resource::PERSON, 1}});
+    zone.update(relief);
+
+    ASSERT_EQ(Stock({{Resource::ELECTRICITY, 1}}), zone.getInputCap());
+    ASSERT_EQ(Stock({{Resource::PERSON, 1}}), zone.getOutputCap());
+}
