@@ -265,3 +265,11 @@ TEST(TestStock, WhenNonEmptySupersetFalse) {
 
     ASSERT_TRUE(!stockA.supersetOf(stockB));
 }
+
+TEST(TestStock, WhenEmptyMultEqualShouldReturnEmpty) {
+    Stock stockA;
+
+    stockA *= 1;
+
+    ASSERT_EQ(Stock(), stockA);
+}

@@ -35,6 +35,30 @@ bool Stock::operator!=(const Stock& rhs) const {
     return !(*this == rhs);
 }
 
+Stock& Stock::operator-=(const Stock& rhs){
+    for(auto pair : rhs) {
+        Resource rhsResource = pair.first;
+        int rhsCount = pair.second;
+
+        if(counts.count(rhsResource) > 0) {
+            counts[rhsResource] -= rhsCount;
+        }
+        else {
+            counts[rhsResource] = -rhsCount;
+        }
+    }
+
+    return *this;
+}
+
+Stock& Stock::operator*=(const int& mult){
+    for(auto pair : counts) {
+        counts[pair.first] *= mult;
+    }
+
+    return *this;
+}
+
 Stock Stock::operator-(const Stock& rhs) const {
     std::map<Resource, int> newCounts(counts);
 
@@ -47,6 +71,25 @@ Stock Stock::operator-(const Stock& rhs) const {
         }
         else {
             newCounts[rhsResource] = -rhsCount;
+        }
+    }
+
+    Stock newCount(newCounts);
+    return newCount;
+}
+
+Stock Stock::operator+(const Stock& rhs) const {
+    std::map<Resource, int> newCounts(counts);
+
+    for(auto pair : rhs) {
+        Resource rhsResource = pair.first;
+        int rhsCount = pair.second;
+
+        if(newCounts.count(rhsResource) > 0) {
+            newCounts[rhsResource] = newCounts[rhsResource] + rhsCount;
+        }
+        else {
+            newCounts[rhsResource] = rhsCount;
         }
     }
 
