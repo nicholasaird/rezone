@@ -5,6 +5,8 @@
 #include "StockPair.h"
 
 class Cap {
+private:
+    StockPair recipe;
 public:
     Cap(StockPair recipe);
     void update(Stock relief);
