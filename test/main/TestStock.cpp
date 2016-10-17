@@ -441,3 +441,11 @@ TEST(TestStock, DivEqualOneShouldNotChange) {
 
     ASSERT_EQ(Stock({{Resource::PERSON, 1}}), stockA);
 }
+
+TEST(TestStock, StockOneDivEqualTwoShouldmakeEmpty) {
+    Stock stockA({{Resource::PERSON, 1}});
+
+    stockA /= 2;
+
+    ASSERT_EQ(Stock(), stockA);
+}
