@@ -1,7 +1,9 @@
 #ifndef STOCK_HPP
 #define STOCK_HPP
 
-#include <iostream>  // std::ostream
+#include <algorithm>  // min, min_element
+#include <iostream>  // ostream
+#include <limits>  //numeric_limits
 #include <map>
 #include <utility>
 
@@ -42,6 +44,7 @@ public:
     StockIterator end();
     StockConstIterator begin() const;
     StockConstIterator end() const;
+    int timesItContains(const Stock& other) const;
 };
 
 #endif

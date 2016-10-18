@@ -200,3 +200,24 @@ Stock::StockConstIterator Stock::begin() const {
 Stock::StockConstIterator Stock::end() const {
     return counts.end();
 }
+
+int Stock::timesItContains(const Stock& other) const {
+    if(*this == Stock()) {
+        return 0;
+    }
+    if(!other.subsetOf(*this)) {
+        return 0;
+    }
+
+    int minTimesContained = std::numeric_limits<int>::max();
+
+    for(auto pair : other) {
+        Resource resource = pair.first;
+        int otherCount = pair.second;
+        int count = counts.at(resource);
+
+        minTimesContained = std::min(minTimesContained, count / otherCount);
+    }
+
+    return minTimesContained;
+}
