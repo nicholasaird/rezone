@@ -2,7 +2,7 @@
 
 #include "Stock.h"
 
-TEST(TestStock, EmptyStockShouldHaveAll0) {
+TEST(TestStock, DefaultShouldHaveNoResources) {
     Stock stock;
 
     ASSERT_EQ(0, stock.get(Resource::PERSON));
@@ -10,7 +10,7 @@ TEST(TestStock, EmptyStockShouldHaveAll0) {
     ASSERT_EQ(0, stock.get(Resource::IND_PRODUCT));
 }
 
-TEST(TestStock, SetOnePerson) {
+TEST(TestStock, AddOnePerson) {
     Stock stock;
 
     stock.set(Resource::PERSON, 1);
@@ -18,7 +18,7 @@ TEST(TestStock, SetOnePerson) {
     ASSERT_EQ(1, stock.get(Resource::PERSON));
 }
 
-TEST(TestStock, SetOneComProduct) {
+TEST(TestStock, AddOneComProduct) {
     Stock stock;
 
     stock.set(Resource::COM_PRODUCT, 1);
@@ -26,7 +26,7 @@ TEST(TestStock, SetOneComProduct) {
     ASSERT_EQ(1, stock.get(Resource::COM_PRODUCT));
 }
 
-TEST(TestStock, SetOneIndProduct) {
+TEST(TestStock, AddOneIndProduct) {
     Stock stock;
 
     stock.set(Resource::IND_PRODUCT, 1);
@@ -34,7 +34,7 @@ TEST(TestStock, SetOneIndProduct) {
     ASSERT_EQ(1, stock.get(Resource::IND_PRODUCT));
 }
 
-TEST(TestStock, SetManyPerson) {
+TEST(TestStock, AddManyOfOneResource) {
     Stock stock;
 
     stock.set(Resource::PERSON, 10);
@@ -42,7 +42,7 @@ TEST(TestStock, SetManyPerson) {
     ASSERT_EQ(10, stock.get(Resource::PERSON));
 }
 
-TEST(TestStock, SetVarious) {
+TEST(TestStock, WhenAddingVariousShouldAddThemAll) {
     Stock stock;
 
     stock.set(Resource::PERSON, 1);
@@ -54,7 +54,7 @@ TEST(TestStock, SetVarious) {
     ASSERT_EQ(3, stock.get(Resource::IND_PRODUCT));
 }
 
-TEST(TestStock, SettingShouldAddOnlyThatResource) {
+TEST(TestStock, WhenAddingAResourceShouldOnlyThatResource) {
     Stock stock;
 
     stock.set(Resource::PERSON, 1);
@@ -64,7 +64,7 @@ TEST(TestStock, SettingShouldAddOnlyThatResource) {
     ASSERT_EQ(0, stock.get(Resource::IND_PRODUCT));
 }
 
-TEST(TestStock, StockShouldHaveNewestCount) {
+TEST(TestStock, WhenChangedCountShouldHaveNewestCount) {
     Stock stock;
 
     stock.set(Resource::PERSON, 1);
@@ -135,13 +135,13 @@ TEST(TestStock, WhenOneTypeAndChangedCountShouldIterateOnce) {
     ASSERT_EQ(1, loops);
 }
 
-TEST(TestStock, IterationShouldFindSingleResource) {
+TEST(TestStock, WhenOneResourceShouldIterateOverIt) {
     Stock stock;
     stock.set(Resource::PERSON, 1);
 
     bool found = false;
     for(auto pair : stock) {
-        if(pair.first == Resource::PERSON) {
+        if(pair.first == Resource::PERSON && pair.second == 1) {
             found = true;
         }
     }
@@ -149,7 +149,7 @@ TEST(TestStock, IterationShouldFindSingleResource) {
     ASSERT_TRUE(found);
 }
 
-TEST(TestStock, IterationShouldFindTwoResources) {
+TEST(TestStock, WhenTwoResourcesShouldIterateOverBoth) {
     Stock stock;
     stock.set(Resource::PERSON, 1);
     stock.set(Resource::IND_PRODUCT, 1);
@@ -168,147 +168,141 @@ TEST(TestStock, IterationShouldFindTwoResources) {
     ASSERT_TRUE(foundPerson && foundInd);
 }
 
-TEST(TestStock, IterationShouldProvideCorrectCount) {
-    Stock stock;
-    stock.set(Resource::PERSON, 1);
-
-    bool correctCount = false;
-    for(auto pair : stock) {
-        if(pair.first == Resource::PERSON && pair.second == 1) {
-            correctCount = true;
-        }
-    }
-
-    ASSERT_TRUE(correctCount);
-}
-
-TEST(TestStock, EqualEmptyStocks) {
+TEST(TestStock, WhenBothEmptyShouldBeEqual) {
     Stock stockA;
     Stock stockB;
 
-    ASSERT_EQ(stockA, stockB);
+    ASSERT_TRUE(stockA == stockB);
 }
 
-TEST(TestStock, EqualEmptyStocks2) {
+TEST(TestStock, WhenBothEmptyShouldBeEqual2) {
     Stock stockA({{Resource::PERSON, 0}});
     Stock stockB;
 
-    ASSERT_EQ(stockA, stockB);
+    ASSERT_TRUE(stockA == stockB);
 }
 
-TEST(TestStock, EqualSimpleStocks) {
+TEST(TestStock, WhenSameCountsShouldBeEqual) {
     Stock stockA({{Resource::PERSON, 1}});
     Stock stockB({{Resource::PERSON, 1}});
 
-    ASSERT_EQ(stockA, stockB);
+    ASSERT_TRUE(stockA == stockB);
 }
 
-TEST(TestStock, EmptyAndNonEmptyShouldBeNonEqual) {
+TEST(TestStock, WhenSecondEmptyShouldBeNotEqual) {
     Stock stockA({{Resource::PERSON, 1}});
     Stock stockB;
 
-    ASSERT_NE(stockA, stockB);
+    ASSERT_TRUE(stockA != stockB);
 }
 
-TEST(TestStock, DifferentTypesShouldBeNonEqual) {
+TEST(TestStock, WhenDifferentTypesShouldBeNotEqual) {
     Stock stockA({{Resource::PERSON, 1}});
     Stock stockB({{Resource::IND_PRODUCT, 1}});
 
-    ASSERT_NE(stockA, stockB);
+    ASSERT_TRUE(stockA != stockB);
 }
 
-TEST(TestStock, DifferentCountsShouldBeNonEqual) {
+TEST(TestStock, WhenDifferentCountsShouldBeNotEqual) {
     Stock stockA({{Resource::PERSON, 1}});
     Stock stockB({{Resource::PERSON, 2}});
 
-    ASSERT_NE(stockA, stockB);
+    ASSERT_TRUE(stockA != stockB);
 }
 
-TEST(TestStock, WhenBothEmptySubsetTrue) {
+TEST(TestStock, SubsetWhenBothEmptyShouldReturnTrue) {
     Stock stockA;
     Stock stockB;
 
     ASSERT_TRUE(stockA.subsetOf(stockB));
 }
 
-TEST(TestStock, WhenEmptyAndNonEmptySubsetTrue) {
+TEST(TestStock, SubsetWhenFirstEmptyShouldReturnTrue) {
     Stock stockA;
     Stock stockB({{Resource::PERSON, 1}});
 
     ASSERT_TRUE(stockA.subsetOf(stockB));
 }
 
-TEST(TestStock, WhenBothNonEmptySubsetTrue) {
+TEST(TestStock, SubsetWhenSecondHasLargerCountShouldReturnTrue) {
     Stock stockA({{Resource::PERSON, 1}});
     Stock stockB({{Resource::PERSON, 2}});
 
     ASSERT_TRUE(stockA.subsetOf(stockB));
 }
 
-TEST(TestStock, WhenNonEmptyAndEmptySubsetFalse) {
+TEST(TestStock, SubsetWhenWhenSecondEmptyShouldReturnFalse) {
     Stock stockA({{Resource::PERSON, 1}});
     Stock stockB;
 
     ASSERT_TRUE(!stockA.subsetOf(stockB));
 }
 
-TEST(TestStock, WhenDifferentCountsSubsetFalse) {
+TEST(TestStock, SubsetWhenDifferentCountsShouldReturnFalse) {
     Stock stockA({{Resource::PERSON, 2}});
     Stock stockB({{Resource::PERSON, 1}});
 
     ASSERT_TRUE(!stockA.subsetOf(stockB));
 }
 
-TEST(TestStock, WhenDifferentTypesSubsetFalse) {
+TEST(TestStock, SubsetWhenDifferentTypesShouldReturnFalse) {
     Stock stockA({{Resource::PERSON, 1}});
     Stock stockB({{Resource::ELECTRICITY, 1}});
 
     ASSERT_TRUE(!stockA.subsetOf(stockB));
 }
 
-TEST(TestStock, WhenBothEmptySupersetTrue) {
+TEST(TestStock, SupersetWhenBothEmptyShouldReturnTrue) {
     Stock stockA;
     Stock stockB;
 
     ASSERT_TRUE(stockA.supersetOf(stockB));
 }
 
-TEST(TestStock, WhenNonEmptyAndEmptySupersetTrue) {
+TEST(TestStock, SupersetWhenSecondEmptyShouldReturnTrue) {
     Stock stockA({{Resource::PERSON, 1}});
     Stock stockB;
 
     ASSERT_TRUE(stockA.supersetOf(stockB));
 }
 
-TEST(TestStock, WhenBothNonEmptySupersetTrue) {
+TEST(TestStock, SupersetWhenSecondHasLargerCountShouldReturnTrue) {
     Stock stockA({{Resource::PERSON, 2}});
     Stock stockB({{Resource::PERSON, 1}});
 
     ASSERT_TRUE(stockA.supersetOf(stockB));
 }
 
-TEST(TestStock, WhenEmptyAndNonEmptySupersetFalse) {
+TEST(TestStock, SupersetWhenFirstEmptyShouldReturnFalse) {
     Stock stockA;
     Stock stockB({{Resource::PERSON, 1}});
 
     ASSERT_TRUE(!stockA.supersetOf(stockB));
 }
 
-TEST(TestStock, WhenDifferentCountsSupersetFalse) {
+TEST(TestStock, SupersetWhenSecondHasLargerCountShouldReturnFalse) {
     Stock stockA({{Resource::PERSON, 1}});
     Stock stockB({{Resource::PERSON, 2}});
 
     ASSERT_TRUE(!stockA.supersetOf(stockB));
 }
 
-TEST(TestStock, WhenDifferentTypesSupersetFalse) {
+TEST(TestStock, SupersetWhenDifferentTypesShouldReturnFalse) {
     Stock stockA({{Resource::PERSON, 1}});
     Stock stockB({{Resource::ELECTRICITY, 1}});
 
     ASSERT_TRUE(!stockA.supersetOf(stockB));
 }
 
-TEST(TestStock, WhenEmptyMultEqualShouldNotChange) {
+TEST(TestStock, TimesEqualWhenEmptyAndByZeroShouldMakeEmpty) {
+    Stock stockA;
+
+    stockA *= 0;
+
+    ASSERT_EQ(Stock(), stockA);
+}
+
+TEST(TestStock, TimesEqualWhenEmptyShouldMakeEmpty) {
     Stock stockA;
 
     stockA *= 1;
@@ -316,7 +310,7 @@ TEST(TestStock, WhenEmptyMultEqualShouldNotChange) {
     ASSERT_EQ(Stock(), stockA);
 }
 
-TEST(TestStock, WhenEmptyMultEqualShouldNotChange2) {
+TEST(TestStock, TimesEqualWhenEmptyShouldMakeEmpty2) {
     Stock stockA;
 
     stockA *= 2;
@@ -324,15 +318,7 @@ TEST(TestStock, WhenEmptyMultEqualShouldNotChange2) {
     ASSERT_EQ(Stock(), stockA);
 }
 
-TEST(TestStock, WhenEmptyMultEqual0ShouldNotChange) {
-    Stock stockA;
-
-    stockA *= 0;
-
-    ASSERT_EQ(Stock(), stockA);
-}
-
-TEST(TestStock, WhenMultEqual0ShouldBeEmpty) {
+TEST(TestStock, TimesEqualWhenByZeroShouldMakeEmpty) {
     Stock stockA({{Resource::PERSON, 1}});
 
     stockA *= 0;
@@ -340,7 +326,7 @@ TEST(TestStock, WhenMultEqual0ShouldBeEmpty) {
     ASSERT_EQ(Stock(), stockA);
 }
 
-TEST(TestStock, WhenMultEqual1ShouldNotChange) {
+TEST(TestStock, TimesEqualWhenByOneShouldMakeSame) {
     Stock stockA({{Resource::PERSON, 1}});
 
     stockA *= 1;
@@ -348,7 +334,7 @@ TEST(TestStock, WhenMultEqual1ShouldNotChange) {
     ASSERT_EQ(Stock({{Resource::PERSON, 1}}), stockA);
 }
 
-TEST(TestStock, WhenMultEqual2ShouldBeDouble) {
+TEST(TestStock, TimesEqualWhenByTwoShouldDouble) {
     Stock stockA({{Resource::PERSON, 1}});
 
     stockA *= 2;
@@ -356,7 +342,7 @@ TEST(TestStock, WhenMultEqual2ShouldBeDouble) {
     ASSERT_EQ(Stock({{Resource::PERSON, 2}}), stockA);
 }
 
-TEST(TestStock, EmptyDivEqualOneShouldNotChange) {
+TEST(TestStock, DivEqualWhenEmptyAndShouldMakeEmpty) {
     Stock stockA;
 
     stockA /= 1;
@@ -364,7 +350,7 @@ TEST(TestStock, EmptyDivEqualOneShouldNotChange) {
     ASSERT_EQ(Stock(), stockA);
 }
 
-TEST(TestStock, EmptyDivEqualTwoShouldNotChange) {
+TEST(TestStock, DivEqualWhenEmptyAndShouldMakeEmpty2) {
     Stock stockA;
 
     stockA /= 2;
@@ -372,7 +358,7 @@ TEST(TestStock, EmptyDivEqualTwoShouldNotChange) {
     ASSERT_EQ(Stock(), stockA);
 }
 
-TEST(TestStock, DivEqualOneShouldNotChange) {
+TEST(TestStock, DivEqualWhenByOneShouldMakeSame) {
     Stock stockA({{Resource::PERSON, 1}});
 
     stockA /= 1;
@@ -380,7 +366,7 @@ TEST(TestStock, DivEqualOneShouldNotChange) {
     ASSERT_EQ(Stock({{Resource::PERSON, 1}}), stockA);
 }
 
-TEST(TestStock, StockOneDivEqualTwoShouldMakeEmpty) {
+TEST(TestStock, DivEqualWhenSmallCountAndByTwoShouldMakeEmpty) {
     Stock stockA({{Resource::PERSON, 1}});
 
     stockA /= 2;
@@ -388,7 +374,7 @@ TEST(TestStock, StockOneDivEqualTwoShouldMakeEmpty) {
     ASSERT_EQ(Stock(), stockA);
 }
 
-TEST(TestStock, DivEqualTwoShouldMakeHalf) {
+TEST(TestStock, DivEqualWhenByTwoShouldMakeHalf) {
     Stock stockA({{Resource::PERSON, 2}});
 
     stockA /= 2;
@@ -396,7 +382,7 @@ TEST(TestStock, DivEqualTwoShouldMakeHalf) {
     ASSERT_EQ(Stock({{Resource::PERSON, 1}}), stockA);
 }
 
-TEST(TestStock, DivEqualTwoShouldMakeHalfRoundedDown) {
+TEST(TestStock, DivEqualWhenByTwoShouldMakeHalfRoundedDown) {
     Stock stockA({{Resource::PERSON, 3}});
 
     stockA /= 2;
@@ -404,7 +390,7 @@ TEST(TestStock, DivEqualTwoShouldMakeHalfRoundedDown) {
     ASSERT_EQ(Stock({{Resource::PERSON, 1}}), stockA);
 }
 
-TEST(TestStock, WhenEmptyMinusEqualEmptyShouldBeEmpty) {
+TEST(TestStock, MinusEqualWhenBothEmptyShouldMakeEmpty) {
     Stock stockA;
     Stock stockB;
 
@@ -413,7 +399,7 @@ TEST(TestStock, WhenEmptyMinusEqualEmptyShouldBeEmpty) {
     ASSERT_EQ(Stock(), stockA);
 }
 
-TEST(TestStock, WhenNonEmptyMinusEqualEmptyShouldNotChange) {
+TEST(TestStock, MinusEqualWhenSecondEmptyShouldMakeSame) {
     Stock stockA({{Resource::PERSON, 1}});
     Stock stockB;
 
@@ -422,7 +408,7 @@ TEST(TestStock, WhenNonEmptyMinusEqualEmptyShouldNotChange) {
     ASSERT_EQ(Stock({{Resource::PERSON, 1}}), stockA);
 }
 
-TEST(TestStock, MinusEqualThatShouldReturnEmpty) {
+TEST(TestStock, MinusEqualWhenSameCountsShouldReturnEmpty) {
     Stock stockA({{Resource::PERSON, 1}});
     Stock stockB({{Resource::PERSON, 1}});
 
@@ -431,7 +417,7 @@ TEST(TestStock, MinusEqualThatShouldReturnEmpty) {
     ASSERT_EQ(Stock(), stockA);
 }
 
-TEST(TestStock, MinusEqualThatShouldReturnNonEmpty) {
+TEST(TestStock, MinusEqualWhenFirstHasLargerCountShouldReturnNonEmpty) {
     Stock stockA({{Resource::PERSON, 2}});
     Stock stockB({{Resource::PERSON, 1}});
 
@@ -440,7 +426,7 @@ TEST(TestStock, MinusEqualThatShouldReturnNonEmpty) {
     ASSERT_EQ(Stock({{Resource::PERSON, 1}}), stockA);
 }
 
-TEST(TestStock, MinusEqualItselfShouldReturnEmpty) {
+TEST(TestStock, MinusEqualWhenWithItselfShouldReturnEmpty) {
     Stock stockA({{Resource::PERSON, 2}});
 
     stockA -= stockA;
@@ -448,7 +434,7 @@ TEST(TestStock, MinusEqualItselfShouldReturnEmpty) {
     ASSERT_EQ(Stock(), stockA);
 }
 
-TEST(TestStock, EmptyPlusEqualEmptyShouldReturnEmpty) {
+TEST(TestStock, PlusEmptyWhenBothEmptyShouldMakeEmpty) {
     Stock stockA;
     Stock stockB;
 
@@ -457,7 +443,7 @@ TEST(TestStock, EmptyPlusEqualEmptyShouldReturnEmpty) {
     ASSERT_EQ(Stock(), stockA);
 }
 
-TEST(TestStock, NonEmptyPlusEqualEmptyShouldNotChange) {
+TEST(TestStock, PlusEqualWhenSecondEmptyShouldMakeFirst) {
     Stock stockA({{Resource::PERSON, 1}});
     Stock stockB;
 
@@ -466,7 +452,7 @@ TEST(TestStock, NonEmptyPlusEqualEmptyShouldNotChange) {
     ASSERT_EQ(Stock({{Resource::PERSON, 1}}), stockA);
 }
 
-TEST(TestStock, EmptyPlusEqualNonEmptyShouldMakeNonEmpty) {
+TEST(TestStock, PlusEqualWhenFirstEmptyShouldMakeSecond) {
     Stock stockA;
     Stock stockB({{Resource::PERSON, 1}});
 
@@ -475,7 +461,7 @@ TEST(TestStock, EmptyPlusEqualNonEmptyShouldMakeNonEmpty) {
     ASSERT_EQ(Stock({{Resource::PERSON, 1}}), stockA);
 }
 
-TEST(TestStock, APlusEqualBShouldMakeSum) {
+TEST(TestStock, PlusEqualWhenDifferentCountsShouldMakeSum) {
     Stock stockA({{Resource::PERSON, 1}});
     Stock stockB({{Resource::PERSON, 2}});
 
@@ -484,16 +470,19 @@ TEST(TestStock, APlusEqualBShouldMakeSum) {
     ASSERT_EQ(Stock({{Resource::PERSON, 3}}), stockA);
 }
 
-TEST(TestStock, APlusEqualBShouldMakeSum2) {
+TEST(TestStock, PlusEqualWhenDifferentResourcesShouldMakeSum) {
     Stock stockA({{Resource::PERSON, 1}});
     Stock stockB({{Resource::ELECTRICITY, 1}});
 
     stockA += stockB;
 
-    ASSERT_EQ(Stock({{Resource::PERSON, 1}, {Resource::ELECTRICITY, 1}}), stockA);
+    ASSERT_EQ(
+        Stock({{Resource::PERSON, 1}, {Resource::ELECTRICITY, 1}}),
+        stockA
+    );
 }
 
-TEST(TestStock, APlusEqualMinusAShouldMakeEmpty) {
+TEST(TestStock, PlusEqualWhenWithNegativeEquivalentShouldMakeEmpty) {
     Stock stockA({{Resource::PERSON, 1}});
     Stock stockB({{Resource::PERSON, -1}});
 
@@ -502,7 +491,7 @@ TEST(TestStock, APlusEqualMinusAShouldMakeEmpty) {
     ASSERT_EQ(Stock(), stockA);
 }
 
-TEST(TestStock, APlusEqualMinusAShouldMakeEmpty2) {
+TEST(TestStock, PlusEqualWhenWithItsNegativeShouldMakeEmpty) {
     Stock stockA({{Resource::PERSON, 1}});
 
     stockA += -stockA;
@@ -510,7 +499,7 @@ TEST(TestStock, APlusEqualMinusAShouldMakeEmpty2) {
     ASSERT_EQ(Stock(), stockA);
 }
 
-TEST(TestStock, EmptyTimesZeroReturnsEmpty) {
+TEST(TestStock, TimesWhenEmptyByZeroShouldReturnEmpty) {
     Stock stockA;
 
     Stock result = stockA * 0;
@@ -518,7 +507,7 @@ TEST(TestStock, EmptyTimesZeroReturnsEmpty) {
     ASSERT_EQ(Stock(), result);
 }
 
-TEST(TestStock, EmptyTimesOneReturnsEmpty) {
+TEST(TestStock, TimesWhenEmptyShouldReturnEmpty) {
     Stock stockA;
 
     Stock result = stockA * 1;
@@ -526,7 +515,7 @@ TEST(TestStock, EmptyTimesOneReturnsEmpty) {
     ASSERT_EQ(Stock(), result);
 }
 
-TEST(TestStock, EmptyTimesTwoReturnsEmpty) {
+TEST(TestStock, TimesWhenEmptyShouldReturnEmpty2) {
     Stock stockA;
 
     Stock result = stockA * 2;
@@ -534,7 +523,7 @@ TEST(TestStock, EmptyTimesTwoReturnsEmpty) {
     ASSERT_EQ(Stock(), result);
 }
 
-TEST(TestStock, ATimesZeroReturnsEmpty) {
+TEST(TestStock, TimesWhenByZeroShouldReturnEmpty) {
     Stock stockA({{Resource::PERSON, 1}});
 
     Stock result = stockA * 0;
@@ -542,7 +531,7 @@ TEST(TestStock, ATimesZeroReturnsEmpty) {
     ASSERT_EQ(Stock(), result);
 }
 
-TEST(TestStock, ATimesOneReturnsA) {
+TEST(TestStock, TimesWhenByOneShouldReturnSame) {
     Stock stockA({{Resource::PERSON, 1}});
 
     Stock result = stockA * 1;
@@ -550,7 +539,7 @@ TEST(TestStock, ATimesOneReturnsA) {
     ASSERT_EQ(Stock({{Resource::PERSON, 1}}), result);
 }
 
-TEST(TestStock, ATimesTwoReturnsDouble) {
+TEST(TestStock, TimesWhenMultTwoShouldReturnDouble) {
     Stock stockA({{Resource::PERSON, 1}});
 
     Stock result = stockA * 2;
@@ -558,15 +547,18 @@ TEST(TestStock, ATimesTwoReturnsDouble) {
     ASSERT_EQ(Stock({{Resource::PERSON, 2}}), result);
 }
 
-TEST(TestStock, ATimesTwoReturnsDouble2) {
+TEST(TestStock, TimesWhenMultTwoShouldReturnDouble2) {
     Stock stockA({{Resource::PERSON, 1}, {Resource::ELECTRICITY, 1}});
 
     Stock result = stockA * 2;
 
-    ASSERT_EQ(Stock({{Resource::PERSON, 2}, {Resource::ELECTRICITY, 2}}), result);
+    ASSERT_EQ(
+        Stock({{Resource::PERSON, 2}, {Resource::ELECTRICITY, 2}}),
+        result
+    );
 }
 
-TEST(TestStock, EmptyDiv1ReturnsEmpty) {
+TEST(TestStock, DivWhenEmptyShouldReturnEmpty) {
     Stock stockA;
 
     Stock result = stockA / 1;
@@ -574,7 +566,7 @@ TEST(TestStock, EmptyDiv1ReturnsEmpty) {
     ASSERT_EQ(Stock(), result);
 }
 
-TEST(TestStock, EmptyDiv2ReturnsEmpty) {
+TEST(TestStock, DivWhenEmptyShouldReturnEmpty2) {
     Stock stockA;
 
     Stock result = stockA / 2;
@@ -582,7 +574,7 @@ TEST(TestStock, EmptyDiv2ReturnsEmpty) {
     ASSERT_EQ(Stock(), result);
 }
 
-TEST(TestStock, ADiv1ReturnsA) {
+TEST(TestStock, DivWhenDivByOneShouldReturnSame) {
     Stock stockA({{Resource::PERSON, 1}});
 
     Stock result = stockA / 1;
@@ -590,7 +582,7 @@ TEST(TestStock, ADiv1ReturnsA) {
     ASSERT_EQ(Stock({{Resource::PERSON, 1}}), result);
 }
 
-TEST(TestStock, WhenAIsSmallADiv2ReturnsEmpty) {
+TEST(TestStock, DivWhenSmallShouldReturnEmpty) {
     Stock stockA({{Resource::PERSON, 1}});
 
     Stock result = stockA / 2;
@@ -598,7 +590,7 @@ TEST(TestStock, WhenAIsSmallADiv2ReturnsEmpty) {
     ASSERT_EQ(Stock(), result);
 }
 
-TEST(TestStock, ADiv2ReturnsHalf) {
+TEST(TestStock, DivShouldReturnHalf) {
     Stock stockA({{Resource::PERSON, 2}});
 
     Stock result = stockA / 2;
@@ -606,7 +598,7 @@ TEST(TestStock, ADiv2ReturnsHalf) {
     ASSERT_EQ(Stock({{Resource::PERSON, 1}}), result);
 }
 
-TEST(TestStock, ADiv2ReturnHalfRoundedDown) {
+TEST(TestStock, DivShouldReturnHalfRoundedDown) {
     Stock stockA({{Resource::PERSON, 3}});
 
     Stock result = stockA / 2;
@@ -614,7 +606,7 @@ TEST(TestStock, ADiv2ReturnHalfRoundedDown) {
     ASSERT_EQ(Stock({{Resource::PERSON, 1}}), result);
 }
 
-TEST(TestStock, EmptyAddEmptyShouldReturnEmpty) {
+TEST(TestStock, PlusWhenBothEmptyShouldReturnEmpty) {
     Stock stockA;
     Stock stockB;
 
@@ -623,7 +615,7 @@ TEST(TestStock, EmptyAddEmptyShouldReturnEmpty) {
     ASSERT_EQ(Stock(), result);
 }
 
-TEST(TestStock, NonEmptyAddEmptyShouldReturnFirst) {
+TEST(TestStock, PlusWhenSecondEmptyShouldReturnFirst) {
     Stock stockA({{Resource::PERSON, 1}});
     Stock stockB;
 
@@ -632,7 +624,7 @@ TEST(TestStock, NonEmptyAddEmptyShouldReturnFirst) {
     ASSERT_EQ(Stock({{Resource::PERSON, 1}}), result);
 }
 
-TEST(TestStock, APlusBSameResources) {
+TEST(TestStock, PlusWhenEqualShouldReturnDouble) {
     Stock stockA({{Resource::PERSON, 1}});
     Stock stockB({{Resource::PERSON, 1}});
 
@@ -641,16 +633,19 @@ TEST(TestStock, APlusBSameResources) {
     ASSERT_EQ(Stock({{Resource::PERSON, 2}}), result);
 }
 
-TEST(TestStock, APlusBDifferentResources) {
+TEST(TestStock, PlusWhenDifferentResourcesShouldAdd) {
     Stock stockA({{Resource::PERSON, 1}});
     Stock stockB({{Resource::ELECTRICITY, 1}});
 
     Stock result = stockA + stockB;
 
-    ASSERT_EQ(Stock({{Resource::PERSON, 1}, {Resource::ELECTRICITY, 1}}), result);
+    ASSERT_EQ(
+        Stock({{Resource::PERSON, 1}, {Resource::ELECTRICITY, 1}}),
+        result
+    );
 }
 
-TEST(TestStock, APlusMinusAShouldReturnEmpty) {
+TEST(TestStock, PlusWhenWithNegativeCountShouldReturnEmpty) {
     Stock stockA({{Resource::PERSON, 1}});
     Stock stockB({{Resource::PERSON, -1}});
 
@@ -659,7 +654,7 @@ TEST(TestStock, APlusMinusAShouldReturnEmpty) {
     ASSERT_EQ(Stock(), result);
 }
 
-TEST(TestStock, APlusMinusAShouldReturnEmpty2) {
+TEST(TestStock, PlusWhenWithNegativeOfItselfShouldReturnEmpty) {
     Stock stockA({{Resource::PERSON, 1}});
 
     Stock result = stockA + -stockA;
@@ -667,7 +662,7 @@ TEST(TestStock, APlusMinusAShouldReturnEmpty2) {
     ASSERT_EQ(Stock(), result);
 }
 
-TEST(TestStock, EmptyMinusEmptyShouldReturnEmpty) {
+TEST(TestStock, MinusWhenBothEmptyShouldReturnEmpty) {
     Stock stockA;
     Stock stockB;
 
@@ -676,7 +671,7 @@ TEST(TestStock, EmptyMinusEmptyShouldReturnEmpty) {
     ASSERT_EQ(Stock(), result);
 }
 
-TEST(TestStock, NonEmptyMinusEmptyShouldReturnFirst) {
+TEST(TestStock, MinusWhenSecondEmptyShouldlReturnFirst) {
     Stock stockA({{Resource::PERSON, 1}});
     Stock stockB;
 
@@ -685,7 +680,7 @@ TEST(TestStock, NonEmptyMinusEmptyShouldReturnFirst) {
     ASSERT_EQ(Stock({{Resource::PERSON, 1}}), result);
 }
 
-TEST(TestStock, NonEmptyMinusSameNonEmptyShouldReturnEmpty) {
+TEST(TestStock, MinusWhenSameCountsShouldReturnEmpty) {
     Stock stockA({{Resource::PERSON, 1}});
     Stock stockB({{Resource::PERSON, 1}});
 
@@ -694,7 +689,7 @@ TEST(TestStock, NonEmptyMinusSameNonEmptyShouldReturnEmpty) {
     ASSERT_EQ(Stock(), result);
 }
 
-TEST(TestStock, NonEmptyMinusDifferentNonEmptyShouldReturnNonEmpty) {
+TEST(TestStock, MinusWhenFirstEmptyShouldReturnNonEmpty) {
     Stock stockA({{Resource::PERSON, 2}});
     Stock stockB({{Resource::PERSON, 1}});
 
@@ -703,16 +698,19 @@ TEST(TestStock, NonEmptyMinusDifferentNonEmptyShouldReturnNonEmpty) {
     ASSERT_EQ(Stock({{Resource::PERSON, 1}}), result);
 }
 
-TEST(TestStock, MinusWhenDifferentStockTypesShouldReturnNegativeCount) {
+TEST(TestStock, MinusWhenDifferentResourcesShouldReturnNegativeCount) {
     Stock stockA({{Resource::PERSON, 1}});
     Stock stockB({{Resource::ELECTRICITY, 1}});
 
     Stock result = stockA - stockB;
 
-    ASSERT_EQ(Stock({{Resource::PERSON, 1}, {Resource::ELECTRICITY, -1}}), result);
+    ASSERT_EQ(
+        Stock({{Resource::PERSON, 1}, {Resource::ELECTRICITY, -1}}),
+        result
+    );
 }
 
-TEST(TestStock, EmptyMinusShouldReturnEmpty) {
+TEST(TestStock, UnaryMinusWhenEmptyShouldReturnEmpty) {
     Stock stockA;
 
     Stock result = -stockA;
@@ -720,7 +718,7 @@ TEST(TestStock, EmptyMinusShouldReturnEmpty) {
     ASSERT_EQ(Stock(), result);
 }
 
-TEST(TestStock, NonEmptyMinusShouldReturnNegative) {
+TEST(TestStock, UnaryMinusShouldReturnNegative) {
     Stock stockA({{Resource::PERSON, 1}});
 
     Stock result = -stockA;
@@ -728,7 +726,7 @@ TEST(TestStock, NonEmptyMinusShouldReturnNegative) {
     ASSERT_EQ(Stock({{Resource::PERSON, -1}}), result);
 }
 
-TEST(TestStock, MinusOfNegativeShouldReturnPositive) {
+TEST(TestStock, UnaryMinusWhenNegativeShouldReturnPositive) {
     Stock stockA({{Resource::PERSON, -1}});
 
     Stock result = -stockA;
