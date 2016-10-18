@@ -6,6 +6,7 @@ Zone::Zone(StockPair recipe)
     , outputCap(recipe.output)
     , inputMet()
     , outputMet()
+    , outputProduced()
 {
     //
 }
@@ -27,7 +28,7 @@ Stock Zone::getInputCap() {
 }
 
 Stock Zone::getUntaken() {
-    return outputCap - outputMet;
+    return outputProduced - outputMet;
 }
 
 Stock Zone::getTaken() {
@@ -38,7 +39,7 @@ Stock Zone::getOutputCap() {
     return outputCap;
 }
 
-void Zone::update(Stock& relief) {
+void Zone::updateCap(Stock& relief) {
     if(relief.supersetOf(outputCap) && outputMet.supersetOf(outputCap)) {
         relief -= outputCap;
         inputCap *= 2;
@@ -48,6 +49,16 @@ void Zone::update(Stock& relief) {
         relief += outputCap / 2;
         inputCap /= 2;
         outputCap /= 2;
+    }
+}
+
+void Zone::updateProduction() {
+    if(recipe.input == Stock()) {
+        outputProduced = recipe.output;
+    }
+    else{
+        int recipesSatisfied = inputMet.timesItContains(recipe.input);
+        outputProduced = recipe.output * recipesSatisfied;
     }
 }
 

@@ -9,11 +9,13 @@
 void meetAllNeeds(Zone zone) {
     zone.provide(zone.getUnprovided());
     zone.take(zone.getUntaken());
+    zone.updateProduction();
 }
 
 void meetNoNeeds(Zone zone) {
     zone.unprovide(zone.getProvided());
     zone.unprovide(zone.getTaken());
+    zone.updateProduction();
 }
 
 TEST(TestZone, DefaultShouldHaveNothingProvided) {
@@ -34,14 +36,27 @@ TEST(TestZone, DefaultShouldHaveNothingTaken) {
     StockPair simpleRecipe(Stock({{Resource::ELECTRICITY, 1}}), Stock({{Resource::PERSON, 1}}));
     Zone zone(simpleRecipe);
 
+    zone.updateProduction();
+
     ASSERT_EQ(Stock(), zone.getTaken());
 }
 
-TEST(TestZone, DefaultShouldHaveUntakenSameAsRecipeOutput) {
+TEST(TestZone, WhenDefaultHasNoInputShouldHaveAvailableSameAsRecipeOutput) {
+    StockPair simpleRecipe(Stock(), Stock({{Resource::PERSON, 1}}));
+    Zone zone(simpleRecipe);
+
+    zone.updateProduction();
+
+    ASSERT_EQ(Stock({{Resource::PERSON, 1}}), zone.getUntaken());
+}
+
+TEST(TestZone, WhenDefaultHasInputsShouldHaveNothingAvailable) {
     StockPair simpleRecipe(Stock({{Resource::ELECTRICITY, 1}}), Stock({{Resource::PERSON, 1}}));
     Zone zone(simpleRecipe);
 
-    ASSERT_EQ(Stock({{Resource::PERSON, 1}}), zone.getUntaken());
+    zone.updateProduction();
+
+    ASSERT_EQ(Stock(), zone.getUntaken());
 }
 
 TEST(TestZone, WhenProvidedShouldLowerInputAvailable) {
@@ -75,7 +90,7 @@ TEST(TestZone, WhenNothingTakenShouldNotIncreaseCaps) {
     Zone zone(simpleRecipe);
 
     Stock relief({{Resource::PERSON, 1}});
-    zone.update(relief);
+    zone.updateCap(relief);
 
     ASSERT_EQ(Stock({{Resource::ELECTRICITY, 1}}), zone.getInputCap());
     ASSERT_EQ(Stock({{Resource::PERSON, 1}}), zone.getOutputCap());
@@ -86,9 +101,11 @@ TEST(TestZone, WhenCanIncreaseCapsAndReliefShouldIncreaseCaps) {
     Zone zone(simpleRecipe);
 
     zone.provide(Stock({{Resource::ELECTRICITY, 1}}));
+    zone.updateProduction();
+
     zone.take(Stock({{Resource::PERSON, 1}}));
     Stock relief({{Resource::PERSON, 1}});
-    zone.update(relief);
+    zone.updateCap(relief);
 
     ASSERT_EQ(Stock({{Resource::ELECTRICITY, 2}}), zone.getInputCap());
     ASSERT_EQ(Stock({{Resource::PERSON, 2}}), zone.getOutputCap());
@@ -99,9 +116,11 @@ TEST(TestZone, WhenCanIncreaseCapsButNoReliefShouldNotIncreaseCaps) {
     Zone zone(simpleRecipe);
 
     zone.provide(Stock({{Resource::ELECTRICITY, 1}}));
+    zone.updateProduction();
+
     zone.take(Stock({{Resource::PERSON, 1}}));
     Stock relief;
-    zone.update(relief);
+    zone.updateCap(relief);
 
     ASSERT_EQ(Stock({{Resource::ELECTRICITY, 1}}), zone.getInputCap());
     ASSERT_EQ(Stock({{Resource::PERSON, 1}}), zone.getOutputCap());
@@ -112,12 +131,14 @@ TEST(TestZone, WhenTakenTooLowShouldDecreaseCaps) {
     Zone zone(simpleRecipe);
 
     zone.provide(Stock({{Resource::ELECTRICITY, 1}}));
+    zone.updateProduction();
+
     zone.take(Stock({{Resource::PERSON, 1}}));
     Stock relief({{Resource::PERSON, 1}});
-    zone.update(relief);
+    zone.updateCap(relief);
 
     zone.untake(Stock({{Resource::PERSON, 1}}));
-    zone.update(relief);
+    zone.updateCap(relief);
 
     ASSERT_EQ(Stock({{Resource::ELECTRICITY, 1}}), zone.getInputCap());
     ASSERT_EQ(Stock({{Resource::PERSON, 1}}), zone.getOutputCap());
@@ -126,6 +147,15 @@ TEST(TestZone, WhenTakenTooLowShouldDecreaseCaps) {
 TEST(TestZone, WhenTakeButNothingAvailableShouldThrow) {
     StockPair simpleRecipe(Stock({{Resource::ELECTRICITY, 1}}), Stock({{Resource::PERSON, 1}}));
     Zone zone(simpleRecipe);
+
+    ASSERT_THROW(zone.take(Stock({{Resource::PERSON, 1}})), ResourceException);
+}
+
+TEST(TestZone, WhenProvideButNothingUnprovidedShouldThrow) {
+    StockPair simpleRecipe(Stock({{Resource::ELECTRICITY, 1}}), Stock({{Resource::PERSON, 1}}));
+    Zone zone(simpleRecipe);
+
+    zone.updateProduction();
 
     ASSERT_THROW(zone.provide(Stock({{Resource::PERSON, 1}})), ResourceException);
 }

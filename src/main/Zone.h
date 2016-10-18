@@ -14,6 +14,7 @@ private:
     Stock outputCap;
     Stock inputMet;
     Stock outputMet;
+    Stock outputProduced;
 public:
     Zone(StockPair recipe);
     virtual ~Zone();
@@ -23,7 +24,8 @@ public:
     Stock getTaken();
     Stock getUntaken();
     Stock getOutputCap();
-    void update(Stock& relief);
+    void updateCap(Stock& relief);
+    void updateProduction();
     void provide(Stock supply);
     void take(Stock consumption);
     void unprovide(Stock cancelConsumption);
