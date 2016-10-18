@@ -231,16 +231,37 @@ TEST(TestStock, WhenBothEmptySubsetTrue) {
     ASSERT_TRUE(stockA.subsetOf(stockB));
 }
 
-TEST(TestStock, WhenNonEmptySubsetTrue) {
+TEST(TestStock, WhenEmptyAndNonEmptySubsetTrue) {
     Stock stockA;
     Stock stockB({{Resource::PERSON, 1}});
 
     ASSERT_TRUE(stockA.subsetOf(stockB));
 }
 
-TEST(TestStock, WhenNonEmptySubsetFalse) {
+TEST(TestStock, WhenBothNonEmptySubsetTrue) {
+    Stock stockA({{Resource::PERSON, 1}});
+    Stock stockB({{Resource::PERSON, 2}});
+
+    ASSERT_TRUE(stockA.subsetOf(stockB));
+}
+
+TEST(TestStock, WhenNonEmptyAndEmptySubsetFalse) {
     Stock stockA({{Resource::PERSON, 1}});
     Stock stockB;
+
+    ASSERT_TRUE(!stockA.subsetOf(stockB));
+}
+
+TEST(TestStock, WhenDifferentCountsSubsetFalse) {
+    Stock stockA({{Resource::PERSON, 2}});
+    Stock stockB({{Resource::PERSON, 1}});
+
+    ASSERT_TRUE(!stockA.subsetOf(stockB));
+}
+
+TEST(TestStock, WhenDifferentTypesSubsetFalse) {
+    Stock stockA({{Resource::PERSON, 1}});
+    Stock stockB({{Resource::ELECTRICITY, 1}});
 
     ASSERT_TRUE(!stockA.subsetOf(stockB));
 }
@@ -252,16 +273,37 @@ TEST(TestStock, WhenBothEmptySupersetTrue) {
     ASSERT_TRUE(stockA.supersetOf(stockB));
 }
 
-TEST(TestStock, WhenNonEmptySupersetTrue) {
+TEST(TestStock, WhenNonEmptyAndEmptySupersetTrue) {
     Stock stockA({{Resource::PERSON, 1}});
     Stock stockB;
 
     ASSERT_TRUE(stockA.supersetOf(stockB));
 }
 
-TEST(TestStock, WhenNonEmptySupersetFalse) {
+TEST(TestStock, WhenBothNonEmptySupersetTrue) {
+    Stock stockA({{Resource::PERSON, 2}});
+    Stock stockB({{Resource::PERSON, 1}});
+
+    ASSERT_TRUE(stockA.supersetOf(stockB));
+}
+
+TEST(TestStock, WhenEmptyAndNonEmptySupersetFalse) {
     Stock stockA;
     Stock stockB({{Resource::PERSON, 1}});
+
+    ASSERT_TRUE(!stockA.supersetOf(stockB));
+}
+
+TEST(TestStock, WhenDifferentCountsSupersetFalse) {
+    Stock stockA({{Resource::PERSON, 1}});
+    Stock stockB({{Resource::PERSON, 2}});
+
+    ASSERT_TRUE(!stockA.supersetOf(stockB));
+}
+
+TEST(TestStock, WhenDifferentTypesSupersetFalse) {
+    Stock stockA({{Resource::PERSON, 1}});
+    Stock stockB({{Resource::ELECTRICITY, 1}});
 
     ASSERT_TRUE(!stockA.supersetOf(stockB));
 }
