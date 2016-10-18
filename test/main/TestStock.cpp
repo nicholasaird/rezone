@@ -703,6 +703,15 @@ TEST(TestStock, NonEmptyMinusDifferentNonEmptyShouldReturnNonEmpty) {
     ASSERT_EQ(Stock({{Resource::PERSON, 1}}), result);
 }
 
+TEST(TestStock, MinusWhenDifferentStockTypesShouldReturnNegativeCount) {
+    Stock stockA({{Resource::PERSON, 1}});
+    Stock stockB({{Resource::ELECTRICITY, 1}});
+
+    Stock result = stockA - stockB;
+
+    ASSERT_EQ(Stock({{Resource::PERSON, 1}, {Resource::ELECTRICITY, -1}}), result);
+}
+
 TEST(TestStock, EmptyMinusShouldReturnEmpty) {
     Stock stockA;
 
