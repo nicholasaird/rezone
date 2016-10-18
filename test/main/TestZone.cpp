@@ -30,6 +30,20 @@ TEST(TestZone, DefaultUnprovidedShouldBeSameAsRecipeInput) {
     ASSERT_EQ(Stock({{Resource::ELECTRICITY, 1}}), zone.getUnprovided());
 }
 
+TEST(TestZone, DefaultShouldHaveNothingTaken) {
+    StockPair simpleRecipe(Stock({{Resource::ELECTRICITY, 1}}), Stock({{Resource::PERSON, 1}}));
+    Zone zone(simpleRecipe);
+
+    ASSERT_EQ(Stock(), zone.getTaken());
+}
+
+TEST(TestZone, DefaultShouldHaveUntakenSameAsRecipeOutput) {
+    StockPair simpleRecipe(Stock({{Resource::ELECTRICITY, 1}}), Stock({{Resource::PERSON, 1}}));
+    Zone zone(simpleRecipe);
+
+    ASSERT_EQ(Stock({{Resource::PERSON, 1}}), zone.getUntaken());
+}
+
 TEST(TestZone, WhenProvidedShouldLowerInputAvailable) {
     StockPair simpleRecipe(Stock({{Resource::ELECTRICITY, 1}}), Stock({{Resource::PERSON, 1}}));
     Zone zone(simpleRecipe);
