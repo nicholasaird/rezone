@@ -14,11 +14,11 @@ Zone::~Zone() {
     //
 }
 
-Stock Zone::getInputAvailable() {
+Stock Zone::getUnprovided() {
     return inputCap - inputMet;
 }
 
-Stock Zone::getInputMet() {
+Stock Zone::getProvided() {
     return inputMet;
 }
 
@@ -26,11 +26,11 @@ Stock Zone::getInputCap() {
     return inputCap;
 }
 
-Stock Zone::getOutputAvailable() {
+Stock Zone::getUntaken() {
     return outputCap - outputMet;
 }
 
-Stock Zone::getOutputMet() {
+Stock Zone::getTaken() {
     return outputMet;
 }
 
@@ -51,26 +51,26 @@ void Zone::update(Stock& relief) {
     }
 }
 
-void Zone::supplyInput(Stock supply) {
-    if(!supply.subsetOf(getInputAvailable())) {
+void Zone::provide(Stock provided) {
+    if(!provided.subsetOf(getUnprovided())) {
         throw ResourceException("Too many resources to receive");
     }
 
-    inputMet += supply;
+    inputMet += provided;
 }
 
-void Zone::takeOutput(Stock consumption) {
-    if(!consumption.subsetOf(getOutputAvailable())) {
+void Zone::take(Stock taken) {
+    if(!taken.subsetOf(getUntaken())) {
         throw ResourceException("Not enough resources to take");
     }
 
-    outputMet += consumption;
+    outputMet += taken;
 }
 
-void Zone::cancelInput(Stock cancelSupply) {
+void Zone::unprovide(Stock cancelSupply) {
     inputMet -= cancelSupply;
 }
 
-void Zone::cancelOutput(Stock cancelConsumption) {
+void Zone::untake(Stock cancelConsumption) {
     outputMet -= cancelConsumption;
 }
