@@ -148,9 +148,6 @@ int Stock::timesItContains(const Stock& other) const {
     if(*this == Stock()) {
         return 0;
     }
-    if(!other.subsetOf(*this)) {
-        return 0;
-    }
 
     int minTimesContained = std::numeric_limits<int>::max();
 
