@@ -33,8 +33,8 @@ int NonZeroResourceMap::get(Resource resource) const{
     }
 }
 
-int NonZeroResourceMap::set(Resource resource, int val){
-    return map[resource] = val;
+void NonZeroResourceMap::set(Resource resource, int val){
+    map[resource] = val;
 
     removeIfZero(resource, val);
 }
@@ -47,18 +47,18 @@ bool NonZeroResourceMap::operator!=(const NonZeroResourceMap& rhs) const {
     return !(*this == rhs);
 }
 
-NonZeroResourceMap::NonZeroResourceMapIterator NonZeroResourceMap::begin() {
+// NonZeroResourceMap::iterator NonZeroResourceMap::begin() {
+//     return map.begin();
+// }
+//
+// NonZeroResourceMap::iterator NonZeroResourceMap::end() {
+//     return map.end();
+// }
+
+NonZeroResourceMap::const_iterator NonZeroResourceMap::begin() const {
     return map.begin();
 }
 
-NonZeroResourceMap::NonZeroResourceMapIterator NonZeroResourceMap::end() {
-    return map.end();
-}
-
-NonZeroResourceMap::NonZeroResourceMapConstIterator NonZeroResourceMap::begin() const {
-    return map.begin();
-}
-
-NonZeroResourceMap::NonZeroResourceMapConstIterator NonZeroResourceMap::end() const {
+NonZeroResourceMap::const_iterator NonZeroResourceMap::end() const {
     return map.end();
 }
