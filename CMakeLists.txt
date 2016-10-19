@@ -28,14 +28,14 @@ add_subdirectory(ext/googletest)
 include_directories(${gtest_SOURCE_DIR}/include ${gtest_SOURCE_DIR})
 
 # Tests
-file(GLOB files_src_test test/main/*.cpp)
+file(GLOB_RECURSE files_src_test test/main/*.cpp)
 add_executable(testMain ${files_src_test})
 set_property(TARGET testMain PROPERTY OUTPUT_NAME test)
 target_link_libraries(testMain mainLib gtest gmock gmock_main pthread)
 add_test(test test)  # so that ctest finds the tests
 
 # MainLib
-file(GLOB files_src_main src/main/*.cpp)
+file(GLOB_RECURSE files_src_main src/main/*.cpp)
 add_library(mainLib STATIC ${files_src_main})
 target_include_directories(mainLib INTERFACE "src/main")
 
