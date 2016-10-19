@@ -22,7 +22,7 @@ TEST(TestMap, WhenIterationByValueShouldNotChangeValue) {
     ASSERT_EQ(1, map[1]);
 }
 
-TEST(TestMap, WhenIteratingByReferenceAndEraseShouldNotThrow) {
+TEST(TestMap, WhenIteratingByReferenceAndEraseShouldWork) {
     std::map<int, int> map({{1, 1}});
 
     for(auto& pair : map) {
@@ -30,4 +30,20 @@ TEST(TestMap, WhenIteratingByReferenceAndEraseShouldNotThrow) {
     }
 
     ASSERT_EQ(0, map.count(1));
+}
+
+TEST(TestMap, WhenIteratingByReferenceAndEraseShouldWork2) {
+    std::map<int, int> map({{1, 1}, {10, 10}});
+
+    for(auto& pair : map) {
+        if(pair.first == 1) {
+            map.erase(pair.first);
+        }
+        else {
+            pair.second = 20;
+        }
+    }
+
+    ASSERT_EQ(0, map.count(1));
+    ASSERT_EQ(20, map[10]);
 }
