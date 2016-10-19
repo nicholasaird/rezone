@@ -21,3 +21,13 @@ TEST(TestMap, WhenIterationByValueShouldNotChangeValue) {
 
     ASSERT_EQ(1, map[1]);
 }
+
+TEST(TestMap, WhenIteratingByReferenceAndEraseShouldNotThrow) {
+    std::map<int, int> map({{1, 1}});
+
+    for(auto& pair : map) {
+        map.erase(pair.first);
+    }
+
+    ASSERT_EQ(0, map.count(1));
+}
