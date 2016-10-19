@@ -1,153 +1,107 @@
 #include "Stock.h"
 
 Stock::Stock()
-    : counts()
+    : map()
 {
     //
 }
 
 Stock::Stock(std::map<Resource, int> counts)
-    : counts(counts)
+    : map(counts)
 {
-    removeZeros();
+    //
+}
+
+Stock::Stock(NonZeroResourceMap map)
+    : map(map)
+{
+    //
 }
 
 Stock::~Stock() {
     //
 }
 
-void Stock::removeZeros() {
-    for(auto pair : counts) {
-        Resource resource = pair.first;
-        int count = pair.second;
-
-        if(count == 0){
-            counts.erase(resource);
-        }
-    }
-}
-
 bool Stock::operator==(const Stock& rhs) const {
-    return this->counts == rhs.counts;
+    return map == rhs.map;
 }
 
 bool Stock::operator!=(const Stock& rhs) const {
     return !(*this == rhs);
 }
 
-Stock Stock::operator-() const{
-    Stock newStock(counts);
-    for(auto pair : newStock.counts) {
-        newStock.counts[pair.first] = -pair.second;
+Stock Stock::operator-() const {
+    NonZeroResourceMap newMap(map);
+    for(const auto& pair : newMap) {
+        newMap.set(pair.first, -pair.second);
     }
 
-    return newStock;
+    return Stock(newMap);
 }
 
-Stock& Stock::operator-=(const Stock& rhs){
+Stock& Stock::operator-=(const Stock& rhs) {
     return *this += -rhs;
 }
 
-Stock& Stock::operator+=(const Stock& rhs){
-    for(auto pair : rhs) {
-        Resource rhsResource = pair.first;
-        int rhsCount = pair.second;
-
-        if(counts.count(rhsResource) > 0) {
-            counts[rhsResource] += rhsCount;
-        }
-        else {
-            counts[rhsResource] = rhsCount;
-        }
+Stock& Stock::operator+=(const Stock& rhs) {
+    for(const auto& pair : rhs.map) {
+        map.set(pair.first, map.get(pair.first) + pair.second);
     }
-
-    removeZeros();
 
     return *this;
 }
 
-Stock& Stock::operator*=(const int& mult){
-    for(auto pair : counts) {
-        counts[pair.first] *= mult;
+Stock& Stock::operator*=(const int& mult) {
+    for(const auto& pair : map) {
+        map.set(pair.first, map.get(pair.first) * mult);
     }
-
-    removeZeros();
 
     return *this;
 }
 
-Stock& Stock::operator/=(const int& div){
-    for(auto pair : counts) {
-        counts[pair.first] /= div;
+Stock& Stock::operator/=(const int& div) {
+    for(const auto& pair : map) {
+        map.set(pair.first, map.get(pair.first) / div);
     }
-
-    removeZeros();
 
     return *this;
 }
 
 Stock Stock::operator*(const int& mult) const {
-    Stock newStock(counts);
+    Stock newStock(map);
 
     return newStock *= mult;
 }
 
 Stock Stock::operator/(const int& div) const {
-    Stock newStock(counts);
+    Stock newStock(map);
 
     return newStock /= div;
 }
 
 Stock Stock::operator-(const Stock& rhs) const {
-    std::map<Resource, int> newCounts(counts);
+    NonZeroResourceMap newMap(map);
 
-    for(auto pair : rhs) {
-        Resource rhsResource = pair.first;
-        int rhsCount = pair.second;
-
-        if(newCounts.count(rhsResource) > 0) {
-            newCounts[rhsResource] = newCounts[rhsResource] - rhsCount;
-        }
-        else {
-            newCounts[rhsResource] = -rhsCount;
-        }
+    for(const auto& pair : rhs.map) {
+        newMap.set(pair.first, map.get(pair.first) - pair.second);
     }
 
-    Stock newCount(newCounts);
-
-    return newCount;
+    return Stock(newMap);
 }
 
 Stock Stock::operator+(const Stock& rhs) const {
-    std::map<Resource, int> newCounts(counts);
+    NonZeroResourceMap newMap(map);
 
-    for(auto pair : rhs) {
-        Resource rhsResource = pair.first;
-        int rhsCount = pair.second;
-
-        if(newCounts.count(rhsResource) > 0) {
-            newCounts[rhsResource] = newCounts[rhsResource] + rhsCount;
-        }
-        else {
-            newCounts[rhsResource] = rhsCount;
-        }
+    for(const auto& pair : rhs.map) {
+        newMap.set(pair.first, newMap.get(pair.first) + pair.second);
     }
 
-    Stock newCount(newCounts);
-    return newCount;
+    return Stock(newMap);
 }
 
 bool Stock::subsetOf(const Stock& rhs) const {
-    std::map<Resource, int> otherCounts = rhs.counts;
-
-    for(auto pair : counts) {
-        Resource resource = pair.first;
-        int count = pair.second;
-
-        if(otherCounts.count(resource) < 1) {
-            return false;
-        }
-        else if (otherCounts[resource] < count) {
+    for(const auto& pair : map) {
+        if(map.get(pair.first) > rhs.map.get(pair.first)) {
             return false;
         }
     }
@@ -156,49 +110,38 @@ bool Stock::subsetOf(const Stock& rhs) const {
 }
 
 bool Stock::supersetOf(const Stock& rhs) const {
-    return rhs.subsetOf(*this);
+    for(const auto& pair : rhs.map) {
+        if(rhs.map.get(pair.first) > map.get(pair.first)) {
+            return false;
+        }
+    }
+
+    return true;
 }
 
-std::ostream& operator<<(std::ostream& stream, const Stock& count) {
+std::ostream& operator<<(std::ostream& stream, const Stock& stock) {
     stream << "{";
-    for(auto pair : count.counts) {
+    for(const auto& pair : stock.map) {
         stream << "{" << pair.first << ", " << pair.second << "}";
     }
     stream << "}";
     return stream;
 }
 
-void Stock::set(Resource resource, int count) {
-    counts[resource] = count;
-
-    if(count == 0) {
-        counts.erase(resource);
-    }
+void Stock::set(Resource resource, int val) {
+    map.set(resource, val);
 }
 
 int Stock::get(Resource resource) {
-    if(counts.count(resource) > 0) {
-        return counts[resource];
-    }
-    else {
-        return 0;
-    }
+    return map.get(resource);
 }
 
-Stock::StockIterator Stock::begin() {
-    return counts.begin();
+Stock::const_iterator Stock::begin() const {
+    return map.begin();
 }
 
-Stock::StockIterator Stock::end() {
-    return counts.end();
-}
-
-Stock::StockConstIterator Stock::begin() const {
-    return counts.begin();
-}
-
-Stock::StockConstIterator Stock::end() const {
-    return counts.end();
+Stock::const_iterator Stock::end() const {
+    return map.end();
 }
 
 int Stock::timesItContains(const Stock& other) const {
@@ -211,10 +154,9 @@ int Stock::timesItContains(const Stock& other) const {
 
     int minTimesContained = std::numeric_limits<int>::max();
 
-    for(auto pair : other) {
-        Resource resource = pair.first;
+    for(const auto& pair : other.map) {
         int otherCount = pair.second;
-        int count = counts.at(resource);
+        int count = map.get(pair.first);
 
         minTimesContained = std::min(minTimesContained, count / otherCount);
     }

@@ -8,19 +8,19 @@
 #include <utility>
 
 #include "Resource.h"
+#include "NonZeroResourceMap.h"
 
 class Stock {
 private:
-    std::map<Resource, int> counts;
+    NonZeroResourceMap map;
 public:
-    typedef std::map<Resource, int>::iterator StockIterator;
-    typedef std::map<Resource, int>::const_iterator StockConstIterator;
+    typedef NonZeroResourceMap::const_iterator const_iterator;
 
 private:
-    void removeZeros();
 public:
     Stock();
     Stock(std::map<Resource, int> counts);
+    Stock(NonZeroResourceMap map);
     virtual ~Stock();
 
     bool operator==(const Stock& rhs) const;
@@ -40,10 +40,8 @@ public:
 
     void set(Resource resource, int count);
     int get(Resource resource);
-    StockIterator begin();
-    StockIterator end();
-    StockConstIterator begin() const;
-    StockConstIterator end() const;
+    const_iterator begin() const;
+    const_iterator end() const;
     int timesItContains(const Stock& other) const;
 };
 
