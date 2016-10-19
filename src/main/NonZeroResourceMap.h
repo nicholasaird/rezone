@@ -7,7 +7,6 @@
 
 class NonZeroResourceMap {
 public:
-    // typedef std::map<Resource, int>::iterator iterator;
     typedef std::map<Resource, int>::const_iterator const_iterator;
 private:
     std::map<Resource, int> map;
@@ -21,8 +20,6 @@ public:
     bool operator==(const NonZeroResourceMap& rhs) const;
     bool operator!=(const NonZeroResourceMap& rhs) const;
 
-    // iterator begin();
-    // iterator end();
     const_iterator begin() const;
     const_iterator end() const;
 private:

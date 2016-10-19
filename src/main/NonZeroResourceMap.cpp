@@ -47,14 +47,6 @@ bool NonZeroResourceMap::operator!=(const NonZeroResourceMap& rhs) const {
     return !(*this == rhs);
 }
 
-// NonZeroResourceMap::iterator NonZeroResourceMap::begin() {
-//     return map.begin();
-// }
-//
-// NonZeroResourceMap::iterator NonZeroResourceMap::end() {
-//     return map.end();
-// }
-
 NonZeroResourceMap::const_iterator NonZeroResourceMap::begin() const {
     return map.begin();
 }
