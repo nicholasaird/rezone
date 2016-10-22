@@ -1,34 +1,55 @@
+#include<tuple>
+
 #include "gtest/gtest.h"
 
 #include "Stock.h"
 
-namespace DivTest {
-    struct TestData {
-        Stock expected;
-        Stock input;
-        int div;
-    };
+class TestStockDivParam : public testing::TestWithParam<std::tuple<Stock, int, Stock> > {
+    //
+};
 
-    class DivTest : public testing::TestWithParam<TestData> {
-        //
-    };
+TEST_P(TestStockDivParam, ) {
+    Stock stockA;
+    int div;
+    Stock expected;
+    std::tie(stockA, div, expected) = GetParam();
 
-    TEST_P(DivTest, ) {
-        auto params = GetParam();
-
-        ASSERT_EQ(params.expected, params.input / params.div);
-    }
-
-    INSTANTIATE_TEST_CASE_P(
-        /* */,
-        DivTest,
-        testing::Values(
-            TestData{Stock(), Stock(), 1},
-            TestData{Stock(), Stock(), 2},
-            TestData{Stock({{Resource::PERSON, 1}}), Stock({{Resource::PERSON, 1}}), 1},
-            TestData{Stock(), Stock({{Resource::PERSON, 1}}), 2},
-            TestData{Stock({{Resource::PERSON, 1}}), Stock({{Resource::PERSON, 2}}), 2},
-            TestData{Stock({{Resource::PERSON, 1}}), Stock({{Resource::PERSON, 3}}), 2}
-        )
-    );
+    ASSERT_EQ(expected, stockA / div);
 }
+
+INSTANTIATE_TEST_CASE_P(
+    /* */,
+    TestStockDivParam,
+    testing::Values(
+        std::make_tuple(
+            Stock()
+            , 1
+            , Stock()
+        )
+        , std::make_tuple(
+            Stock()
+            , 2
+            , Stock()
+        )
+        , std::make_tuple(
+            Stock({{Resource::PERSON, 1}})
+            , 1
+            , Stock({{Resource::PERSON, 1}})
+        )
+        , std::make_tuple(
+            Stock({{Resource::PERSON, 1}})
+            , 2
+            , Stock()
+        )
+        , std::make_tuple(
+            Stock({{Resource::PERSON, 2}})
+            , 2
+            , Stock({{Resource::PERSON, 1}})
+        )
+        , std::make_tuple(
+            Stock({{Resource::PERSON, 3}})
+            , 2
+            , Stock({{Resource::PERSON, 1}})
+        )
+    )
+);

@@ -1,51 +1,62 @@
+#include <tuple>
+
 #include "gtest/gtest.h"
 
 #include "Stock.h"
 
-TEST(TestStock, TimesEqualWhenEmptyAndByZeroShouldMakeEmpty) {
+class TestStockTimesEqualParam : public testing::TestWithParam<std::tuple<Stock, int, Stock> > {
+    //
+};
+
+TEST_P(TestStockTimesEqualParam, ) {
     Stock stockA;
+    int mult;
+    Stock expected;
+    std::tie(stockA, mult, expected) = GetParam();
 
-    stockA *= 0;
+    stockA *= mult;
 
-    ASSERT_EQ(Stock(), stockA);
+    ASSERT_EQ(expected, stockA);
 }
 
-TEST(TestStock, TimesEqualWhenEmptyShouldMakeEmpty) {
-    Stock stockA;
-
-    stockA *= 1;
-
-    ASSERT_EQ(Stock(), stockA);
-}
-
-TEST(TestStock, TimesEqualWhenEmptyShouldMakeEmpty2) {
-    Stock stockA;
-
-    stockA *= 2;
-
-    ASSERT_EQ(Stock(), stockA);
-}
-
-TEST(TestStock, TimesEqualWhenByZeroShouldMakeEmpty) {
-    Stock stockA({{Resource::PERSON, 1}});
-
-    stockA *= 0;
-
-    ASSERT_EQ(Stock(), stockA);
-}
-
-TEST(TestStock, TimesEqualWhenByOneShouldMakeSame) {
-    Stock stockA({{Resource::PERSON, 1}});
-
-    stockA *= 1;
-
-    ASSERT_EQ(Stock({{Resource::PERSON, 1}}), stockA);
-}
-
-TEST(TestStock, TimesEqualWhenByTwoShouldDouble) {
-    Stock stockA({{Resource::PERSON, 1}});
-
-    stockA *= 2;
-
-    ASSERT_EQ(Stock({{Resource::PERSON, 2}}), stockA);
-}
+INSTANTIATE_TEST_CASE_P(
+    /* */,
+    TestStockTimesEqualParam,
+    testing::Values(
+        std::make_tuple(
+            Stock()
+            , 0
+            , Stock()
+        )
+        , std::make_tuple(
+            Stock()
+            , 1
+            , Stock()
+        )
+        , std::make_tuple(
+            Stock()
+            , 2
+            , Stock()
+        )
+        , std::make_tuple(
+            Stock({{Resource::PERSON, 1}})
+            , 0
+            , Stock()
+        )
+        , std::make_tuple(
+            Stock({{Resource::PERSON, 1}})
+            , 1
+            , Stock({{Resource::PERSON, 1}})
+        )
+        , std::make_tuple(
+            Stock({{Resource::PERSON, 1}})
+            , 2
+            , Stock({{Resource::PERSON, 2}})
+        )
+        , std::make_tuple(
+            Stock({{Resource::PERSON, 1}, {Resource::ELECTRICITY, 1}})
+            , 2
+            , Stock({{Resource::PERSON, 2}, {Resource::ELECTRICITY, 2}})
+        )
+    )
+);

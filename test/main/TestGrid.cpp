@@ -1,4 +1,5 @@
 #include <string>
+#include <tuple>
 
 #include "gtest/gtest.h"
 #include "Grid.h"
@@ -13,7 +14,7 @@ TEST(TestGrid, ShouldReturnValueStored) {
     ASSERT_EQ(10, result);
 }
 
-TEST(TestGrid, CanOverwriteValue) {
+TEST(TestGrid, ShouldOverwriteValue) {
     Grid<int> grid(1, 1);
 
     grid(0, 0) = 10;
@@ -23,7 +24,7 @@ TEST(TestGrid, CanOverwriteValue) {
     ASSERT_EQ(20, result);
 }
 
-TEST(TestGrid, IntValueStoredIsACopy) {
+TEST(TestGrid, IntValueStoredShouldBeACopy) {
     Grid<int> grid(1, 1);
 
     int value = 10;
@@ -33,7 +34,7 @@ TEST(TestGrid, IntValueStoredIsACopy) {
     ASSERT_EQ(10, grid(0, 0));
 }
 
-TEST(TestGrid, StringValueStoredIsACopy) {
+TEST(TestGrid, StringValueStoredShouldBeACopy) {
     Grid<std::string> grid(1, 1);
 
     std::string value = "hello";
@@ -43,7 +44,7 @@ TEST(TestGrid, StringValueStoredIsACopy) {
     ASSERT_EQ("hello", grid(0, 0));
 }
 
-TEST(TestGrid, ObjecValueStoredIsACopy) {
+TEST(TestGrid, ObjecValueStoredShouldBeACopy) {
     class MyObject {
     public:
         int value;
@@ -59,7 +60,7 @@ TEST(TestGrid, ObjecValueStoredIsACopy) {
     ASSERT_EQ(10, grid(0, 0).value);
 }
 
-TEST(TestGrid, OneDimensionalGridStoresValuesCorrectly) {
+TEST(TestGrid, ShouldStoresValuesCorrectly) {
     Grid<int> grid(1, 2);
 
     grid(0, 0) = 10;
@@ -69,7 +70,7 @@ TEST(TestGrid, OneDimensionalGridStoresValuesCorrectly) {
     ASSERT_EQ(20, grid(0, 1));
 }
 
-TEST(TestGrid, TwoDimensionalGridStoresValuesCorrectly) {
+TEST(TestGrid, ShouldStoresValuesCorrectly2) {
     Grid<int> grid(2, 2);
 
     grid(0, 0) = 0;
@@ -83,30 +84,42 @@ TEST(TestGrid, TwoDimensionalGridStoresValuesCorrectly) {
     ASSERT_EQ(11, grid(1, 1));
 }
 
-TEST(TestGrid, DimensionsWhenZeroByZeroGrid) {
-    Grid<int> grid(0, 0);
+class TestGridDimensionsParam : public testing::TestWithParam<std::tuple<int, int> > {
+    //
+};
 
-    ASSERT_EQ(0, grid.getWidth());
-    ASSERT_EQ(0, grid.getHeight());
+TEST_P(TestGridDimensionsParam, ) {
+    int width;
+    int height;
+    std::tie(width, height) = GetParam();
+    int expectedWidth = width;
+    int expectedHeight = height;
+
+    Grid<int> grid(width, height);
+
+    ASSERT_EQ(expectedWidth, grid.getWidth());
+    ASSERT_EQ(expectedHeight, grid.getHeight());
 }
 
-TEST(TestGrid, DimensionsWhenOneByOneGrid) {
-    Grid<int> grid(1, 1);
-
-    ASSERT_EQ(1, grid.getWidth());
-    ASSERT_EQ(1, grid.getHeight());
-}
-
-TEST(TestGrid, DimensionsWhenTwoByOneGrid) {
-    Grid<int> grid(2, 1);
-
-    ASSERT_EQ(2, grid.getWidth());
-    ASSERT_EQ(1, grid.getHeight());
-}
-
-TEST(TestGrid, DimensionsWhenArbitrarilySizedGrid) {
-    Grid<int> grid(10, 25);
-
-    ASSERT_EQ(10, grid.getWidth());
-    ASSERT_EQ(25, grid.getHeight());
-}
+INSTANTIATE_TEST_CASE_P(
+    /* */,
+    TestGridDimensionsParam,
+    testing::Values(
+        std::make_tuple(
+            0
+            , 0
+        )
+        , std::make_tuple(
+            1
+            , 1
+        )
+        , std::make_tuple(
+            2
+            , 1
+        )
+        , std::make_tuple(
+            10
+            , 25
+        )
+    )
+);

@@ -1,45 +1,60 @@
+#include <tuple>
+
 #include "gtest/gtest.h"
 
 #include "Stock.h"
 
-TEST(TestStock, SupersetWhenBothEmptyShouldReturnTrue) {
+class TestStockSupersetOfParam : public testing::TestWithParam<std::tuple<Stock, Stock, bool> > {
+    //
+};
+
+TEST_P(TestStockSupersetOfParam, ) {
     Stock stockA;
     Stock stockB;
+    bool expected;
+    std::tie(stockA, stockB, expected) = GetParam();
 
-    ASSERT_TRUE(stockA.supersetOf(stockB));
+    ASSERT_EQ(expected, stockA.supersetOf(stockB));
 }
 
-TEST(TestStock, SupersetWhenSecondEmptyShouldReturnTrue) {
-    Stock stockA({{Resource::PERSON, 1}});
-    Stock stockB;
-
-    ASSERT_TRUE(stockA.supersetOf(stockB));
-}
-
-TEST(TestStock, SupersetWhenSecondHasLargerCountShouldReturnTrue) {
-    Stock stockA({{Resource::PERSON, 2}});
-    Stock stockB({{Resource::PERSON, 1}});
-
-    ASSERT_TRUE(stockA.supersetOf(stockB));
-}
-
-TEST(TestStock, SupersetWhenFirstEmptyShouldReturnFalse) {
-    Stock stockA;
-    Stock stockB({{Resource::PERSON, 1}});
-
-    ASSERT_TRUE(!stockA.supersetOf(stockB));
-}
-
-TEST(TestStock, SupersetWhenSecondHasLargerCountShouldReturnFalse) {
-    Stock stockA({{Resource::PERSON, 1}});
-    Stock stockB({{Resource::PERSON, 2}});
-
-    ASSERT_TRUE(!stockA.supersetOf(stockB));
-}
-
-TEST(TestStock, SupersetWhenDifferentTypesShouldReturnFalse) {
-    Stock stockA({{Resource::PERSON, 1}});
-    Stock stockB({{Resource::ELECTRICITY, 1}});
-
-    ASSERT_TRUE(!stockA.supersetOf(stockB));
-}
+INSTANTIATE_TEST_CASE_P(
+    /* */,
+    TestStockSupersetOfParam,
+    testing::Values(
+        std::make_tuple(
+            Stock()
+            , Stock()
+            , true
+        )
+        , std::make_tuple(
+            Stock({{Resource::PERSON, 1}})
+            , Stock()
+            , true
+        )
+        , std::make_tuple(
+            Stock({{Resource::PERSON, 1}})
+            , Stock({{Resource::PERSON, 1}})
+            , true
+        )
+        , std::make_tuple(
+            Stock({{Resource::PERSON, 2}})
+            , Stock({{Resource::PERSON, 1}})
+            , true
+        )
+        , std::make_tuple(
+            Stock()
+            , Stock({{Resource::PERSON, 1}})
+            , false
+        )
+        , std::make_tuple(
+            Stock({{Resource::PERSON, 1}})
+            , Stock({{Resource::PERSON, 2}})
+            , false
+        )
+        , std::make_tuple(
+            Stock({{Resource::PERSON, 1}})
+            , Stock({{Resource::ELECTRICITY, 1}})
+            , false
+        )
+    )
+);

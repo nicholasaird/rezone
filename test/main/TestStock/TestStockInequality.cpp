@@ -1,31 +1,36 @@
+#include<tuple>
+
 #include "gtest/gtest.h"
 
 #include "Stock.h"
 
-
-namespace EqualTest {
-    struct TestData {
-        Stock stockA;
-        Stock stockB;
-    };
-
-    class NotEqualTest : public testing::TestWithParam<TestData> {
-        //
-    };
-
-    TEST_P(NotEqualTest, ) {
-        auto params = GetParam();
-
-        ASSERT_NE(params.stockA, params.stockB);
-    }
-
-    INSTANTIATE_TEST_CASE_P(
-        /* */,
-        NotEqualTest,
-        testing::Values(
-            TestData{Stock({{Resource::PERSON, 1}}), Stock()},
-            TestData{Stock({{Resource::PERSON, 1}}), Stock({{Resource::ELECTRICITY, 1}})},
-            TestData{Stock({{Resource::PERSON, 1}}), Stock({{Resource::PERSON, 2}})}
-        )
-    );
+class TestStockNotEqualParam : public testing::TestWithParam<std::tuple<Stock, Stock> > {
+    //
 };
+
+TEST_P(TestStockNotEqualParam, ) {
+    Stock stockA;
+    Stock stockB;
+    std::tie(stockA, stockB) = GetParam();
+
+    ASSERT_NE(stockA, stockB);
+}
+
+INSTANTIATE_TEST_CASE_P(
+    /* */,
+    TestStockNotEqualParam,
+    testing::Values(
+        std::make_tuple(
+            Stock({{Resource::PERSON, 1}})
+            , Stock()
+        )
+        , std::make_tuple(
+            Stock({{Resource::PERSON, 1}})
+            , Stock({{Resource::ELECTRICITY, 1}})
+        )
+        , std::make_tuple(
+            Stock({{Resource::PERSON, 1}})
+            , Stock({{Resource::PERSON, 2}})
+        )
+    )
+);

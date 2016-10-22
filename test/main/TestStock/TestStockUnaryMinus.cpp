@@ -1,27 +1,44 @@
+#include <tuple>
+
 #include "gtest/gtest.h"
 
 #include "Stock.h"
 
-TEST(TestStock, UnaryMinusWhenEmptyShouldReturnEmpty) {
+class TestStockUnaryMinusParam : public testing::TestWithParam<std::tuple<Stock, Stock> > {
+    //
+};
+
+TEST_P(TestStockUnaryMinusParam, ) {
     Stock stockA;
+    Stock expected;
+    std::tie(stockA, expected) = GetParam();
 
-    Stock result = -stockA;
-
-    ASSERT_EQ(Stock(), result);
+    ASSERT_EQ(expected, -stockA);
 }
 
-TEST(TestStock, UnaryMinusShouldReturnNegative) {
-    Stock stockA({{Resource::PERSON, 1}});
-
-    Stock result = -stockA;
-
-    ASSERT_EQ(Stock({{Resource::PERSON, -1}}), result);
-}
-
-TEST(TestStock, UnaryMinusWhenNegativeShouldReturnPositive) {
-    Stock stockA({{Resource::PERSON, -1}});
-
-    Stock result = -stockA;
-
-    ASSERT_EQ(Stock({{Resource::PERSON, 1}}), result);
-}
+INSTANTIATE_TEST_CASE_P(
+    /* */,
+    TestStockUnaryMinusParam,
+    testing::Values(
+        std::make_tuple(
+            Stock()
+            , Stock()
+        )
+        , std::make_tuple(
+            Stock({{Resource::PERSON, 1}})
+            , Stock({{Resource::PERSON, -1}})
+        )
+        , std::make_tuple(
+            Stock({{Resource::PERSON, 2}})
+            , Stock({{Resource::PERSON, -2}})
+        )
+        , std::make_tuple(
+            Stock({{Resource::PERSON, -1}})
+            , Stock({{Resource::PERSON, 1}})
+        )
+        , std::make_tuple(
+            Stock({{Resource::PERSON, 1}, {Resource::ELECTRICITY, 2}})
+            , Stock({{Resource::PERSON, -1}, {Resource::ELECTRICITY, -2}})
+        )
+    )
+);
