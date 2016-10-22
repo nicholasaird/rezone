@@ -640,7 +640,7 @@ TEST(TestStock, SumWhenEmptyShouldReturnZero) {
     ASSERT_EQ(0, result);
 }
 
-TEST(TestStock, SumWhenOneCountShouldReturnOne) {
+TEST(TestStock, SumWhenCountOfOneShouldReturnOne) {
     Stock stockA({{Resource::PERSON, 1}});
 
     int result = stockA.sum();
@@ -648,7 +648,7 @@ TEST(TestStock, SumWhenOneCountShouldReturnOne) {
     ASSERT_EQ(1, result);
 }
 
-TEST(TestStock, SumWhenTwoCountShouldReturnTwo) {
+TEST(TestStock, SumWhenCountOfTwoShouldReturnTwo) {
     Stock stockA({{Resource::PERSON, 2}});
 
     int result = stockA.sum();
