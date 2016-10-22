@@ -2,23 +2,29 @@
 
 #include "Stock.h"
 
-TEST(TestStock, WhenBothEmptyShouldBeEqual) {
-    Stock stockA;
-    Stock stockB;
+namespace EqualTest {
+    struct TestData {
+        Stock stockA;
+        Stock stockB;
+    };
 
-    ASSERT_TRUE(stockA == stockB);
-}
+    class EqualTest : public testing::TestWithParam<TestData> {
+        //
+    };
 
-TEST(TestStock, WhenBothEmptyShouldBeEqual2) {
-    Stock stockA({{Resource::PERSON, 0}});
-    Stock stockB;
+    TEST_P(EqualTest, ) {
+        auto params = GetParam();
 
-    ASSERT_TRUE(stockA == stockB);
-}
+        ASSERT_EQ(params.stockA, params.stockB);
+    }
 
-TEST(TestStock, WhenSameCountsShouldBeEqual) {
-    Stock stockA({{Resource::PERSON, 1}});
-    Stock stockB({{Resource::PERSON, 1}});
-
-    ASSERT_TRUE(stockA == stockB);
-}
+    INSTANTIATE_TEST_CASE_P(
+        /* */,
+        EqualTest,
+        testing::Values(
+            TestData{Stock(), Stock()},
+            TestData{Stock({{Resource::PERSON, 0}}), Stock()},
+            TestData{Stock({{Resource::PERSON, 1}}), Stock({{Resource::PERSON, 1}})}
+        )
+    );
+};
