@@ -639,3 +639,11 @@ TEST(TestStock, SumWhenEmptyShouldReturnZero) {
 
     ASSERT_EQ(0, result);
 }
+
+TEST(TestStock, SumWhenOneCountShouldReturnOne) {
+    Stock stockA({{Resource::PERSON, 1}});
+
+    int result = stockA.sum();
+
+    ASSERT_EQ(1, result);
+}
