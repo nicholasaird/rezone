@@ -89,3 +89,10 @@ TEST(TestGrid, DimensionsWhenZeroByZeroGrid) {
     ASSERT_EQ(0, grid.getWidth());
     ASSERT_EQ(0, grid.getHeight());
 }
+
+TEST(TestGrid, DimensionsWhenOneByOneGrid) {
+    Grid<int> grid(1, 1);
+
+    ASSERT_EQ(1, grid.getWidth());
+    ASSERT_EQ(1, grid.getHeight());
+}
