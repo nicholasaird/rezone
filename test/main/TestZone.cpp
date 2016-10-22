@@ -159,3 +159,10 @@ TEST(TestZone, WhenProvideButNothingUnprovidedShouldThrow) {
 
     ASSERT_THROW(zone.provide(Stock({{Resource::PERSON, 1}})), ResourceException);
 }
+
+TEST(TestZone, Name) {
+    StockPair emptyRecipe(Stock(), Stock());
+    Zone zone("ZoneABC", emptyRecipe);
+
+    ASSERT_EQ("ZoneABC", zone.getName());
+}
