@@ -82,3 +82,10 @@ TEST(TestGrid, TwoDimensionalGridStoresValuesCorrectly) {
     ASSERT_EQ(10, grid(1, 0));
     ASSERT_EQ(11, grid(1, 1));
 }
+
+TEST(TestGrid, DimensionsWhenZeroByZeroGrid) {
+    Grid<int> grid(0, 0);
+
+    ASSERT_EQ(0, grid.getWidth());
+    ASSERT_EQ(0, grid.getHeight());
+}
