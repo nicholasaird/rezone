@@ -663,3 +663,31 @@ TEST(TestStock, SumWhenCountIsLargeShouldReturnLarge) {
 
     ASSERT_EQ(2, result);
 }
+
+TEST(TestStock, SumWhenDifferentResourcesShouldAddThem) {
+    Stock stockA({{Resource::PERSON, 1}, {Resource::ELECTRICITY, 1}});
+
+    int result = stockA.sum();
+
+    ASSERT_EQ(2, result);
+}
+
+TEST(TestStock, SumWhenDifferentResourcesShouldAddThem2) {
+    Stock stockA({{Resource::PERSON, 2}, {Resource::ELECTRICITY, 5}});
+
+    int result = stockA.sum();
+
+    ASSERT_EQ(7, result);
+}
+
+TEST(TestStock, SumWhenDifferentResourcesShouldAddThem3) {
+    Stock stockA({
+        {Resource::PERSON, 1},
+        {Resource::ELECTRICITY, 1},
+        {Resource::IND_PRODUCT, 1}
+    });
+
+    int result = stockA.sum();
+
+    ASSERT_EQ(3, result);
+}
