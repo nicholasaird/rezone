@@ -119,6 +119,16 @@ bool Stock::supersetOf(const Stock& rhs) const {
     return true;
 }
 
+int Stock::sum() const {
+    int sum = 0;
+
+    for(const auto& pair : map) {
+        sum += pair.second;
+    }
+
+    return sum;
+}
+
 std::ostream& operator<<(std::ostream& stream, const Stock& stock) {
     stream << "{";
     for(const auto& pair : stock.map) {

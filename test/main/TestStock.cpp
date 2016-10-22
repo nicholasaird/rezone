@@ -631,3 +631,11 @@ TEST(TestStock, TimesItContainsWhenComplexStocks) {
 
     ASSERT_EQ(1, result);
 }
+
+TEST(TestStock, SumWhenEmptyShouldReturnZero) {
+    Stock stockA;
+
+    int result = stockA.sum();
+
+    ASSERT_EQ(0, result);
+}
