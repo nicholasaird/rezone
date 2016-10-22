@@ -2,50 +2,31 @@
 
 #include "Stock.h"
 
-TEST(TestStock, DivWhenEmptyShouldReturnEmpty) {
-    Stock stockA;
+struct DivTestData {
+    Stock expected;
+    Stock input;
+    int div;
+};
 
-    Stock result = stockA / 1;
+class DivTest : public testing::TestWithParam<DivTestData> {
+    //
+};
 
-    ASSERT_EQ(Stock(), result);
+TEST_P(DivTest, NormaDiv) {
+    auto params = GetParam();
+
+    ASSERT_EQ(params.expected, params.input / params.div);
 }
 
-TEST(TestStock, DivWhenEmptyShouldReturnEmpty2) {
-    Stock stockA;
-
-    Stock result = stockA / 2;
-
-    ASSERT_EQ(Stock(), result);
-}
-
-TEST(TestStock, DivWhenDivByOneShouldReturnSame) {
-    Stock stockA({{Resource::PERSON, 1}});
-
-    Stock result = stockA / 1;
-
-    ASSERT_EQ(Stock({{Resource::PERSON, 1}}), result);
-}
-
-TEST(TestStock, DivWhenSmallShouldReturnEmpty) {
-    Stock stockA({{Resource::PERSON, 1}});
-
-    Stock result = stockA / 2;
-
-    ASSERT_EQ(Stock(), result);
-}
-
-TEST(TestStock, DivShouldReturnHalf) {
-    Stock stockA({{Resource::PERSON, 2}});
-
-    Stock result = stockA / 2;
-
-    ASSERT_EQ(Stock({{Resource::PERSON, 1}}), result);
-}
-
-TEST(TestStock, DivShouldReturnHalfRoundedDown) {
-    Stock stockA({{Resource::PERSON, 3}});
-
-    Stock result = stockA / 2;
-
-    ASSERT_EQ(Stock({{Resource::PERSON, 1}}), result);
-}
+INSTANTIATE_TEST_CASE_P(
+    /* */,
+    DivTest,
+    testing::Values(
+        DivTestData{Stock(), Stock(), 1},
+        DivTestData{Stock(), Stock(), 2},
+        DivTestData{Stock({{Resource::PERSON, 1}}), Stock({{Resource::PERSON, 1}}), 1},
+        DivTestData{Stock(), Stock({{Resource::PERSON, 1}}), 2},
+        DivTestData{Stock({{Resource::PERSON, 1}}), Stock({{Resource::PERSON, 2}}), 2},
+        DivTestData{Stock({{Resource::PERSON, 1}}), Stock({{Resource::PERSON, 3}}), 2}
+    )
+);
