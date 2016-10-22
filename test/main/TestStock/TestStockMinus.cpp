@@ -2,50 +2,49 @@
 
 #include "Stock.h"
 
-TEST(TestStock, MinusWhenBothEmptyShouldReturnEmpty) {
-    Stock stockA;
-    Stock stockB;
+namespace MinusTest {
+    class MinusTest : public testing::TestWithParam<std::tuple<Stock, Stock, Stock> > {
+        //
+    };
 
-    Stock result = stockA - stockB;
+    TEST_P(MinusTest, ) {
+        auto params = GetParam();
+        Stock stockA = std::get<0>(params);
+        Stock stockB = std::get<1>(params);
+        Stock expected = std::get<2>(params);
 
-    ASSERT_EQ(Stock(), result);
-}
+        ASSERT_EQ(expected, stockA - stockB);
+    }
 
-TEST(TestStock, MinusWhenSecondEmptyShouldlReturnFirst) {
-    Stock stockA({{Resource::PERSON, 1}});
-    Stock stockB;
-
-    Stock result = stockA - stockB;
-
-    ASSERT_EQ(Stock({{Resource::PERSON, 1}}), result);
-}
-
-TEST(TestStock, MinusWhenSameCountsShouldReturnEmpty) {
-    Stock stockA({{Resource::PERSON, 1}});
-    Stock stockB({{Resource::PERSON, 1}});
-
-    Stock result = stockA - stockB;
-
-    ASSERT_EQ(Stock(), result);
-}
-
-TEST(TestStock, MinusWhenFirstEmptyShouldReturnNonEmpty) {
-    Stock stockA({{Resource::PERSON, 2}});
-    Stock stockB({{Resource::PERSON, 1}});
-
-    Stock result = stockA - stockB;
-
-    ASSERT_EQ(Stock({{Resource::PERSON, 1}}), result);
-}
-
-TEST(TestStock, MinusWhenDifferentResourcesShouldReturnNegativeCount) {
-    Stock stockA({{Resource::PERSON, 1}});
-    Stock stockB({{Resource::ELECTRICITY, 1}});
-
-    Stock result = stockA - stockB;
-
-    ASSERT_EQ(
-        Stock({{Resource::PERSON, 1}, {Resource::ELECTRICITY, -1}}),
-        result
+    INSTANTIATE_TEST_CASE_P(
+        /* */,
+        MinusTest,
+        testing::Values(
+            std::tuple<Stock, Stock, Stock>(
+                Stock()
+                , Stock()
+                , Stock()
+            )
+            , std::tuple<Stock, Stock, Stock>(
+                Stock({{Resource::PERSON, 1}})
+                , Stock()
+                , Stock({{Resource::PERSON, 1}})
+            )
+            , std::tuple<Stock, Stock, Stock>(
+                Stock({{Resource::PERSON, 1}})
+                , Stock({{Resource::PERSON, 1}})
+                , Stock()
+            )
+            , std::tuple<Stock, Stock, Stock>(
+                Stock({{Resource::PERSON, 2}})
+                , Stock({{Resource::PERSON, 1}})
+                , Stock({{Resource::PERSON, 1}})
+            )
+            , std::tuple<Stock, Stock, Stock>(
+                Stock({{Resource::PERSON, 1}})
+                , Stock({{Resource::ELECTRICITY, 1}})
+                , Stock({{Resource::PERSON, 1}, {Resource::ELECTRICITY, -1}})
+            )
+        )
     );
-}
+};
