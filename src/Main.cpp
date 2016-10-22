@@ -4,26 +4,37 @@
 #include "main/Grid.h"
 #include "main/Zone.h"
 
-int main() {
-    int width = 4;
-    int height = 4;
-    Grid<std::shared_ptr<Zone> > zones(width, height);
+void resetZones(Grid<std::shared_ptr<Zone> >& zones);
+void printZones(Grid<std::shared_ptr<Zone> >& zones);
 
-    for(int x = 0; x < width; x++) {
-        for(int y = 0; y < height; y++) {
+int main() {
+    Grid<std::shared_ptr<Zone> > zones(4, 4);
+
+    resetZones(zones);
+
+    printZones(zones);
+
+    return 0;
+}
+
+void resetZones(Grid<std::shared_ptr<Zone> >& zones) {
+    for(int x = 0; x < zones.getWidth(); x++) {
+        for(int y = 0; y < zones.getHeight(); y++) {
             zones(x, y) = std::make_shared<Zone>("Empty", StockPair(Stock(), Stock()));
         }
     }
+}
 
-    for(int x = 0; x < width; x++) {
+void printZones(Grid<std::shared_ptr<Zone> >& zones) {
+    for(int x = 0; x < zones.getWidth(); x++) {
         std::cout << "+------------";
     }
 
     std::cout << "+" << std::endl;
 
-    for(int x = 0; x < width; x++) {
+    for(int x = 0; x < zones.getWidth(); x++) {
 
-        for(int y = 0; y < height; y++) {
+        for(int y = 0; y < zones.getHeight(); y++) {
             std::cout << "| ";
 
             Zone& zone = *zones(x, y);
@@ -36,11 +47,9 @@ int main() {
 
         std::cout << "|" << std::endl;
 
-        for(int x = 0; x < width; x++) {
+        for(int x = 0; x < zones.getWidth(); x++) {
             std::cout << "+------------";
         }
         std::cout << "+" << std::endl;
     }
-
-    return 0;
 }
