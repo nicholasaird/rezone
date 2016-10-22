@@ -1,7 +1,20 @@
 #include "Zone.h"
 
 Zone::Zone(StockPair recipe)
-    : recipe(recipe)
+    : name("Unkown")
+    , recipe(recipe)
+    , inputCap(recipe.input)
+    , outputCap(recipe.output)
+    , inputMet()
+    , outputMet()
+    , outputProduced()
+{
+    //
+}
+
+Zone::Zone(std::string name, StockPair recipe)
+    : name(name)
+    , recipe(recipe)
     , inputCap(recipe.input)
     , outputCap(recipe.output)
     , inputMet()
@@ -13,6 +26,10 @@ Zone::Zone(StockPair recipe)
 
 Zone::~Zone() {
     //
+}
+
+std::string Zone::getName() {
+    return name;
 }
 
 Stock Zone::getUnprovided() {

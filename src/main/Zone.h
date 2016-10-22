@@ -1,6 +1,8 @@
 #ifndef ZONE_HPP
 #define ZONE_HPP
 
+#include <string>
+
 #include "Resource.h"
 #include "ResourceException.h"
 #include "Stock.h"
@@ -9,6 +11,7 @@
 
 class Zone {
 private:
+    std::string name;
     StockPair recipe;
     Stock inputCap;
     Stock outputCap;
@@ -17,7 +20,9 @@ private:
     Stock outputProduced;
 public:
     Zone(StockPair recipe);
+    Zone(std::string name, StockPair recipe);
     virtual ~Zone();
+    std::string getName();
     Stock getProvided();
     Stock getUnprovided();
     Stock getInputCap();
