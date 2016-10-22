@@ -103,3 +103,10 @@ TEST(TestGrid, DimensionsWhenTwoByOneGrid) {
     ASSERT_EQ(2, grid.getWidth());
     ASSERT_EQ(1, grid.getHeight());
 }
+
+TEST(TestGrid, DimensionsWhenArbitrarilySizedGrid) {
+    Grid<int> grid(10, 25);
+
+    ASSERT_EQ(10, grid.getWidth());
+    ASSERT_EQ(25, grid.getHeight());
+}
