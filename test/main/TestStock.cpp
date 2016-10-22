@@ -647,3 +647,11 @@ TEST(TestStock, SumWhenOneCountShouldReturnOne) {
 
     ASSERT_EQ(1, result);
 }
+
+TEST(TestStock, SumWhenTwoCountShouldReturnTwo) {
+    Stock stockA({{Resource::PERSON, 2}});
+
+    int result = stockA.sum();
+
+    ASSERT_EQ(2, result);
+}
