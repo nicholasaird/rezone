@@ -2,50 +2,34 @@
 
 #include "Stock.h"
 
-TEST(TestStock, DivEqualWhenEmptyAndShouldMakeEmpty) {
-    Stock stockA;
+struct DivEqualTestData {
+    Stock expected;
+    Stock input;
+    int div;
+};
 
-    stockA /= 1;
+class DivEqualTest : public testing::TestWithParam<DivEqualTestData> {
+    //
+};
 
-    ASSERT_EQ(Stock(), stockA);
+TEST_P(DivEqualTest, NormaDiv) {
+    auto params = GetParam();
+
+    Stock result = params.input;
+    result /= params.div;
+
+    ASSERT_EQ(params.expected, result);
 }
 
-TEST(TestStock, DivEqualWhenEmptyAndShouldMakeEmpty2) {
-    Stock stockA;
-
-    stockA /= 2;
-
-    ASSERT_EQ(Stock(), stockA);
-}
-
-TEST(TestStock, DivEqualWhenByOneShouldMakeSame) {
-    Stock stockA({{Resource::PERSON, 1}});
-
-    stockA /= 1;
-
-    ASSERT_EQ(Stock({{Resource::PERSON, 1}}), stockA);
-}
-
-TEST(TestStock, DivEqualWhenSmallCountAndByTwoShouldMakeEmpty) {
-    Stock stockA({{Resource::PERSON, 1}});
-
-    stockA /= 2;
-
-    ASSERT_EQ(Stock(), stockA);
-}
-
-TEST(TestStock, DivEqualWhenByTwoShouldMakeHalf) {
-    Stock stockA({{Resource::PERSON, 2}});
-
-    stockA /= 2;
-
-    ASSERT_EQ(Stock({{Resource::PERSON, 1}}), stockA);
-}
-
-TEST(TestStock, DivEqualWhenByTwoShouldMakeHalfRoundedDown) {
-    Stock stockA({{Resource::PERSON, 3}});
-
-    stockA /= 2;
-
-    ASSERT_EQ(Stock({{Resource::PERSON, 1}}), stockA);
-}
+INSTANTIATE_TEST_CASE_P(
+    /* */,
+    DivEqualTest,
+    testing::Values(
+        DivEqualTestData{Stock(), Stock(), 1},
+        DivEqualTestData{Stock(), Stock(), 2},
+        DivEqualTestData{Stock({{Resource::PERSON, 1}}), Stock({{Resource::PERSON, 1}}), 1},
+        DivEqualTestData{Stock(), Stock({{Resource::PERSON, 1}}), 2},
+        DivEqualTestData{Stock({{Resource::PERSON, 1}}), Stock({{Resource::PERSON, 2}}), 2},
+        DivEqualTestData{Stock({{Resource::PERSON, 1}}), Stock({{Resource::PERSON, 3}}), 2}
+    )
+);
