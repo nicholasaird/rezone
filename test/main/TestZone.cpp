@@ -1,3 +1,5 @@
+#include <string>
+
 #include "gtest/gtest.h"
 
 #include "Resource.h"
@@ -6,13 +8,15 @@
 #include "Stock.h"
 #include "StockPair.h"
 
-void meetAllNeeds(Zone zone) {
+
+
+void meetAllNeeds(Zone& zone) {
     zone.provide(zone.getUnprovided());
     zone.take(zone.getUntaken());
     zone.updateProduction();
 }
 
-void meetNoNeeds(Zone zone) {
+void meetNoNeeds(Zone& zone) {
     zone.unprovide(zone.getProvided());
     zone.unprovide(zone.getTaken());
     zone.updateProduction();
@@ -161,8 +165,19 @@ TEST(TestZone, WhenProvideButNothingUnprovidedShouldThrow) {
 }
 
 TEST(TestZone, Name) {
-    StockPair emptyRecipe(Stock(), Stock());
+    StockPair emptyRecipe;
     Zone zone("ZoneABC", emptyRecipe);
 
     ASSERT_EQ("ZoneABC", zone.getName());
+}
+
+TEST(TestZone, WhenUnprovideShouldIncreaseAvailable) {
+    StockPair simpleRecipe(Stock({{Resource::ELECTRICITY, 1}}), Stock({{Resource::PERSON, 1}}));
+    Zone zone(simpleRecipe);
+
+    zone.provide(Stock({{Resource::ELECTRICITY, 1}}));
+    zone.unprovide(Stock({{Resource::ELECTRICITY, 1}}));
+
+    ASSERT_EQ(Stock(), zone.getProvided());
+    ASSERT_EQ(Stock({{Resource::ELECTRICITY, 1}}), zone.getUnprovided());
 }
