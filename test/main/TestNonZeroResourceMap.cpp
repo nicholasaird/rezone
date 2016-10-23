@@ -2,10 +2,6 @@
 
 #include "NonZeroResourceMap.h"
 
-TEST(TestNonZeroResourceMap, bb) {
-    //
-}
-
 TEST(TestNonZeroResourceMap, DefaultShouldHaveNoResources) {
     NonZeroResourceMap map;
 
