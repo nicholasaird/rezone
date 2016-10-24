@@ -4,19 +4,38 @@ os: linux
 sudo: required
 dist: trusty
 
-env:
-    - COMPILER=g++-5 CONFIG=Release
-    - COMPILER=g++-5 CONFIG=Debug COVERAGE=on
-    - COMPILER=clang++-3.9 CONFIG=Release
+matrix:
+    include:
+        - compiler: g++
+          env: COMPILER=g++-5 CONFIG=Release
+          addons:
+              apt:
+                  sources: ['ubuntu-toolchain-r-test']
+                  packages: ['g++-5']
+
+        - compiler: g++
+          env: COMPILER=g++-5 CONFIG=DEBUG COVERAGE=on
+          addons:
+              apt:
+                  sources: ['ubuntu-toolchain-r-test']
+                  packages: ['g++-5']
+
+        - compiler: clang++
+          env: COMPILER=clang++-3.9 CONFIG=RELEASE
+          addons:
+              apt:
+                  sources: ['ubuntu-toolchain-r-test', 'llvm-toolchain-trusty-3.9']
+                  packages: ['clang-3.9']
 
 before_install:
-    - chmod u+x travisAfterSuccess.sh travisScript.sh travisInstall.sh travisInstallCompiler.sh
-    - ./travisInstallCompiler.sh
+    - chmod u+x travisAfterSuccess.sh travisScript.sh travisInstall.sh
 
 install:
     - ./travisInstall.sh
 
 script:
+    - echo "Using compiler:"
+    - ${COMPILER} -v
     - ./travisScript.sh
 
 after_success:
