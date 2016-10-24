@@ -1,6 +1,71 @@
+#include <tuple>
+
 #include "gtest/gtest.h"
 
 #include "NonZeroResourceMap.h"
+
+class TestNonZeroResourceMapEqualityParam
+    : public testing::TestWithParam<std::tuple<NonZeroResourceMap, NonZeroResourceMap, bool> >
+{
+    //
+};
+
+TEST_P(TestNonZeroResourceMapEqualityParam, ) {
+    NonZeroResourceMap mapA;
+    NonZeroResourceMap mapB;
+    bool expectedIsEqual;
+    std::tie(mapA, mapB, expectedIsEqual) = GetParam();
+
+    ASSERT_EQ(expectedIsEqual, mapA == mapB);
+    ASSERT_EQ(!expectedIsEqual, mapA != mapB);
+}
+
+INSTANTIATE_TEST_CASE_P(
+    /* */,
+    TestNonZeroResourceMapEqualityParam,
+    testing::Values(
+        std::make_tuple(
+            NonZeroResourceMap()
+            , NonZeroResourceMap()
+            , true
+        )
+        , std::make_tuple(
+            NonZeroResourceMap({{Resource::PERSON, 1}})
+            , NonZeroResourceMap({{Resource::PERSON, 1}})
+            , true
+        )
+        , std::make_tuple(
+            NonZeroResourceMap({{Resource::PERSON, 2}})
+            , NonZeroResourceMap({{Resource::PERSON, 2}})
+            , true
+        )
+        , std::make_tuple(
+            NonZeroResourceMap({{Resource::PERSON, 1}, {Resource::ELECTRICITY, 1}})
+            , NonZeroResourceMap({{Resource::PERSON, 1}, {Resource::ELECTRICITY, 1}})
+            , true
+        )
+        , std::make_tuple(
+            NonZeroResourceMap({{Resource::PERSON, 1}})
+            , NonZeroResourceMap()
+            , false
+        )
+        , std::make_tuple(
+            NonZeroResourceMap()
+            , NonZeroResourceMap({{Resource::PERSON, 1}})
+            , false
+        )
+        , std::make_tuple(
+            NonZeroResourceMap({{Resource::PERSON, 1}})
+            , NonZeroResourceMap({{Resource::PERSON, 2}})
+            , false
+        )
+        , std::make_tuple(
+            NonZeroResourceMap({{Resource::PERSON, 1}, {Resource::ELECTRICITY, 1}})
+            , NonZeroResourceMap({{Resource::PERSON, 1}})
+            , false
+        )
+    )
+);
 
 TEST(TestNonZeroResourceMap, DefaultShouldHaveNoResources) {
     NonZeroResourceMap map;
