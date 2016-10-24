@@ -27,7 +27,7 @@ matrix:
           addons:
               apt:
                   sources:
-                      - 'ubuntu-toolchain-r-test'
+                      - ubuntu-toolchain-r-test
                       - sourceline: "deb http://llvm.org/apt/trusty/ llvm-toolchain-trusty-3.9 main",
                         key_url: "http://llvm.org/apt/llvm-snapshot.gpg.key"
                   packages: ['clang-3.9']
