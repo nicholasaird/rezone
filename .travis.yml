@@ -4,21 +4,14 @@ os: linux
 sudo: required
 dist: trusty
 
-compiler:
-    - g++
-    - clang++
-
 env:
-    - CONFIG=Release
-    - CONFIG=Debug COVERAGE=on
-
-matrix:
-    exclude:
-        - compiler: clang++
-          env: CONFIG=Debug COVERAGE=on
+    - CXX=g++-5 CONFIG=Release
+    - CXX=g++-5 CONFIG=Debug COVERAGE=on
+    - CXX=clang++-3.9 CONFIG=Release
 
 before_install:
-    - chmod u+x travisAfterSuccess.sh travisScript.sh travisInstall.sh
+    - chmod u+x travisAfterSuccess.sh travisScript.sh travisInstall.sh travisInstallCompiler.sh
+    - ./travisInstallCompiler.sh
 
 install:
     - ./travisInstall.sh
