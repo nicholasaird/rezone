@@ -1,26 +1,28 @@
 language: cpp
 
-os: linux
 sudo: required
 dist: trusty
 
 matrix:
     include:
-        - compiler: g++
+        - os: linux
+          compiler: g++
           env: COMPILER=g++-5 CONFIG=Release
           addons:
               apt:
                   sources: ['ubuntu-toolchain-r-test']
                   packages: ['g++-5']
 
-        - compiler: g++
+        - os: linux
+          compiler: g++
           env: COMPILER=g++-5 CONFIG=DEBUG COVERAGE=on
           addons:
               apt:
                   sources: ['ubuntu-toolchain-r-test']
                   packages: ['g++-5']
 
-        - compiler: clang++
+        - os: linux
+          compiler: clang++
           env: COMPILER=clang++-3.9 CONFIG=RELEASE
           addons:
               apt:
