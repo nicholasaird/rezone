@@ -5,9 +5,9 @@ sudo: required
 dist: trusty
 
 env:
-    - CXX=g++-5 CONFIG=Release
-    - CXX=g++-5 CONFIG=Debug COVERAGE=on
-    - CXX=clang++-3.9 CONFIG=Release
+    - COMPILER=g++-5 CONFIG=Release
+    - COMPILER=g++-5 CONFIG=Debug COVERAGE=on
+    - COMPILER=clang++-3.9 CONFIG=Release
 
 before_install:
     - chmod u+x travisAfterSuccess.sh travisScript.sh travisInstall.sh travisInstallCompiler.sh

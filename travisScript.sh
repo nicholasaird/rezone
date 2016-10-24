@@ -7,12 +7,12 @@ cd build
 
 # Build
 echo -e "\n>>> CMake..."
-cmake -DCMAKE_BUILD_TYPE=$CONFIG ..
+cmake -DCMAKE_CXX_COMPILER=${COMPILER} -DCMAKE_BUILD_TYPE=${CONFIG} ..
 
 echo -e "\n>>> Make..."
 make
 
-if [ "$COVERAGE" = "on" ]
+if [ "${COVERAGE}" = "on" ]
 then
     echo -e "\n>>> lcov base coverage..."
     lcov --directory . --zerocounters
@@ -23,7 +23,7 @@ echo -e "\n>>> Running tests..."
 ./test
 
 # Generate test coverage report
-if [ "$COVERAGE" = "on" ]
+if [ "${COVERAGE}" = "on" ]
 then
     echo -e "\n>>> lcov generating report..."
     lcov --directory . --capture --output-file coverage.info
@@ -35,10 +35,10 @@ then
     lcov --remove coverage.info 'src/Main.cpp' 'test/*' 'ext/*' '/usr/*' --output-file coverage.info
 
     echo -e "\n>>> lcov generating html..."
-    genhtml coverage.info --output-directory $COVERAGE_DIR/html
+    genhtml coverage.info --output-directory ${COVERAGE_DIR}/html
 
     rm baseCoverage.info
-    mv coverage.info $COVERAGE_DIR/coverage.info
+    mv coverage.info ${COVERAGE_DIR}/coverage.info
 fi
 
 cd ..
