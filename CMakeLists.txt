@@ -27,12 +27,8 @@ enable_testing()
 add_subdirectory(ext/googletest)
 include_directories(${gtest_SOURCE_DIR}/include ${gtest_SOURCE_DIR})
 
-# Tests
-file(GLOB_RECURSE files_src_test test/main/*.cpp)
-add_executable(testMain ${files_src_test})
-set_property(TARGET testMain PROPERTY OUTPUT_NAME test)
-target_link_libraries(testMain mainLib gtest gmock gmock_main pthread)
-add_test(test test)  # so that ctest finds the tests
+# Docopt
+add_subdirectory(ext/docopt.cpp)
 
 # MainLib
 file(GLOB_RECURSE files_src_main src/main/*.cpp)
@@ -42,4 +38,12 @@ target_include_directories(mainLib INTERFACE "src/main")
 # Main
 add_executable(main src/Main.cpp)
 target_link_libraries(main mainLib)
+target_link_libraries(main docopt_s)
 set_property(TARGET main PROPERTY OUTPUT_NAME rezone)
+
+# Tests
+file(GLOB_RECURSE files_src_test test/main/*.cpp)
+add_executable(testMain ${files_src_test})
+set_property(TARGET testMain PROPERTY OUTPUT_NAME test)
+target_link_libraries(testMain mainLib gtest gmock gmock_main pthread)
+add_test(test test)  # so that ctest finds the tests
