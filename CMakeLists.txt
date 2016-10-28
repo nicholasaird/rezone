@@ -45,5 +45,5 @@ set_property(TARGET main PROPERTY OUTPUT_NAME rezone)
 file(GLOB_RECURSE files_src_test test/*.cpp)
 add_executable(testMain ${files_src_test})
 set_property(TARGET testMain PROPERTY OUTPUT_NAME test)
-target_link_libraries(testMain mainLib gtest gmock gmock_main pthread)
+target_link_libraries(testMain gtest gmock gmock_main pthread mainLib docopt_s)
 add_test(test test)  # so that ctest finds the tests
