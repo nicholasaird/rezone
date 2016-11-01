@@ -2,7 +2,7 @@
 #include <vector>
 
 #include "gtest/gtest.h"
-#include "Utils.hpp"
+#include "Utils.h"
 
 class TestUtilsTailParam
     : public testing::TestWithParam<std::tuple<std::vector<int>, std::vector<int> > >

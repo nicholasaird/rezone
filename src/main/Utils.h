@@ -1,6 +1,9 @@
 #ifndef UTILS_HPP
 #define UTILS_HPP
 
+#include <iterator>  // istream_iterator
+#include <sstream>  // istringstream
+#include <string>
 #include <vector>
 
 namespace VectorUtils {
@@ -14,6 +17,10 @@ namespace VectorUtils {
 
         return tail;
     }
+}
+
+namespace StringUtils {
+    std::vector<std::string> words(std::string);
 }
 
 #endif
