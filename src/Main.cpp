@@ -1,13 +1,7 @@
-#include <iomanip>
 #include <iostream>
 #include <memory>  // shared pointer
 #include <string>
-#include <sstream>  // istringstream
-#include <iterator>  // istream_iterator
 
-#include "docopt.h"
-#include "main/Grid.h"
-#include "main/Zone.h"
 #include "main/Map.h"
 #include "main/MapSelection.h"
 #include "main/Command/CommandPrompt.h"
