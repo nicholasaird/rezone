@@ -33,12 +33,13 @@ add_subdirectory(ext/docopt.cpp)
 # MainLib
 file(GLOB_RECURSE files_src_main src/main/*.cpp)
 add_library(mainLib STATIC ${files_src_main})
+include_directories(src/main)
 target_include_directories(mainLib INTERFACE "src/main")
+target_link_libraries(mainLib docopt_s)
 
 # Main
 add_executable(main src/Main.cpp)
-target_link_libraries(main mainLib)
-target_link_libraries(main docopt_s)
+target_link_libraries(main mainLib docopt_s)
 set_property(TARGET main PROPERTY OUTPUT_NAME rezone)
 
 # Tests
