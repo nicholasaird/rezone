@@ -32,4 +32,6 @@ CommandArguments CommandUtils::fromDocopt(std::map<std::string, docopt::value> d
             commandArgs.add(arg, val);
         }
     }
+
+    return commandArgs;
 }
