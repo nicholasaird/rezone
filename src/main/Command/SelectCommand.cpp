@@ -13,3 +13,7 @@ void SelectCommand::execute(CommandArguments& args) {
 
     selection->add(x, y);
 }
+
+std::string SelectCommand::getUsage() {
+    return usage;
+}
