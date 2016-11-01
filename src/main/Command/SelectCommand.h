@@ -23,6 +23,7 @@ Options:
 public:
     SelectCommand(std::shared_ptr<Map> map, std::shared_ptr<MapSelection> selection);
     void execute(CommandArguments& args) override;
+    void executeThrows(CommandArguments& args);
     std::string getUsage() override;
 };
 
