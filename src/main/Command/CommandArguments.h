@@ -16,6 +16,7 @@ public:
     void add(std::string arg, int val);
     void add(std::string arg, std::string val);
     int getInt(std::string arg);
+    bool getBool(std::string arg);
     std::string getString(std::string arg);
 private:
     std::string get(std::string arg);

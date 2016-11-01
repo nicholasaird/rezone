@@ -1,5 +1,7 @@
 #include "CommandArguments.h"
 
+#include <iostream>
+
 CommandArguments::CommandArguments()
     : args()
 {
@@ -26,6 +28,20 @@ int CommandArguments::getInt(std::string arg){
     }
 
     return valInt;
+}
+
+bool CommandArguments::getBool(std::string arg) {
+    std::string val = get(arg);
+
+    if(val == "true") {
+        return true;
+    }
+    else if(val == "false") {
+        return false;
+    }
+    else {
+        throw WrongTypeArgumentException("Could not convert arg {" + arg + ": " + val + "} to a bool");
+    }
 }
 
 std::string CommandArguments::getString(std::string arg){
