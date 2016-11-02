@@ -6,19 +6,13 @@
 #include "main/MapSelection.h"
 #include "main/Command/CommandPrompt.h"
 #include "main/Command/SelectCommand.h"
+#include "main/Command/UnselectCommand.h"
 #include "main/Command/QuitCommand.h"
 
 void run();
 void loop();
 
 std::shared_ptr<bool> running = std::make_shared<bool>(true);
-static const char USAGE[] =
-R"(Rezone
-
-    Usage:
-        select
-        unselect
-)";
 std::shared_ptr<Map> map;
 std::shared_ptr<MapSelection> mapSelection;
 Stock relief;
@@ -40,6 +34,7 @@ void run() {
 void loop() {
     CommandPrompt commandPrompt;
     commandPrompt.addCommand("select", std::make_shared<SelectCommand>(map, mapSelection));
+    commandPrompt.addCommand("unselect", std::make_shared<UnselectCommand>(map, mapSelection));
     commandPrompt.addCommand("q", std::make_shared<QuitCommand>(running));
     commandPrompt.addCommand("quit", std::make_shared<QuitCommand>(running));
 
