@@ -24,7 +24,10 @@ void GiveCommand::executeThrows(CommandArguments& commandArgs) {
     if(all) {
         for(const auto& coord : selection->getSelectedSet()) {
             std::shared_ptr<Zone> zone = map->getZone(coord);
-            zone->provide(zone->getUnprovided());
+            Stock unprovided = zone->getUnprovided();
+            zone->provide(unprovided);
+
+            std::cout << "Cell " << coord << ", gave " << unprovided << std::endl;
         }
     }
     else{
