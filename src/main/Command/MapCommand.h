@@ -7,7 +7,7 @@
 #include "Map.h"
 
 class MapCommand : public Command {
-private:
+protected:
     std::shared_ptr<Map> map;
 
 public:
