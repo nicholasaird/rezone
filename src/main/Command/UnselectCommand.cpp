@@ -32,7 +32,7 @@ void UnselectCommand::executeThrows(CommandArguments& args) {
     }
 
     std::cout << "Selection:" << std::endl;
-    SetUtils::print(selection->getSelectedSet());
+    std::cout << selection->getSelectedSet();
 }
 
 std::string UnselectCommand::getUsage() {

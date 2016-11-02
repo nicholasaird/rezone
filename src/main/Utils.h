@@ -2,7 +2,7 @@
 #define UTILS_HPP
 
 #include <iterator>  // istream_iterator
-#include <iostream>
+#include <iostream>  // ostream
 #include <set>
 #include <sstream>  // istringstream
 #include <string>
@@ -25,15 +25,22 @@ namespace StringUtils {
     std::vector<std::string> words(std::string);
 }
 
-namespace SetUtils {
-    template<typename T>
-    void print(const std::set<T>& set) {
-        std::cout << "{";
-        for(const auto& element : set) {
-            std::cout << element << ", ";
+template<typename T>
+std::ostream& operator<<(std::ostream& stream, const std::set<T>& set) {
+    stream << "{";
+
+    for(auto it = set.begin(); it != set.end(); it++) {
+        if(it == set.begin()) {
+            stream << *it;
         }
-        std::cout << "}" << std::endl;
+        else{
+            stream << ", " << *it;
+        }
     }
+
+    stream << "}" << std::endl;
+
+    return stream;
 }
 
 #endif
