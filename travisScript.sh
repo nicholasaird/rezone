@@ -7,7 +7,7 @@ cd build
 
 # Build
 echo -e "\n>>> CMake..."
-cmake -DCMAKE_CXX_COMPILER=${COMPILER} -DCMAKE_BUILD_TYPE=${CONFIG} -DCMAKE_VERBOSE_MAKEFILE=ON ..
+cmake -DCMAKE_CXX_COMPILER=${COMPILER} -DCMAKE_BUILD_TYPE=${CONFIG} ..
 
 echo -e "\n>>> Make..."
 make
