@@ -4,16 +4,19 @@
 #include <set>
 #include <tuple>
 
+#include "Coord2.h"
+
 class MapSelection {
 private:
-    std::set<std::tuple<int, int> > selected;
+    std::set<Coord2> selected;
 
 public:
     MapSelection();
-    void add(int x, int y);
-    void remove(int x, int y);
-    bool isSelected(int x, int y) const;
-    const std::set<std::tuple<int, int> > getSelectedSet() const;
+    void clear();
+    void add(Coord2 coord);
+    void remove(Coord2 coord);
+    bool isSelected(Coord2 coord) const;
+    const std::set<Coord2> getSelectedSet() const;
 };
 
 #endif

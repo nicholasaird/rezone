@@ -6,21 +6,22 @@ MapSelection::MapSelection()
     //
 }
 
-void MapSelection::add(int x, int y) {
-    std::tuple<int, int> point = std::make_tuple(x, y);
-    selected.insert(point);
+void MapSelection::clear() {
+    selected.clear();
 }
 
-void MapSelection::remove(int x, int y) {
-    std::tuple<int, int> point = std::make_tuple(x, y);
-    selected.erase(point);
+void MapSelection::add(Coord2 coord) {
+    selected.insert(coord);
 }
 
-bool MapSelection::isSelected(int x, int y) const {
-    std::tuple<int, int> point = std::make_tuple(x, y);
-    return selected.find(point) != selected.end();
+void MapSelection::remove(Coord2 coord) {
+    selected.erase(coord);
 }
 
-const std::set<std::tuple<int, int> > MapSelection::getSelectedSet() const {
+bool MapSelection::isSelected(Coord2 coord) const {
+    return selected.find(coord) != selected.end();
+}
+
+const std::set<Coord2> MapSelection::getSelectedSet() const {
     return selected;
 }

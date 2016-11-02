@@ -4,9 +4,11 @@
 #include <memory> // shared pointer
 
 #include "CommandArguments.h"
+#include "Coord2.h"
 #include "MapCommand.h"
 #include "MapSelection.h"
 #include "Map.h"
+#include "Utils.h"
 
 class SelectCommand : public MapCommand {
 private:
@@ -17,7 +19,7 @@ R"(Usage:
     select --all
 
 Options:
-    -a --all  Select all zones
+    -a --all  Choose all zones
 )";
 
 public:
