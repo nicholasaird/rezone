@@ -15,7 +15,7 @@ matrix:
 
         - os: linux
           compiler: g++
-          env: COMPILER=g++-5 CONFIG=DEBUG COVERAGE=on
+          env: COMPILER=g++-5 CONFIG=Debug COVERAGE=on
           addons:
               apt:
                   sources: ['ubuntu-toolchain-r-test']
@@ -23,7 +23,7 @@ matrix:
 
         - os: linux
           compiler: clang++
-          env: COMPILER=clang++-3.9 CONFIG=RELEASE
+          env: COMPILER=clang++-3.9 CONFIG=Release
           addons:
               apt:
                   sources:
