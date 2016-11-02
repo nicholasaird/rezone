@@ -9,9 +9,13 @@
 class Map {
 private:
     Grid<std::shared_ptr<Zone> > zones;
+    int width;
+    int height;
 
 public:
     Map(int width, int height);
+    int getWidth();
+    int getHeight();
 };
 
 #endif
