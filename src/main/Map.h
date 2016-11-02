@@ -3,6 +3,7 @@
 
 #include <memory>  // smart pointer
 
+#include "Coord2.h"
 #include "Grid.h"
 #include "Zone.h"
 
@@ -16,6 +17,7 @@ public:
     Map(int width, int height);
     int getWidth();
     int getHeight();
+    std::shared_ptr<Zone> getZone(const Coord2& coord);
 };
 
 #endif
