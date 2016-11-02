@@ -12,7 +12,7 @@ private:
     std::shared_ptr<bool> running;
 public:
     QuitCommand(std::shared_ptr<bool> running);
-    void execute(CommandArguments& commandArgs) override;
+    void executeThrows(CommandArguments& commandArgs) override;
     std::string getUsage() override;
 };
 

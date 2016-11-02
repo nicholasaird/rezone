@@ -14,7 +14,9 @@
 class Command {
 public:
     void execute(std::vector<std::string> words);
-    virtual void execute(CommandArguments& args) = 0;
+    void executeThrows(std::vector<std::string> words);
+    void execute(CommandArguments& commandArgs);
+    virtual void executeThrows(CommandArguments& commandArgs) = 0;
     virtual std::string getUsage() = 0;
 };
 

@@ -7,17 +7,6 @@ GiveCommand::GiveCommand(std::shared_ptr<Map> map, std::shared_ptr<MapSelection>
     //
 }
 
-void GiveCommand::execute(CommandArguments& commandArgs) {
-    try {
-        executeThrows(commandArgs);
-    }
-    catch (UnfoundArgumentException e) {
-        std::cout << e.what() << std::endl;
-
-        return;
-    }
-}
-
 void GiveCommand::executeThrows(CommandArguments& commandArgs) {
     bool all = commandArgs.getBool("--all");
 

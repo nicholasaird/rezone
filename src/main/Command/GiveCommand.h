@@ -29,8 +29,7 @@ Resources:
 
 public:
     GiveCommand(std::shared_ptr<Map> map, std::shared_ptr<MapSelection> selection);
-    void execute(CommandArguments& commandArgs) override;
-    void executeThrows(CommandArguments& commandArgs);
+    void executeThrows(CommandArguments& commandArgs) override;
     std::string getUsage() override;
 };
 

@@ -6,7 +6,7 @@ QuitCommand::QuitCommand(std::shared_ptr<bool> running)
     //
 }
 
-void QuitCommand::execute(CommandArguments& commandArgs) {
+void QuitCommand::executeThrows(CommandArguments& commandArgs) {
     *running = false;
 }
 

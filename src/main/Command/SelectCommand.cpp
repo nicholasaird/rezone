@@ -7,17 +7,6 @@ SelectCommand::SelectCommand(std::shared_ptr<Map> map, std::shared_ptr<MapSelect
     //
 }
 
-void SelectCommand::execute(CommandArguments& args) {
-    try {
-        executeThrows(args);
-    }
-    catch (UnfoundArgumentException e) {
-        std::cout << e.what() << std::endl;
-
-        return;
-    }
-}
-
 void SelectCommand::executeThrows(CommandArguments& args) {
     bool selectAll = args.getBool("--all");
 
