@@ -17,10 +17,23 @@ or
 git clone --recursive https://github.com/nicholasaird/rezone.git
 ```
 
-## Compilation
+## Compilation (Linux)
+The following is intended for Ubuntu, but should work on other distributions.
 
-### Ubuntu
-Build the executables:
+### Programs needed for building
+
+#### Required
+- Compiler with c++11 and regex support. The following work:
+    - g++ (4.9 or higher)
+    - clang++ (any recent version)
+- cmake
+
+#### Optional
+- ninja (optional alternative to `make`)
+- stdlibc++ (if you are using clang, in order to have access to the regex library)
+
+### Building
+To build using your system's default compiler and make:
 ```shell
 # Inside the project root
 mkdir build
@@ -29,13 +42,28 @@ cmake ..
 make
 ```
 
-Run the tests:
+For a faster build, you can use ninja:
+```shell
+mkdir build
+cd build
+cmake -GNinja ..
+ninja
+```
+
+To specify the compiler, use the flag ```-DCMAKE_CXX_COMPILER=<compiler name>``` with cmake.
+For example:
+```shell
+cmake -DCMAKE_CXX_COMPILER=clang++-3.9 ..
+```
+
+### Running
+Running the tests:
 ```shell
 # Inside /build
 ./test
 ```
 
-Run the game:
+Running the game:
 ```shell
 # Inside /build
 ./rezone
