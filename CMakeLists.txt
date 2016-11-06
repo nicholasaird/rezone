@@ -42,9 +42,9 @@ add_executable(main src/Main.cpp)
 target_link_libraries(main mainLib docopt_s)
 set_property(TARGET main PROPERTY OUTPUT_NAME rezone)
 
-# Tests
+# MainLib tests
 file(GLOB_RECURSE files_src_test test/*.cpp)
-add_executable(testMain ${files_src_test})
-set_property(TARGET testMain PROPERTY OUTPUT_NAME test)
-target_link_libraries(testMain gtest gmock gmock_main pthread mainLib docopt_s)
-add_test(test test)  # so that ctest finds the tests
+add_executable(testMainLib ${files_src_test})
+target_link_libraries(testMainLib gtest gmock gmock_main pthread mainLib docopt_s)
+add_test(testAll testMainLib)  # so that ctest finds the tests
+set_property(TARGET testMainLib PROPERTY OUTPUT_NAME test)

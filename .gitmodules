@@ -4,3 +4,6 @@
 [submodule "ext/docopt.cpp"]
 	path = ext/docopt.cpp
 	url = https://github.com/docopt/docopt.cpp
+[submodule "ext/googletestCustomOutput"]
+	path = ext/googletestCustomOutput
+	url = https://github.com/nicholasaird/googletestCustomOutput
