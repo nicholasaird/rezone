@@ -2,6 +2,7 @@
 #define RESOURCEEXCEPTION_HPP
 
 #include <stdexcept>
+#include <string>
 
 class ResourceException : public std::runtime_error {
 public:
