@@ -1,5 +1,9 @@
 #include "Command.h"
 
+Command::~Command() {
+    //
+}
+
 void Command::execute(std::vector<std::string> words) {
     try {
         executeThrows(words);

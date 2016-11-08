@@ -13,6 +13,7 @@
 
 class Command {
 public:
+    virtual ~Command();
     void execute(std::vector<std::string> words);
     void executeThrows(std::vector<std::string> words);
     void execute(CommandArguments& commandArgs);
