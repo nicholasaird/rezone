@@ -1,11 +1,8 @@
 #ifndef STOCK_HPP
 #define STOCK_HPP
 
-#include <algorithm>  // min, min_element
 #include <iostream>  // ostream
-#include <limits>  //numeric_limits
 #include <map>
-#include <utility>
 
 #include "Resource.h"
 #include "NonZeroResourceMap.h"

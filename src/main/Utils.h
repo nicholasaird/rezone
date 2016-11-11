@@ -1,10 +1,8 @@
 #ifndef UTILS_HPP
 #define UTILS_HPP
 
-#include <iterator>  // istream_iterator
 #include <iostream>  // ostream
 #include <set>
-#include <sstream>  // istringstream
 #include <string>
 #include <vector>
 

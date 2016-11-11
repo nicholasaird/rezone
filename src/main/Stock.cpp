@@ -1,5 +1,8 @@
 #include "Stock.h"
 
+#include <algorithm>  // min, min_element
+#include <limits>  //numeric_limits
+
 Stock::Stock()
     : map()
 {

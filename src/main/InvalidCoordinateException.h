@@ -2,7 +2,6 @@
 #define INVALIDCOORDINATEEXCEPTION_HPP
 
 #include <stdexcept>
-#include <string>
 
 class InvalidCoordinateException : public std::runtime_error {
 public:

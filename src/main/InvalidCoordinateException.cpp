@@ -1,5 +1,7 @@
 #include "InvalidCoordinateException.h"
 
+#include <string>
+
 InvalidCoordinateException::InvalidCoordinateException(int x, int y, int maxWidth, int maxHeight)
     : runtime_error(
         "Invalid coordinate: (" + std::to_string(x) + "," + std::to_string(y) + "), max ("

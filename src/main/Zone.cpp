@@ -1,5 +1,8 @@
 #include "Zone.h"
 
+#include "Resource.h"
+#include "ResourceException.h"
+
 Zone::Zone(StockPair recipe)
     : name("Unkown")
     , recipe(recipe)

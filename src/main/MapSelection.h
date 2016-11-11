@@ -2,7 +2,6 @@
 #define MAPSELECTION_HPP
 
 #include <set>
-#include <tuple>
 
 #include "Coord2.h"
 
