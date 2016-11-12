@@ -5,6 +5,33 @@
 #include "math/Dim2.h"
 #include "math/DimException.h"
 
+class TestDim2GetValuesParam : public testing::TestWithParam<std::tuple<int, int> > {
+    //
+};
+
+TEST_P(TestDim2GetValuesParam, ) {
+    int x;
+    int y;
+    std::tie(x, y) = GetParam();
+    Dim2 dim(x, y);
+
+    ASSERT_EQ(x, dim.x);
+    ASSERT_EQ(y, dim.y);
+}
+
+INSTANTIATE_TEST_CASE_P(
+    /* */,
+    TestDim2GetValuesParam,
+    testing::Values(
+        std::make_tuple(1, 1)
+        , std::make_tuple(2, 1)
+        , std::make_tuple(1, 2)
+        , std::make_tuple(2, 2)
+        , std::make_tuple(3, 3)
+        , std::make_tuple(10, 5)
+    )
+);
+
 class TestDim2ConstructorThrowsParam : public testing::TestWithParam<std::tuple<int, int> > {
     //
 };
