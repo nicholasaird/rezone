@@ -9,7 +9,10 @@ Dim2::Dim2()
     //
 }
 
-Dim2::Dim2(int x, int y) {
+Dim2::Dim2(int x, int y)
+    : x(x)
+    , y(y)
+{
     if(x <= 0 || y <=0 ) {
         throw DimException(x, y, "Dimensions should be greater than zero");
     }
