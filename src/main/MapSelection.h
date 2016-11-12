@@ -3,7 +3,7 @@
 
 #include <set>
 
-#include "Coord2.h"
+#include "math/Coord2.h"
 
 class MapSelection {
 private:

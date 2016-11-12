@@ -49,7 +49,7 @@ template<typename T>
 void Grid<T>::setAll(T val) {
     for(int x = 0; x<width; x++) {
         for(int y = 0; y<height; y++) {
-            elements(x, y) = val;
+            operator()(x, y) = val;
         }
     }
 }

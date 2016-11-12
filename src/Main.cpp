@@ -4,11 +4,11 @@
 
 #include "main/Map.h"
 #include "main/MapSelection.h"
-#include "main/Command/CommandPrompt.h"
-#include "main/Command/GiveCommand.h"
-#include "main/Command/SelectCommand.h"
-#include "main/Command/UnselectCommand.h"
-#include "main/Command/QuitCommand.h"
+#include "main/command/CommandPrompt.h"
+#include "main/command/GiveCommand.h"
+#include "main/command/SelectCommand.h"
+#include "main/command/UnselectCommand.h"
+#include "main/command/QuitCommand.h"
 
 void run();
 void loop();

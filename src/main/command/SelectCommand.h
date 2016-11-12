@@ -4,10 +4,10 @@
 #include <memory> // shared pointer
 
 #include "CommandArguments.h"
-#include "Coord2.h"
 #include "MapCommand.h"
 #include "MapSelection.h"
 #include "Map.h"
+#include "math/Coord2.h"
 #include "Utils.h"
 
 class SelectCommand : public MapCommand {

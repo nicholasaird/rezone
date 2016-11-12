@@ -1,6 +1,6 @@
 #include "gtest/gtest.h"
 
-#include "Coord2.h"
+#include "math/Coord2.h"
 
 class TestCoordLessThanParam : public testing::TestWithParam<std::tuple<Coord2, Coord2, bool> > {
     //

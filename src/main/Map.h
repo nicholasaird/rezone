@@ -3,8 +3,8 @@
 
 #include <memory>  // smart pointer
 
-#include "Coord2.h"
 #include "Grid.h"
+#include "math/Coord2.h"
 #include "Zone.h"
 
 class Map {

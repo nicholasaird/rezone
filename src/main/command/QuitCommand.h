@@ -4,7 +4,7 @@
 #include <memory>  // shared_ptr
 #include <string>
 
-#include "Command/Command.h"
+#include "command/Command.h"
 
 class QuitCommand : public Command {
 private:

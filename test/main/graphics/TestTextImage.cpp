@@ -1,7 +1,8 @@
 #include "gtest/gtest.h"
 
-#include "Graphics/TextImage.h"
-#include "Graphics/ImageException.h"
+#include "graphics/TextImage.h"
+#include "graphics/ImageException.h"
+#include "math/Coord2.h"
 
 TEST(TestTextImage, ConstructorShouldThrow) {
     ASSERT_THROW(TextImage(0, 0), ImageException);

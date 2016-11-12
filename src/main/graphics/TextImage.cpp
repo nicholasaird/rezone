@@ -15,6 +15,8 @@ TextImage::TextImage(int width, int height)
             + std::to_string(width) + ", "
             + std::to_string(height) + ")");
     }
+
+    chars.setAll(' ');
 }
 
 void TextImage::setChar(Coord2 coord, char c) {

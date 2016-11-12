@@ -1,8 +1,8 @@
 #ifndef TEXTIMAGE_HPP
 #define TEXTIMAGE_HPP
 
-#include "Coord2.h"
 #include "Grid.h"
+#include "math/Coord2.h"
 
 class TextImage {
 private:

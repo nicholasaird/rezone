@@ -1,8 +1,8 @@
 #include "gtest/gtest.h"
 
-#include "Command/CommandArguments.h"
-#include "Command/UnfoundArgumentException.h"
-#include "Command/WrongTypeArgumentException.h"
+#include "command/CommandArguments.h"
+#include "command/UnfoundArgumentException.h"
+#include "command/WrongTypeArgumentException.h"
 
 TEST(TestCommandArguments, RetrieveAsIntWhenIntShouldNotThrow) {
     CommandArguments args;

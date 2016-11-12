@@ -33,29 +33,32 @@ add_library (docoptLib ALIAS docopt_s)
 
 # MainLib
 set (mainSrc
+    src/main/command/SelectCommand.cpp
+    src/main/command/CommandUtils.cpp
+    src/main/command/UnselectCommand.cpp
+    src/main/command/Command.cpp
+    src/main/command/UnfoundArgumentException.cpp
+    src/main/command/WrongTypeArgumentException.cpp
+    src/main/command/GiveCommand.cpp
+    src/main/command/QuitCommand.cpp
+    src/main/command/CommandPrompt.cpp
+    src/main/command/MapCommand.cpp
+    src/main/command/CommandArguments.cpp
+    src/main/graphics/ImageException.cpp
+    src/main/graphics/TextImage.cpp
     src/main/NonZeroResourceMap.cpp
     src/main/Map.cpp
+    src/main/MapSelection.cpp
+    src/main/math/Coord2.cpp
+    src/main/math/Dim2.cpp
+    src/main/math/DimException.cpp
+    src/main/math/InvalidCoordinateException.cpp
+    src/main/Quota.cpp
     src/main/ResourceException.cpp
+    src/main/Stock.cpp
     src/main/Utils.cpp
     src/main/Zone.cpp
-    src/main/InvalidCoordinateException.cpp
-    src/main/MapSelection.cpp
-    src/main/Quota.cpp
-    src/main/Command/SelectCommand.cpp
-    src/main/Command/CommandUtils.cpp
-    src/main/Command/UnselectCommand.cpp
-    src/main/Command/Command.cpp
-    src/main/Command/UnfoundArgumentException.cpp
-    src/main/Command/WrongTypeArgumentException.cpp
-    src/main/Command/GiveCommand.cpp
-    src/main/Command/QuitCommand.cpp
-    src/main/Command/CommandPrompt.cpp
-    src/main/Command/MapCommand.cpp
-    src/main/Command/CommandArguments.cpp
-    src/main/Stock.cpp
-    src/main/Coord2.cpp
-    src/main/Graphics/ImageException.cpp
-    src/main/Graphics/TextImage.cpp)
+)
 add_library (mainLib STATIC ${mainSrc})
 target_include_directories (mainLib PUBLIC "src/main")
 target_link_libraries (mainLib docoptLib)
@@ -67,9 +70,16 @@ set_property (TARGET main PROPERTY OUTPUT_NAME rezone)
 
 # MainLib tests
 set (testMainSrc
-    test/main/TestCommand/TestCommandArguments.cpp
-    test/main/TestStockPair.cpp
+    test/docopt/TestDocopt.cpp
+    test/language/TestMap.cpp
+    test/main/command/TestCommandArguments.cpp
+    test/main/math/TestCoord2.cpp
+    test/main/math/TestDim2.cpp
+    test/main/Textgraphics/TestTextImage.cpp
+    test/main/TestGrid.cpp
     test/main/TestMapSelection.cpp
+    test/main/TestNonZeroResourceMap.cpp
+    test/main/TestQuota.cpp
     test/main/TestStock/TestStockTimesEqual.cpp
     test/main/TestStock/TestStockPlus.cpp
     test/main/TestStock/TestStockMinusEqual.cpp
@@ -87,15 +97,10 @@ set (testMainSrc
     test/main/TestStock/TestStockSubsetOf.cpp
     test/main/TestStock/TestStockDivEqual.cpp
     test/main/TestStock/TestStockInequality.cpp
-    test/main/TextGraphics/TestTextImage.cpp
-    test/main/TestCoord2.cpp
-    test/main/TestNonZeroResourceMap.cpp
+    test/main/TestStockPair.cpp
     test/main/TestUtils.cpp
-    test/main/TestQuota.cpp
-    test/main/TestGrid.cpp
     test/main/TestZone.cpp
-    test/docopt/TestDocopt.cpp
-    test/language/TestMap.cpp)
+)
 file (GLOB_RECURSE testMainSrc "test/*.cpp")
 add_executable (testMainLib ${testMainSrc})
 target_link_libraries (testMainLib mainLib gtest gmock pthread gprintGmockMainLib)

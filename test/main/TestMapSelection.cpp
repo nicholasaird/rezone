@@ -3,6 +3,7 @@
 #include "gtest/gtest.h"
 
 #include "MapSelection.h"
+#include "math/Coord2.h"
 
 TEST(TestMapSelection, SelectOneElement) {
     MapSelection selection;
