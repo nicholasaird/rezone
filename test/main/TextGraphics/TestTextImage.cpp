@@ -3,6 +3,18 @@
 #include "Graphics/TextImage.h"
 #include "Graphics/ImageException.h"
 
-TEST(TestTextGraphics, TestDimensions) {
+TEST(TestTextImage, ConstructorShouldThrow) {
     ASSERT_THROW(TextImage(0, 0), ImageException);
+}
+
+TEST(TestTextImage, ConstructorShouldThrow2) {
+    ASSERT_THROW(TextImage(-1, 1), ImageException);
+}
+
+TEST(TestTextImage, ConstructorShouldThrow3) {
+    ASSERT_THROW(TextImage(1, -1), ImageException);
+}
+
+TEST(TestTextImage, ConstructorShouldThrow4) {
+    ASSERT_THROW(TextImage(-1, -1), ImageException);
 }
