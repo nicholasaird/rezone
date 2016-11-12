@@ -3,25 +3,10 @@
 #include "graphics/TextImage.h"
 #include "graphics/ImageException.h"
 #include "math/Coord2.h"
-
-TEST(TestTextImage, ConstructorShouldThrow) {
-    ASSERT_THROW(TextImage(0, 0), ImageException);
-}
-
-TEST(TestTextImage, ConstructorShouldThrow2) {
-    ASSERT_THROW(TextImage(-1, 1), ImageException);
-}
-
-TEST(TestTextImage, ConstructorShouldThrow3) {
-    ASSERT_THROW(TextImage(1, -1), ImageException);
-}
-
-TEST(TestTextImage, ConstructorShouldThrow4) {
-    ASSERT_THROW(TextImage(-1, -1), ImageException);
-}
+#include "math/Dim2.h"
 
 TEST(TestTextImage, InsertChar) {
-    TextImage image(1, 1);
+    TextImage image(Dim2(1, 1));
 
     image.setChar(Coord2(0, 0), 'a');
 
@@ -29,7 +14,7 @@ TEST(TestTextImage, InsertChar) {
 }
 
 TEST(TestTextImage, InsertChar2) {
-    TextImage image(1, 1);
+    TextImage image(Dim2(1, 1));
 
     image.setChar(Coord2(0, 0), 'b');
 
@@ -37,7 +22,7 @@ TEST(TestTextImage, InsertChar2) {
 }
 
 TEST(TestTextImage, InsertChar3) {
-    TextImage image(1, 1);
+    TextImage image(Dim2(1, 1));
 
     image.setChar(Coord2(0, 0), 'a');
     image.setChar(Coord2(0, 0), 'b');

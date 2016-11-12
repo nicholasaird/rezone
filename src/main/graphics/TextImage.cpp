@@ -5,17 +5,10 @@
 #include "Grid.h"
 #include "ImageException.h"
 
-TextImage::TextImage(int width, int height)
-    : width(width)
-    , height(height)
-    , chars(width, height)
+TextImage::TextImage(Dim2 dim)
+    : dim(dim)
+    , chars(dim.x, dim.y)
 {
-    if(width <= 0 || height <= 0) {
-        throw ImageException("Dimensions must be greater than zero: ("
-            + std::to_string(width) + ", "
-            + std::to_string(height) + ")");
-    }
-
     chars.setAll(' ');
 }
 
