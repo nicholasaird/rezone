@@ -12,6 +12,7 @@ struct Coord2 {
 
 std::ostream& operator<<(std::ostream& stream, Coord2 coord);
 bool operator<(const Coord2& lhs, const Coord2& rhs);
+bool operator<=(const Coord2& lhs, const Coord2& rhs);
 bool operator==(const Coord2& lhs, const Coord2& rhs);
 
 #endif

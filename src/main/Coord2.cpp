@@ -7,7 +7,11 @@ std::ostream& operator<<(std::ostream& stream, Coord2 coord) {
 }
 
 bool operator<(const Coord2& lhs, const Coord2& rhs) {
-    return (lhs.x < rhs.x) || (lhs.x == rhs.x && lhs.y < rhs.y);
+    return lhs.x < rhs.x && lhs.y < rhs.y;
+}
+
+bool operator<=(const Coord2& lhs, const Coord2& rhs) {
+    return lhs.x <= rhs.x && lhs.y <= rhs.y;
 }
 
 bool operator==(const Coord2& lhs, const Coord2& rhs) {
