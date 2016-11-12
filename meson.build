@@ -75,11 +75,10 @@ threadDep = dependency(
 )
 
 # gtest
-gtestSrc = ['ext/googletest/googletest/src/gtest-all.cc']
 gtestInc = include_directories(['ext/googletest/googletest/include', 'ext/googletest/googletest'])
 gtestLib = static_library(
 	'gtestLib'
-	, sources : gtestSrc
+	, sources : 'ext/googletest/googletest/src/gtest-all.cc'
 	, include_directories : gtestInc
 	, dependencies : threadDep
 )
@@ -89,10 +88,9 @@ gtestLibDep = declare_dependency(
 	, dependencies : threadDep
 )
 
-gtestMainSrc = ['ext/googletest/googletest/src/gtest_main.cc']
 gtestMainLib = static_library(
 	'gtestMainLib'
-	, sources : gtestSrc
+	, sources : 'ext/googletest/googletest/src/gtest_main.cc'
 	, dependencies : gtestLibDep
 )
 gtestMainLibDep = declare_dependency(
@@ -101,11 +99,10 @@ gtestMainLibDep = declare_dependency(
 )
 
 # gmock
-gmockSrc = ['ext/googletest/googlemock/src/gmock-all.cc']
 gmockInc = include_directories(['ext/googletest/googlemock/include', 'ext/googletest/googlemock'])
 gmockLib = static_library(
 	'gmockLib'
-	, sources : gmockSrc
+	, sources : 'ext/googletest/googlemock/src/gmock-all.cc'
 	, include_directories : gmockInc
 	, dependencies : gtestLibDep
 )
@@ -115,14 +112,13 @@ gmockLibDep = declare_dependency(
 	, dependencies : gtestLibDep
 )
 
-gmockMainSrc = ['ext/googletest/googlemock/src/gmock_main.cc']
 gmockMainLib = static_library(
 	'gmockMainLib'
-	, sources : gmockSrc
+	, sources : 'ext/googletest/googlemock/src/gmock_main.cc'
 	, dependencies : [gmockLibDep, gtestLibDep]
 )
 gmockMainLibDep = declare_dependency(
-	link_with : gtestMainLib
+	link_with : gmockMainLib
 	, dependencies : [gmockLibDep, gtestLibDep]
 )
 
