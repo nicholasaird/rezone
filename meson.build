@@ -41,7 +41,7 @@ filesSrcMain = [
 	, 'src/main/math/Coord2.cpp'
 	, 'src/main/math/Dim2.cpp'
 	, 'src/main/math/DimException.cpp'
-	, 'src/main/math/InvalidCoordinateException.cpp'
+	, 'src/main/math/CoordException.cpp'
     , 'src/main/NonZeroResourceMap.cpp'
     , 'src/main/Map.cpp'
 	, 'src/main/Quota.cpp'

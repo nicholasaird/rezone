@@ -52,7 +52,7 @@ set (mainSrc
     src/main/math/Coord2.cpp
     src/main/math/Dim2.cpp
     src/main/math/DimException.cpp
-    src/main/math/InvalidCoordinateException.cpp
+    src/main/math/CoordException.cpp
     src/main/Quota.cpp
     src/main/ResourceException.cpp
     src/main/Stock.cpp
